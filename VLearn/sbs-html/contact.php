@@ -17,6 +17,22 @@ function generateMenu($items) {
 }
 
 ?>
+<?php
+if(isset($_POST['submit'])) {
+    // Marrja e të dhënave
+    $name = $_POST['name'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+    
+    // Shfaqja e të dhënave me var_dump()
+    echo "<pre>";
+    var_dump($_POST);
+    echo "</pre>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -97,34 +113,34 @@ function generateMenu($items) {
                   </div>
                </div>
                <div class="col-md-6">
-                  <form id="request" class="main_form">
-                     <div class="row">
-                        <div class="col-md-6 ">
-                           <input class="contactus" placeholder="Name*" type="type" name=" Name"> 
-                        </div>
-                        <div class="col-md-6">
-                           <input class="contactus" placeholder="Phone Number*" type="type" name="Phone Number">                          
-                        </div>
-                        <div class="col-md-12">
-                           <input class="contactus" placeholder="Email*" type="type" name="Email">                          
-                        </div>
-                        <div class="col-md-12 select-outline">
-                           <select class="custom-select ">
-                              <option selected>Select Subject*</option>
-                              <option value="1">a</option>
-                              <option value="2">b</option>
-                              <option value="3">c</option>
-                           </select>
-                        </div>
-                        <div class="col-md-12">
-                           <textarea class="textarea" placeholder="Message" type="type" Message="Name"></textarea>
-                        </div>
-                        <div class="col-md-12">
-                           <button class="send_btn">Send</button>
-                        </div>
-                     </div>
-                  </form>
-               </div>
+    <form id="request" class="main_form" method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <input class="contactus" placeholder="Name*" type="text" name="name" required> 
+            </div>
+            <div class="col-md-6">
+                <input class="contactus" placeholder="Phone Number*" type="text" name="phone" required>                          
+            </div>
+            <div class="col-md-12">
+                <input class="contactus" placeholder="Email*" type="email" name="email" required>                          
+            </div>
+            <div class="col-md-12 select-outline">
+                <select class="custom-select" name="subject" required>
+                    <option value="" disabled selected>Select Subject*</option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <textarea class="textarea" placeholder="Message" name="message"></textarea>
+            </div>
+            <div class="col-md-12">
+                <button class="send_btn" type="submit" name="submit">Send</button>
+            </div>
+        </div>
+    </form>
+</div>
                <div class="col-md-6">
                   <div class="map_main">
                      <div class="map-responsive">
