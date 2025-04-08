@@ -10,7 +10,35 @@ $menu_items = [
 ];
 
 ?>
+<?php
+$greeting = "";
+$hour = date("H");
 
+if ($hour >= 5 && $hour < 12) {
+    $greeting = "Good Morning!";
+} elseif ($hour >= 12 && $hour < 18) {
+    $greeting = "Good Afternoon!";
+} else {
+    $greeting = "Good Evening!";
+}
+
+$dayMessage = "";
+$day = date("l"); // Monday, Tuesday...
+
+switch ($day) {
+    case "Monday":
+        $dayMessage = "The week has just begun! Give it energy!!";
+        break;
+    case "Friday":
+        $dayMessage = "It's Friday! End the week successfully.";
+        break;
+    case "Sunday":
+        $dayMessage = "Well-deserved rest!";
+        break;
+    default:
+        $dayMessage = "Good luck today!";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -118,8 +146,10 @@ $menu_items = [
                                        <div class="board">
                                           <i><img src="images/top_icon.png" alt="#"/></i>
                                           <h3>
-                                             Skating<br> Board<br> School
+                                            Welcome<br> To <br> Skating<br> Board<br> School
                                           </h3>
+                                          <h2><?php echo $greeting; ?> </h2>
+                                             <p><?php echo $dayMessage; ?></p>
                                           <div class="link_btn">
                                              <a class="read_more" href="Javascript:void(0)">Read More   <span></span></a>
                                           </div>
