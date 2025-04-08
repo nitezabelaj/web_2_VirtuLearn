@@ -9,6 +9,33 @@ $menu_items = [
    "contact.php" => "Contact Us"
 ];
 
+$greeting = "";
+$hour = date("H");
+
+if ($hour >= 5 && $hour < 12) {
+    $greeting = "Mirëmëngjes!";
+} elseif ($hour >= 12 && $hour < 18) {
+    $greeting = "Mirëdita!";
+} else {
+    $greeting = "Mirëmbrëma!";
+}
+
+$dayMessage = "";
+$day = date("l"); // Monday, Tuesday...
+
+switch ($day) {
+    case "Monday":
+        $dayMessage = "Java sapo ka filluar! Jepi me energji!";
+        break;
+    case "Friday":
+        $dayMessage = "Është e premte! Mbylle javën me sukses.";
+        break;
+    case "Sunday":
+        $dayMessage = "Pushim i merituar!";
+        break;
+    default:
+        $dayMessage = "Suksese sot!";
+}
 ?>
 
 <!DOCTYPE html>
