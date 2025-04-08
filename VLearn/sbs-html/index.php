@@ -28,6 +28,15 @@ switch ($day) {
     default:
         $dayMessage = "Suksese sot!";
 }
+
+$ageGroup1 = [4, 8];
+$group1 = implode("-", $ageGroup1);
+
+$ageGroup2 = [9, 14];
+$group2 = implode("-", $ageGroup2);
+
+$ageGroup3 = [15, 18];
+$group3 = implode("-", $ageGroup3);
 ?>
 
 <?php 
@@ -231,7 +240,7 @@ function generateMenu($items) {
                <div class="col-md-12">
                   <div class="titlepage text_align_center">
                      <h2>Our Skating Class</h2>
-                     <p>There are many variations of passages of Lorem</p>
+                     <p>>Discover the right plan for your age group</p>
                   </div>
                </div>
             </div>
@@ -240,7 +249,8 @@ function generateMenu($items) {
                   <div class="class_box text_align_center">
                      <i><img src="images/class1.png" alt="#"/></i>
                      <h3>Skateboard</h3>
-                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alterationThere are many variations </p>
+                     <p> <p>This class is perfect for age group <?php echo $group1; ?> years. Beginners will learn the basics of skateboarding.</p>
+                     </p>
                   </div>
                   <a class="read_more" href="Javascript:void(0)">Read More</a>
                </div>
@@ -248,7 +258,8 @@ function generateMenu($items) {
                   <div class="class_box blue text_align_center">
                      <i><img src="images/class2.png" alt="#"/></i>
                      <h3>Skateboard</h3>
-                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alterationThere are many variations </p>
+                     <p><p>Designed for age group <?php echo $group2; ?> years who want to improve their skateboarding skills balance and control.</p>
+                     </p>
                   </div>
                   <a class="read_more" href="Javascript:void(0)">Read More</a>
                </div>
@@ -256,7 +267,8 @@ function generateMenu($items) {
                   <div class="class_box text_align_center">
                      <i><img src="images/class3.png" alt="#"/></i>
                      <h3>Skateboard</h3>
-                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alterationThere are many variations </p>
+                     <p><p>Advanced program for age group <?php echo $group3; ?> years focusing on professional tricks and techniques.</p>
+                     </p>
                   </div>
                   <a class="read_more" href="Javascript:void(0)">Read More</a>
                </div>
