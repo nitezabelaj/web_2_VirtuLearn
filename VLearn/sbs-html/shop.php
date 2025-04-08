@@ -41,9 +41,6 @@ function generateMenu($items) {
       <link rel="icon" href="images/fevicon.png" type="image/gif" />
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
    </head>
    <!-- body -->
    <body class="main-layout inner_page">
@@ -86,8 +83,20 @@ function generateMenu($items) {
             </div>
          </div>
       </div>
-      <!-- end header inner -->
-      <!-- shop -->
+  <?php
+// shop.php - Pjesë e re për sortimet
+$produktet = array(
+    array("id" => 1, "emri" => "Skateboard Pro", "cmimi" => 120),
+    array("id" => 2, "emri" => "Helmet", "cmimi" => 35),
+    array("id" => 3, "emri" => "Rrotat", "cmimi" => 45)
+);
+
+// Sortim sipas emrit (asort për vlera në array asociativ)
+function sortByEmri($a, $b) {
+    return strcmp($a["emri"], $b["emri"]);
+}
+usort($produktet, 'sortByEmri');
+?> 
       <div class="shop">
          <div class="container-fluid">
             <div class="row d_flex d_grid">
@@ -102,6 +111,9 @@ function generateMenu($items) {
                      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alterationThere are many variatioThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alterationThere are many variationsns
                      </p>
                      <a class="read_more" href="shop.html">Buy Now</a>
+                     <?php foreach ($produktet as $produkt): ?>
+                            <li><?php echo $produkt['emri']; ?> - $<?php echo $produkt['cmimi']; ?></li>
+                        <?php endforeach; ?>
                   </div>
                </div>
             </div>

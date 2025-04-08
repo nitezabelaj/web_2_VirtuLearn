@@ -1,3 +1,35 @@
+<?php
+
+
+$greeting = "";
+$hour = date("H");
+
+if ($hour >= 5 && $hour < 12) {
+    $greeting = "Mirëmëngjes!";
+} elseif ($hour >= 12 && $hour < 18) {
+    $greeting = "Mirëdita!";
+} else {
+    $greeting = "Mirëmbrëma!";
+}
+
+$dayMessage = "";
+$day = date("l"); // Monday, Tuesday...
+
+switch ($day) {
+    case "Monday":
+        $dayMessage = "Java sapo ka filluar! Jepi me energji!";
+        break;
+    case "Friday":
+        $dayMessage = "Është e premte! Mbylle javën me sukses.";
+        break;
+    case "Sunday":
+        $dayMessage = "Pushim i merituar!";
+        break;
+    default:
+        $dayMessage = "Suksese sot!";
+}
+?>
+
 <?php 
 //Definimi i konstantave dhe variablave
 const SITE_TIME = "SkatingBoardSchool";
@@ -112,8 +144,10 @@ function generateMenu($items) {
                                        <div class="board">
                                           <i><img src="images/top_icon.png" alt="#"/></i>
                                           <h3>
-                                             Skating<br> Board<br> School
+                                            Welcome<br> To <br> Skating<br> Board<br> School
                                           </h3>
+                                          <h2><?php echo $greeting; ?> </h2>
+                                             <p><?php echo $dayMessage; ?></p>
                                           <div class="link_btn">
                                              <a class="read_more" href="Javascript:void(0)">Read More   <span></span></a>
                                           </div>
