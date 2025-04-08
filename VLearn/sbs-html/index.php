@@ -1,16 +1,3 @@
-<?php
-//Definimi i konstantave dhe variablave
-const SITE_TIME = "SkatingBoardSchool";
-$menu_items = [
-   "index.php" => "Home",
-   "about.php" => "About",
-   "skating.php" => "Skating",
-   "shop.php" => "Shop",
-   "contact.php" => "Contact Us"
-];
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -54,7 +41,7 @@ $menu_items = [
                   <div class="full">
                      <div class="center-desk">
                         <div class="logo">
-                           <a href="index.html"><img src="images/logo.png" alt="#" /></a>
+                           <a href="index.php"><img src="images/logo.png" alt="#" /></a>
                         </div>
                      </div>
                   </div>
