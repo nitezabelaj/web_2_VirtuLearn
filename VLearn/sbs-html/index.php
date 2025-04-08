@@ -1,3 +1,24 @@
+<?php 
+//Definimi i konstantave dhe variablave
+const SITE_TIME = "SkatingBoardSchool";
+$menu_items = [
+   "index.php" => "Home",
+   "about.php" => "About",
+   "skating.php" => "Skating",
+   "shop.php" => "Shop",
+   "contact.php" => "Contact Us"
+];
+
+//Funksion per gjenerimin e menuse 
+function generateMenu($items) {
+   $current = basename($_SERVER['PHP_SELF']);
+   foreach ($items as $link => $label) {
+       $isActive = ($current === basename($link)) ? " active" : "";
+       echo "<li class='nav-item$isActive'><a class='nav-link' href='$link'>$label</a></li>";
+   }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -53,21 +74,7 @@
                      </button>
                      <div class="collapse navbar-collapse" id="navbarsExample04">
                         <ul class="navbar-nav mr-auto">
-                           <li class="nav-item active">
-                              <a class="nav-link" href="index.php">Home</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="about.php">About</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="skating.php">skating</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="shop.php">shop</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="contact.php">Contact Us</a>
-                           </li>
+                            <?php generateMenu($menu_items); ?>
                         </ul>
                      </div>
                   </nav>
