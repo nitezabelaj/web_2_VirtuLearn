@@ -16,6 +16,39 @@ function generateMenu($items) {
    }
 }
 
+class ContactInfo {
+   // Vetitë private - mund të qasen vetëm nga brenda klasës
+   private $location = "123 Main Street, Tirana";
+   private $phone = "+355 4 123 4567";
+   private $email = "info@skatingschool.com";
+   
+   // Metoda protected - mund të qaset nga klasa dhe nënklasat
+   protected function formatPhone($phone) {
+       return preg_replace('/(\d{3})(\d{3})(\d{4})/', '($1) $2-$3', $phone);
+   }
+   
+   // Metoda publike - mund të qasen nga kudo
+   public function getLocation() {
+       return $this->location;
+   }
+   
+   public function getPhone($formatted = false) {
+       return $formatted ? $this->formatPhone($this->phone) : $this->phone;
+   }
+   
+   public function getEmail() {
+       return $this->email;
+   }
+   
+   public function getAllInfo() {
+       return [
+           'location' => $this->getLocation(),
+           'phone' => $this->getPhone(true),
+           'email' => $this->getEmail()
+       ];
+   }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,17 +148,20 @@ function generateMenu($items) {
          <div class="footer">
             <div class="container">
                <div class="row">
-                  <div class="col-md-4 ">
-                     <div class="infoma">
-                        <h3>Contact Us</h3>
-                        <ul class="conta">
-                           <li><i class="fa fa-map-marker" aria-hidden="true"></i>Locations 
-                           </li>
-                           <li><i class="fa fa-phone" aria-hidden="true"></i>Call +01 1234567890</li>
-                           <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="Javascript:void(0)"> demo@gmail.com</a></li>
-                        </ul>
-                     </div>
-                  </div>
+               <div class="col-md-4">
+    <div class="infoma">
+        <h3>Contact Us</h3>
+        <ul class="conta">
+            <?php
+            $contact = new ContactInfo();
+            $contactInfo = $contact->getAllInfo();
+            ?>
+            <li><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo $contactInfo['location']; ?></li>
+            <li><i class="fa fa-phone" aria-hidden="true"></i> <?php echo $contactInfo['phone']; ?></li>
+            <li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:<?php echo $contactInfo['email']; ?>"> <?php echo $contactInfo['email']; ?></a></li>
+        </ul>
+    </div>
+</div>
                   <div class="col-md-8">
                      <div class="row border_left">
                         <div class="col-md-12">
