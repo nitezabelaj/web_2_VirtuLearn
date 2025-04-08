@@ -17,6 +17,17 @@ function generateMenu($items) {
 }
 
 ?>
+<?php
+// Përcaktimi i produkteve
+$produktet = [
+    "Helmet" => 35,
+    "Rrotat" => 45,
+    "Skateboard Pro" => 120
+];
+
+// Llogaritja e totalit permes operatorit +
+$totali = array_sum($produktet);
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -98,27 +109,43 @@ function sortByEmri($a, $b) {
 usort($produktet, 'sortByEmri');
 ?> 
       <div class="shop">
-         <div class="container-fluid">
-            <div class="row d_flex d_grid">
-               <div class="col-md-7">
-                  <div class="shop_img text_align_center" data-aos="fade-right">
-                     <figure><img class="img_responsive" src="images/shop.png" alt="#"/></figure>
-                  </div>
-               </div>
-               <div class="col-md-5 order_1_mobile">
-                  <div class="titlepage text_align_left ">
-                     <h2>Our  Skate <br>Shop</h2>
-                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alterationThere are many variatioThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alterationThere are many variationsns
-                     </p>
-                     <a class="read_more" href="shop.html">Buy Now</a>
-                     <?php foreach ($produktet as $produkt): ?>
-                            <li><?php echo $produkt['emri']; ?> - $<?php echo $produkt['cmimi']; ?></li>
-                        <?php endforeach; ?>
-                  </div>
-               </div>
+    <div class="container-fluid">
+        <div class="row d_flex d_grid">
+            <div class="col-md-7">
+                <div class="shop_img text_align_center" data-aos="fade-right">
+                    <figure><img class="img_responsive" src="images/shop.png" alt="#"/></figure>
+                </div>
             </div>
-         </div>
-      </div>
+            <div class="col-md-5 order_1_mobile">
+                <div class="titlepage text_align_left">
+                    <h2>Our Skate <br>Shop</h2>
+                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration...</p>
+                    
+                    <!-- Lista e produkteve dhe totali -->
+                    <div class="product-list">
+                        <h4>Our Products:</h4>
+                        <ul class="product-items">
+                            <?php 
+                            // Llogarit totalin gjatë shfaqjes
+                            $totali = 0;
+                            foreach ($produktet as $produkt): 
+                                $totali += $produkt['cmimi'];
+                            ?>
+                                <li><?php echo $produkt['emri']; ?> - $<?php echo $produkt['cmimi']; ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <div class="total-price">
+                            <strong>Total: $<?php echo $totali; ?></strong>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <a class="read_more" href="shop.html">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
       <!-- end shop -->
       <!--  footer -->
       <footer>
