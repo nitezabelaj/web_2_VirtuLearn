@@ -32,6 +32,45 @@ if(isset($_POST['submit'])) {
     echo "</pre>";
 }
 ?>
+<?php
+session_start();
+
+if (isset($_GET['lang'])) {
+    $_SESSION['lang'] = $_GET['lang'];
+}
+
+$lang = $_SESSION['lang'] ?? 'en';
+
+$translations = [
+    'en' => [
+        'contact_title' => 'Contact Us',
+        'name' => 'Name*',
+        'phone' => 'Phone Number*',
+        'email' => 'Email*',
+        'subject' => 'Select Subject*',
+        'message' => 'Message',
+        'send' => 'Send',
+        'subject_a' => 'Support',
+        'subject_b' => 'Sales',
+        'subject_c' => 'Feedback',
+    ],
+    'al' => [
+        'contact_title' => 'Na Kontaktoni',
+        'name' => 'Emri*',
+        'phone' => 'Numri i telefonit*',
+        'email' => 'Email*',
+        'subject' => 'Zgjidh Temën*',
+        'message' => 'Mesazhi',
+        'send' => 'Dërgo',
+        'subject_a' => 'Mbështetje',
+        'subject_b' => 'Shitje',
+        'subject_c' => 'Komente',
+    ]
+];
+
+$t = $translations[$lang];
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +82,7 @@ if(isset($_POST['submit'])) {
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>sbs</title>
+      <title>VirtuLearn</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -105,6 +144,7 @@ if(isset($_POST['submit'])) {
       <!-- end header inner -->
       <!-- contact -->
       <div class="contact">
+      <a href="?lang=en">🇬🇧 English</a> | <a href="?lang=al">🇦🇱 Shqip</a>
          <div class="container">
             <div class="row ">
                <div class="col-md-12">
@@ -117,12 +157,18 @@ if(isset($_POST['submit'])) {
         <div class="row">
             <div class="col-md-6">
                 <input class="contactus" placeholder="Name*" type="text" name="name" required> 
+                <h2><?= $t['contact us:'] ?></h2>
+
             </div>
             <div class="col-md-6">
-                <input class="contactus" placeholder="Phone Number*" type="text" name="phone" required>                          
+                <input class="contactus" placeholder="Phone Number*" type="text" name="phone" required>   
+                <h2><?= $t['Phone Number:'] ?></h2>
+                       
             </div>
             <div class="col-md-12">
-                <input class="contactus" placeholder="Email*" type="email" name="email" required>                          
+                <input class="contactus" placeholder="Email*" type="email" name="email" required>     
+                <h2><?= $t['Email:'] ?></h2>
+                     
             </div>
             <div class="col-md-12 select-outline">
                 <select class="custom-select" name="subject" required>
@@ -137,6 +183,18 @@ if(isset($_POST['submit'])) {
             </div>
             <div class="col-md-12">
                 <button class="send_btn" type="submit" name="submit">Send</button>
+                <input class="contactus" placeholder="<?= $t['name'] ?>" type="text" name="name" required>
+                <input class="contactus" placeholder="<?= $t['phone'] ?>" type="text" name="phone" required>
+                <input class="contactus" placeholder="<?= $t['email'] ?>" type="email" name="email" required>
+                <select class="custom-select" name="subject" required>
+                <option value="" disabled selected><?= $t['subject'] ?></option>
+                <option value="a"><?= $t['subject_a'] ?></option>
+                <option value="b"><?= $t['subject_b'] ?></option>
+                 <option value="c"><?= $t['subject_c'] ?></option>
+                </select>
+                <textarea class="textarea" placeholder="<?= $t['message'] ?>" name="message"></textarea>
+                <button class="send_btn" type="submit" name="submit"><?= $t['send'] ?></button>
+
             </div>
         </div>
     </form>
@@ -151,6 +209,7 @@ if(isset($_POST['submit'])) {
             </div>
          </div>
       </div>
+   
       <!-- contact -->
       <!--  footer -->
       <footer>
