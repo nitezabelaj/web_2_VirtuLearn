@@ -24,7 +24,7 @@ $kurset=["Fillestar","Mesatar","Avancuar"]; //Kjo eshte pjesa e numeric array
 $pajisjet=[
   "Skateboard"=>60,
   "Helmet"=>25,
-  "Knee Pads"=>15
+  "Mbrojteset e gjurit"=>15
 ];
 //Multidimensional array
 $nxenesit=[["emri"=>"Arta","niveli"=>"Fillestar"],
@@ -41,7 +41,7 @@ echo "<h4>Cmimi i pajisjeve:</h4>";
 foreach($pajisjet as $pajisja=>$cmimi){
    echo "$pajisja:$cmimi euro<br>";
 }
-echo "<br><h4>Cmimi i pajisjeve:</h4>";
+echo "<br><h4>Cmimi i disa prej pajisjeve:</h4>";
 foreach($nxenesit as $nxenes){
    echo $nxenes["emri"]."-Niveli: ".$nxenes["niveli"]."<br>";}
    echo "<br><h4>Mesazh mirseardhje:</h4>";
