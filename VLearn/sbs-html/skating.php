@@ -50,7 +50,7 @@ class ContentItem {
        echo "<i><img src='images/class1.png' alt='#'/></i>";
        echo "<h3>{$this->title}</h3>";
        echo "<p>{$this->description}</p>";
-       echo "<p><strong>Vështirësi:</strong> {$this->difficulty}</p>";
+       echo "<p><strong>Hard:</strong> {$this->difficulty}</p>";
        echo "</div>";
        echo "<a class='read_more' href='Javascript:void(0)'>Read More</a>";
        echo "</div>";
@@ -142,9 +142,9 @@ class ContentItem {
             <div class="row">
          <?php 
            $articles = [
-         new SkatingArticle("Skateboard Fillestar", "Guida për fillestarë të skating.", "Fillestar"),
-         new SkatingArticle("Truket Profesionale", "Mëso truke për avancuar.", "Avancuar"),
-         new SkatingArticle("Skating për fëmijë", "Një klasë e përshtatur për moshat e vogla.", "E lehtë")
+         new SkatingArticle("Skateboarding for beginners", "Guide for beginners.", "Beginners"),
+         new SkatingArticle("Professional tricks", "Learn advanced tricks.", "Advanced"),
+         new SkatingArticle("Skating for kids ", "A class designed for younger children.", "Easy")
        ];
 
       foreach ($articles as $article) {
