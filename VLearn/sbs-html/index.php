@@ -37,6 +37,46 @@ $group2 = implode("-", $ageGroup2);
 
 $ageGroup3 = [15, 18];
 $group3 = implode("-", $ageGroup3);
+
+class Studenti {
+   private $emri, $mbiemri, $mosha, $grupmosha;
+
+   public function __construct($emri, $mbiemri, $mosha, $grupmosha) {
+       $this->emri = $emri;
+       $this->mbiemri = $mbiemri;
+       $this->mosha = $mosha;
+       $this->grupmosha = $grupmosha;
+   }
+
+   public function getGrupi() {
+       return $this->grupmosha;
+   }
+
+   public function getInfo() {
+       return "{$this->emri} {$this->mbiemri}, {$this->mosha} vjeç - Grupmosha {$this->grupmosha} vjeç";
+   }
+}
+
+$studentet = [
+   new Studenti("Ardi", "Kola", 6, "4-8" ),
+   new Studenti("Elira", "Mehmeti", 10, "9-14"),
+   new Studenti("Luan", "Dervishi", 13, "9-14"),
+   new Studenti("Ina", "Muca", 17, "15-18"),
+   new Studenti("Blerina", "Hoti", 16, "15-18")
+];
+
+function shfaqStudentetPerGrup($grupmosha) {
+   global $studentet;
+   $studentetGrupi = array_filter($studentet, fn($s) => $s->getGrupi() === $grupmosha);
+
+   echo "<div class='studentet-info' id='info-$grupmosha' style='display:none; margin-top:10px;'>";
+   echo "<ul>";
+   foreach ($studentetGrupi as $s) {
+       echo "<li>" . $s->getInfo() . "</li>";
+   }
+   echo "</ul></div>";
+}
+
 ?>
 
 <?php 
@@ -252,7 +292,8 @@ function generateMenu($items) {
                      <p> <p>This class is perfect for age group <?php echo $group1; ?> years. Beginners will learn the basics of skateboarding.</p>
                      </p>
                   </div>
-                  <a class="read_more" href="Javascript:void(0)">Read More</a>
+                  <a class="read_more" href="javascript:void(0);" onclick="toggleDiv('info-4-8')">Read More</a>
+                  <?php shfaqStudentetPerGrup("4-8"); ?>
                </div>
                <div class="col-md-4 margi_bottom">
                   <div class="class_box blue text_align_center">
@@ -261,7 +302,8 @@ function generateMenu($items) {
                      <p><p>Designed for age group <?php echo $group2; ?> years who want to improve their skateboarding skills balance and control.</p>
                      </p>
                   </div>
-                  <a class="read_more" href="Javascript:void(0)">Read More</a>
+                  <a class="read_more" href="javascript:void(0);" onclick="toggleDiv('info-9-14')">Read More</a>
+                  <?php shfaqStudentetPerGrup("9-14"); ?>
                </div>
                <div class="col-md-4 margi_bottom">
                   <div class="class_box text_align_center">
@@ -270,7 +312,8 @@ function generateMenu($items) {
                      <p><p>Advanced program for age group <?php echo $group3; ?> years focusing on professional tricks and techniques.</p>
                      </p>
                   </div>
-                  <a class="read_more" href="Javascript:void(0)">Read More</a>
+                  <a class="read_more" href="javascript:void(0);" onclick="toggleDiv('info-15-18')">Read More</a>
+                  <?php shfaqStudentetPerGrup("15-18"); ?>
                </div>
             </div>
          </div>
@@ -576,6 +619,12 @@ function generateMenu($items) {
       <script src="js/custom.js"></script>
       <script>
          AOS.init();
+      </script>
+      <script>
+      function toggleDiv(id) {
+      const div = document.getElementById(id);
+      div.style.display = (div.style.display === "none" || div.style.display === "") ? "block" : "none";
+      }
       </script>
    </body>
 </html>
