@@ -50,6 +50,10 @@ class ContactInfo {
 }
 
 ?>
+<?php
+global $emriFaqes;
+$emriFaqes = "VirtuLearn";
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>

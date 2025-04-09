@@ -100,6 +100,10 @@ function generateMenu($items) {
 }
 
 ?>
+<?php
+global $emriFaqes;
+$emriFaqes = "VirtuLearn";
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>

@@ -88,6 +88,10 @@ foreach($nxenesit as $nxenes){
    echo "<br><h4>Mesazh mirseardhje:</h4>";
    echo $mesazhmefunksion;
 ?>
+<?php
+global $emriFaqes;
+$emriFaqes = "VirtuLearn";
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>

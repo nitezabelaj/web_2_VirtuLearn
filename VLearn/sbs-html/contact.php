@@ -92,6 +92,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+?>
+<?php
+global $emriFaqes;
+$emriFaqes = "VirtuLearn";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
