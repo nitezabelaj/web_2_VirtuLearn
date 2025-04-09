@@ -33,6 +33,27 @@ if(isset($_POST['submit'])) {
 }
 ?>
 
+<?php
+$success = false;
+$emri = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $emri = $_POST['name'];
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+
+    if (
+        !empty($emri) &&
+        filter_var($email, FILTER_VALIDATE_EMAIL) &&
+        !empty($subject) &&
+        strlen($message) > 10
+    ) {
+        $success = true;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -237,5 +258,12 @@ if(isset($_POST['submit'])) {
       <script>
          AOS.init();
       </script>
+      <?php if ($success): ?>
+      <script>
+       window.addEventListener("DOMContentLoaded", function () {
+      alert("Faleminderit <?php echo htmlspecialchars($emri); ?>! Mesazhi juaj u dërgua me sukses.");
+      });
+      </script>
+      <?php endif; ?>
    </body>
 </html>
