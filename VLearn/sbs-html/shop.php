@@ -17,12 +17,8 @@ function generateMenu($items) {
 }
 
 ?>
-<?php
-//Klasa per produktin 
-class Produkt{
-   
-}
-?>
+
+
 <?php
 // Përcaktimi i produkteve
 $produktet = [
@@ -30,6 +26,10 @@ $produktet = [
     "Rrotat" => 45,
     "Skateboard Pro" => 120
 ];
+
+
+
+
 
 // Llogaritja e totalit permes operatorit +
 $totali = array_sum($produktet);
