@@ -15,6 +15,47 @@ function generateMenu($items) {
        echo "<li class='nav-item$isActive'><a class='nav-link' href='$link'>$label</a></li>";
    }
 }
+class ContentItem {
+   protected $title;
+   protected $description;
+
+   public function __construct($title, $description) {
+       $this->title = $title;
+       $this->description = $description;
+   }
+
+   public function render() {
+       echo "<div class='col-md-4 margi_bottom'>";
+       echo "<div class='class_box text_align_center'>";
+       echo "<i><img src='images/class1.png' alt='#'/></i>";
+       echo "<h3>{$this->title}</h3>";
+       echo "<p>{$this->description}</p>";
+       echo "</div>";
+       echo "<a class='read_more' href='Javascript:void(0)'>Read More</a>";
+       echo "</div>";
+   }
+}
+//klasat per trashigimi nga OOP
+   class SkatingArticle extends ContentItem {
+   private $difficulty;
+
+   public function __construct($title, $description, $difficulty) {
+       parent::__construct($title, $description);
+       $this->difficulty = $difficulty;
+   }
+
+   public function render() {
+       echo "<div class='col-md-4 margi_bottom'>";
+       echo "<div class='class_box text_align_center'>";
+       echo "<i><img src='images/class1.png' alt='#'/></i>";
+       echo "<h3>{$this->title}</h3>";
+       echo "<p>{$this->description}</p>";
+       echo "<p><strong>Vështirësi:</strong> {$this->difficulty}</p>";
+       echo "</div>";
+       echo "<a class='read_more' href='Javascript:void(0)'>Read More</a>";
+       echo "</div>";
+   }
+} 
 
 ?>
 <!DOCTYPE html>
@@ -99,14 +140,19 @@ function generateMenu($items) {
                </div>
             </div>
             <div class="row">
-               <div class="col-md-4 margi_bottom">
-                  <div class="class_box text_align_center">
-                     <i><img src="images/class1.png" alt="#"/></i>
-                     <h3>Skateboard</h3>
-                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alterationThere are many variations </p>
-                  </div>
-                  <a class="read_more" href="Javascript:void(0)">Read More</a>
-               </div>
+         <?php 
+           $articles = [
+         new SkatingArticle("Skateboard Fillestar", "Guida për fillestarë të skating.", "Fillestar"),
+         new SkatingArticle("Truket Profesionale", "Mëso truke për avancuar.", "Avancuar"),
+         new SkatingArticle("Skating për fëmijë", "Një klasë e përshtatur për moshat e vogla.", "E lehtë")
+       ];
+
+      foreach ($articles as $article) {
+         $article->render();
+       }
+        ?>
+       </div>
+
                <div class="col-md-4 margi_bottom">
                   <div class="class_box blue text_align_center">
                      <i><img src="images/class2.png" alt="#"/></i>
