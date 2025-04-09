@@ -28,6 +28,28 @@ $produktet = [
 // Llogaritja e totalit permes operatorit +
 $totali = array_sum($produktet);
 ?>
+   <?php
+   // Përcaktimi i produkteve me të dhëna të plota
+   $produktet = array(
+    array("id" => 1, "emri" => "Skateboard Pro", "cmimi" => 120),
+    array("id" => 2, "emri" => "Helmet", "cmimi" => 35),
+     array("id" => 3, "emri" => "Rrotat", "cmimi" => 45)
+    );
+
+  // Marrim vlerën e sortimit nga dropdown
+  $sortimi = isset($_GET['sort']) ? $_GET['sort'] : '';
+
+   if ($sortimi === 'low_high') {
+    usort($produktet, function($a, $b) {
+        return $a['cmimi'] - $b['cmimi'];
+    });
+   } elseif ($sortimi === 'high_low') {
+    usort($produktet, function($a, $b) {
+        return $b['cmimi'] - $a['cmimi'];
+    });
+    }
+   ?>
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -120,7 +142,15 @@ usort($produktet, 'sortByEmri');
                 <div class="titlepage text_align_left">
                     <h2>Our Skate <br>Shop</h2>
                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration...</p>
-                    
+                    <!-- Dropdown për sortimin -->
+                    <form method="GET" style="margin-bottom: 20px;">
+                    <label for="sort">Sort by price:</label>
+                   <select name="sort" id="sort" onchange="this.form.submit()">
+                   <option value="">Select</option>
+                       <option value="low_high" <?php if(isset($_GET['sort']) && $_GET['sort'] == 'low_high') echo 'selected'; ?>>Price: Low to High</option>
+                      <option value="high_low" <?php if(isset($_GET['sort']) && $_GET['sort'] == 'high_low') echo 'selected'; ?>>Price: High to Low</option>
+                     </select>
+                    </form>
                     <!-- Lista e produkteve dhe totali -->
                     <div class="product-list">
                         <h4>Our Products:</h4>
