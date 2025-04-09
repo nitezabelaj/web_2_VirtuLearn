@@ -18,6 +18,12 @@ function generateMenu($items) {
 
 ?>
 <?php
+//Klasa per produktin 
+class Produkt{
+   
+}
+?>
+<?php
 // Përcaktimi i produkteve
 $produktet = [
     "Helmet" => 35,
