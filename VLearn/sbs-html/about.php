@@ -54,6 +54,19 @@ class ContactInfo {
 global $emriFaqes;
 $emriFaqes = "VirtuLearn";
 ?>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
+    $email = $_POST['email'];
+
+    // Regex për validimin e email-it
+    if (preg_match("/^[\w\.-]+@[\w\.-]+\.\w{2,6}$/", $email)) {
+        echo "<p style='color: green;'>Email-i është valid: $email</p>";
+    } else {
+        echo "<p style='color: red;'>Email-i is not valid!</p>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -123,6 +136,7 @@ $emriFaqes = "VirtuLearn";
             </div>
          </div>
       </div>
+      
       <!-- end header inner -->
       <!-- about -->
       <div class="about">
@@ -138,6 +152,11 @@ $emriFaqes = "VirtuLearn";
                      </div>
                   </div>
                </div>
+               <form method="POST" action="">
+                <label for="email">Your Email:</label>
+                <input type="text" name="email" id="email" required>
+                 <input type="submit" name="Send" value="Send">
+               </form>
                <div class="col-md-6">
                   <div class="about_img text_align_center">
                      <figure><img src="images/about.png" alt="#"/></figure>

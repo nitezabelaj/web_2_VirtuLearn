@@ -197,7 +197,7 @@ $emriFaqes = "VirtuLearn";
                                        <div class="board">
                                           <i><img src="images/top_icon.png" alt="#"/></i>
                                           <h3>
-                                            Welcome<br> To <br> Skating<br> Board<br> School
+                                            Welcome<br> To <br> Virtu<br> Learn<br> School
                                           </h3>
                                           <h2><?php echo $greeting; ?> </h2>
                                              <p><?php echo $dayMessage; ?></p>
@@ -245,7 +245,7 @@ $emriFaqes = "VirtuLearn";
                                        <div class="board">
                                           <i><img src="images/top_icon.png" alt="#"/></i>
                                           <h3>
-                                             Skating<br> Board<br> School
+                                             <br>VirtuLearn <br> School
                                           </h3>
                                           <div class="link_btn">
                                              <a class="read_more" href="Javascript:void(0)">Read More   <span></span></a>
