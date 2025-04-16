@@ -17,6 +17,13 @@ function generateMenu($items) {
 }
 
 ?>
+
+<?php
+//Pjesa e Ameles ne perdorimin e konstruktorit dhe destruktorit si pjese e oop ne php
+class UserGreeting{
+   
+}
+?>
 <?php
 if(isset($_POST['submit'])) {
     // Marrja e të dhënave
