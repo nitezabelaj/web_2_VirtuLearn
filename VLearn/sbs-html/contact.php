@@ -24,9 +24,13 @@ class UserGreeting{
    private $name;
    public function __construct($name="FutureSkater"){
       $this->name=$name;
-      echo "<p style='color:blue;'> Welcome,{$this->name}!We're excited to see you here.</p>"
+      echo "<p style='color:blue;'> Welcome,{$this->name}!We're excited to see you here.</p>";
+   } 
+   public function __destruct(){
+      echo "<p style='color:blue;'>Goodbye,{$this->name}! Hope to see you skating you soon.</p>";
    }
 }
+$greeting= new UserGreeting();
 ?>
 <?php
 if(isset($_POST['submit'])) {
