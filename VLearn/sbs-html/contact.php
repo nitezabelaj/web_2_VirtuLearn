@@ -21,7 +21,11 @@ function generateMenu($items) {
 <?php
 //Pjesa e Ameles ne perdorimin e konstruktorit dhe destruktorit si pjese e oop ne php
 class UserGreeting{
-   
+   private $name;
+   public function __construct($name="FutureSkater"){
+      $this->name=$name;
+      echo "<p style='color:blue;'> Welcome,{$this->name}!We're excited to see you here.</p>"
+   }
 }
 ?>
 <?php
