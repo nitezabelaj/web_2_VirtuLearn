@@ -33,85 +33,35 @@ class UserGreeting{
 $greeting= new UserGreeting();
 ?>
 <?php
-if(isset($_POST['submit'])) {
-    // Marrja e të dhënave
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-    $subject = $_POST['subject'];
-    $message = $_POST['message'];
-    
-    // Shfaqja e të dhënave me var_dump()
-    echo "<pre>";
-    var_dump($_POST);
-    echo "</pre>";
-}
-?>
-<?php
-session_start();
-
-if (isset($_GET['lang'])) {
-    $_SESSION['lang'] = $_GET['lang'];
-}
-
-$lang = $_SESSION['lang'] ?? 'en';
-
-$translations = [
-    'en' => [
-        'contact_title' => 'Contact Us',
-        'name' => 'Name*',
-        'phone' => 'Phone Number*',
-        'email' => 'Email*',
-        'subject' => 'Select Subject*',
-        'message' => 'Message',
-        'send' => 'Send',
-        'subject_a' => 'Support',
-        'subject_b' => 'Sales',
-        'subject_c' => 'Feedback',
-    ],
-    'al' => [
-        'contact_title' => 'Na Kontaktoni',
-        'name' => 'Emri*',
-        'phone' => 'Numri i telefonit*',
-        'email' => 'Email*',
-        'subject' => 'Zgjidh Temën*',
-        'message' => 'Mesazhi',
-        'send' => 'Dërgo',
-        'subject_a' => 'Mbështetje',
-        'subject_b' => 'Shitje',
-        'subject_c' => 'Komente',
-    ]
-];
-
-$t = $translations[$lang];
-?>
-
-
-<?php
-$success = false;
-$emri = "";
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $emri = $_POST['name'];
-    $email = $_POST['email'];
+    $emri = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $phone = trim($_POST['phone']);
     $subject = $_POST['subject'];
-    $message = $_POST['message'];
+    $message = trim($_POST['message']);
+
+    // RegEx për validim e stringjeve - AnitaC
+    $validName = preg_match("/^[A-ZÇËa-zçë' -]{2,50}$/", $emri);
+    $validPhone = preg_match("/^\+?[0-9]{8,15}$/", $phone);
+    $validEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
+    $validMessage = strlen($message) >= 10;
 
     if (
-        !empty($emri) &&
-        filter_var($email, FILTER_VALIDATE_EMAIL) &&
+        $validName &&
+        $validPhone &&
+        $validEmail &&
         !empty($subject) &&
-        strlen($message) > 10
+        $validMessage
     ) {
         $success = true;
+    } else {
+        echo "<script>alert('Ju lutem kontrolloni formatin e të dhënave që keni futur.');</script>";
     }
 }
 ?>
-?>
-<?php
-global $emriFaqes;
-$emriFaqes = "VirtuLearn";
-?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
