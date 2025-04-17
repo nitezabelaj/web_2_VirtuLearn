@@ -1,5 +1,5 @@
 <?php 
-const SITE_TIME = "SkatingBoardSchool";
+const SITE_TIME = "SkatingBoardSchool"; //AnitaC
 $menu_items = [
    "index.php" => "Home",
    "about.php" => "About",
@@ -26,7 +26,7 @@ function generateMenu($items) {
      $subject = $_POST['subject'];
      $message = $_POST['message'];
      
-     // Shfaqja e të dhënave me var_dump()
+     // Shfaqja e të dhënave me var_dump() - AnitaC
      echo "<pre>";
      var_dump($_POST);
      echo "</pre>";
@@ -133,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                      </button>
                      <div class="collapse navbar-collapse" id="navbarsExample04">
                         <ul class="navbar-nav mr-auto">
-                            <?php generateMenu($menu_items); ?>
+                            <?php generateMenu($menu_items); ?> <!-- anitaC-->
                         </ul>
                      </div>
                   </nav>
@@ -157,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <div class="titlepage text_align_center">
                      <h2>Contact Us</h2>
                   </div>
-               </div>
+               </div> <!-- mos i prekni qeto veq nese muj i bini nfije me bo per tana phpt qe i kem shkru nelt-->
                <div class="col-md-6">
                <form id="request" class="main_form" method="post">
          <div class="row">
@@ -209,7 +209,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <h3>Contact Us</h3>
                         <ul class="conta">
                            <li><i class="fa fa-map-marker" aria-hidden="true"></i>123 Main Street, Tirana 
-                           </li>
+                           </li> <!-- anitac-->
                            <li><i class="fa fa-phone" aria-hidden="true"></i>Call +355 4 123 4567</li>
                            <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="Javascript:void(0)"> info@skatingschool.com</a></li>
                         </ul>
