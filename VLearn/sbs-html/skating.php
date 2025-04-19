@@ -252,10 +252,11 @@ $emriFaqes = "VirtuuLearn";
                         <div class="col-md-12">
                            <div class="infoma">
                               <h3>Newsletter</h3>
-                              <form class="form_subscri">
+                              <form class="form_subscri" method = "POST">
                                  <div class="row">
                                     <div class="col-md-12">
                                     </div>
+                                    <?php if (!empty($newsletterMessages)) echo $newsletterMessages; ?>
                                     <div class="col-md-4">
                                        <input class="newsl" placeholder="Enter your name" type="text" name="newsletterName">
                                     </div>
