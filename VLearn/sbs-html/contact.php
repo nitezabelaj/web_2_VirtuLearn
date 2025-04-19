@@ -1,6 +1,8 @@
 <?php 
 const SITE_TIME = "SkatingBoardSchool"; //AnitaC
+$success = false;
 $menu_items = [
+  
    "index.php" => "Home",
    "about.php" => "About",
    "skating.php" => "Skating",
