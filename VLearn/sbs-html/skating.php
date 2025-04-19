@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
 
 <?php
 global $emriFaqes;
-$emriFaqes = "VirtuLearn";
+$emriFaqes = "VirtuuLearn";
 ?>
 <!DOCTYPE html>
 <html lang="en">
