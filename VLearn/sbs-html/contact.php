@@ -45,7 +45,7 @@ class UserGreeting{
       echo "<p style='color:blue;'>Goodbye,{$this->name}! Hope to see you skating you soon.</p>";
    }
 }
-$greeting= new UserGreeting();
+
 ?>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -153,9 +153,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <a href="?lang=en">🇬🇧 English</a> | <a href="?lang=al">🇦🇱 Shqip</a>
          <div class="container">
             <div class="row ">
-               <div class="col-md-12">
-                  <div class="titlepage text_align_center">
-                     <h2>Contact Us</h2>
+               <div class="col-md-12 text_align_center">
+                  <?php
+                  $greeting= new UserGreeting();
+                  ?>
                   </div>
                </div> <!-- mos i prekni qeto veq nese muj i bini nfije me bo per tana phpt qe i kem shkru nelt-->
                <div class="col-md-6">
