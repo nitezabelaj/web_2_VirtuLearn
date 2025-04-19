@@ -258,6 +258,13 @@ $emriFaqes = "VirtuLearn";
                      ["Emri"=>"Alba","Niveli"=>"Advance"],
                      ["Emri"=>"Alma","Niveli"=>"Beginner"]
                   ];
+                  echo "<div class='col-md-12'><h3>Nivelet e arritura në kurs:</h3><ul>";
+                  foreach($nivelet as $nivel){
+                     echo "<li>Niveli: $nivel</li>";
+                 }
+                    echo "</ul></div>";
+
+                   echo "<div class='col-md-12'><h3>Niveli që kanë arritur disa nga studentët tanë:</h3><ul>";
                   
 
                   ?>
