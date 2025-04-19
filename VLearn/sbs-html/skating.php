@@ -1,5 +1,5 @@
 <?php 
-const SITE_TIME = "SkatingBoardSchool";
+define("SITE_NAME", "VirtuLearn");
 $menu_items = [
    "index.php" => "Home",
    "about.php" => "About",
