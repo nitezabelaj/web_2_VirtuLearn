@@ -73,7 +73,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
 <?php
 //Regex per validim e dates -pjesa e Amela
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Submit Birthday'])){
-   
+   $birthday=$_POST['birthday'];
+   //RegEx
+   if(preg_match("/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/",birthday)){
+      
+   }
+
 }
 
 
