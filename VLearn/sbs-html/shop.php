@@ -333,14 +333,15 @@ $emriFaqes = "VirtuLearn";
                                  <div class="row">
                                     <div class="col-md-12">
                                     </div>
+                                    <?php if (!empty($newsletterMessages)) echo $newsletterMessages; ?>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your email" type="text" name="Enter your email">
+                                       <input class="newsl" placeholder="Enter your name" type="text" name="newsletterName">
                                     </div>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your email" type="text" name="Enter your email">
+                                       <input class="newsl" placeholder="Enter your number" type="text" name="newsletterPhone">
                                     </div>
                                     <div class="col-md-4">
-                                       <button class="subsci_btn">subscribe</button>
+                                       <button class="subsci_btn" type = "submit">subscribe</button>
                                     </div>
                                  </div>
                               </form>
