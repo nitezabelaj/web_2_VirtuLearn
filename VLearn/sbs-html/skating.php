@@ -263,10 +263,11 @@ function shfaqTitullinFaqes() {
                         <div class="col-md-12">
                            <div class="infoma">
                               <h3>Newsletter</h3>
-                              <form class="form_subscri">
+                              <form class="form_subscri" method = "POST">
                                  <div class="row">
                                     <div class="col-md-12">
                                     </div>
+                                    <?php if (!empty($newsletterMessages)) echo $newsletterMessages; ?>
                                     <div class="col-md-4">
                                        <input class="newsl" placeholder="Enter your name" type="text" name="newsletterName">
                                     </div>
@@ -284,21 +285,22 @@ function shfaqTitullinFaqes() {
                            <div class="infoma">
                               <h3>Useful Link</h3>
                               <ul class="fullink">
-                                 <li><a href="index.html">Home</a></li>
-                                 <li><a href="about.html">About</a></li>
-                                 <li><a href="skating.html">Skating</a></li>
-                                 <li><a href="shop.html">Shop</a></li>
-                                 <li><a href="contact.html">Contact Us</a></li>
+                                 <li><a href="index.php">Home</a></li>
+                                 <li><a href="about.php">About</a></li>
+                                 <li><a href="skating.php">Skating</a></li>
+                                 <li><a href="shop.php">Shop</a></li>
+                                 <li><a href="contact.php">Contact Us</a></li>
                               </ul>
                            </div>
                         </div>
                         <div class="col-md-3">
                            <div class="infoma text_align_left">
                               <ul class="social_icon">
-                                 <li><a href="Javascript:void(0)"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                 <li><a href="Javascript:void(0)"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                 <li><a href="Javascript:void(0)"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>
-                                 <li><a href="Javascript:void(0)"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                 <li><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                 <li><a href="https://www.twitter.com/" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                 <li><a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>
+                                 <li><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                              </ul>
                               </ul>
                            </div>
                         </div>
