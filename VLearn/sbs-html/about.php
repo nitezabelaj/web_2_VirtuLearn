@@ -159,6 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
                </form>
                <br><br>
                <form method="POST" action="">
+                  <label for="birthday">Your Birthday(format: YYYY-MM-DD):</label>
                   
                <div class="col-md-6">
                   <div class="about_img text_align_center">
