@@ -157,6 +157,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
                 <input type="text" name="email" id="email" required>
                  <input type="submit" name="Send" value="Send">
                </form>
+               <br><br>
+               <form method="POST" action="">
+                  
                <div class="col-md-6">
                   <div class="about_img text_align_center">
                      <figure><img src="images/about.png" alt="#"/></figure>
