@@ -178,6 +178,24 @@ usort($produktet, 'sortByEmri');
                             <strong>Total: $<?php echo $totali; ?></strong>
                         </div>
                     </div>
+                    <div class="special products">
+                     <?php
+                     class ProduktetSpeciale {
+                        private $produktett=[];
+                        public function __construct() {
+                           $this->produktet = [
+                               "Gloves" => 5,
+                               "Jumper" => 5,
+                               "Skii" => 5
+                           ];
+ 
+
+                        }
+                        }
+                     ?>
+                            </div>
+
+
                     <br>
                     <br>
                     <a class="read_more" href="shop.html">Buy Now</a>
