@@ -169,14 +169,14 @@ $emriFaqes = "VirtuLearn";
                </div>
                <div class="col-md-2">
                <ul class="email text_align_right" style="position: relative;">
-                   <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
-                   <li class="d_none">
+                  <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                  <li class="d_none">
                      <a href="Javascript:void(0)" onclick="toggleSearch()"><i class="fa fa-search" aria-hidden="true"></i></a>
                      <form method="GET" id="search-form" style="display: none; position: absolute; top: 30px; right: 0; background: white; padding: 5px; border-radius: 5px; z-index: 100;">
                         <input type="text" name="search" placeholder="Search..." required>
                         <button type="submit" style="border: none; background: none;"><i class="fa fa-arrow-right"></i></button>
                      </form>
-                   </li>
+                  </li>
                </ul>
 
                </div>
@@ -369,14 +369,14 @@ $emriFaqes = "VirtuLearn";
 
       <script>
       
-         function toggleSearch() {
+       /*  function toggleSearch() {
             const searchForm = document.getElementById('search-form');
             if (searchForm.style.display === 'none' || searchForm.style.display === '') {
                searchForm.style.display = 'block';
             } else {
                searchForm.style.display = 'none';
             }
-         }
+         } */
 </script>
 
       <script src="js/custom.js"></script>
