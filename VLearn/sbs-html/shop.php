@@ -71,6 +71,19 @@ $emriFaqes = "VirtuLearn";
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
       <title>VirtuLearn</title>
+      <style>
+         special_products {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .special_products h4 {
+            color:blue;
+        }
+         </style>
+
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
