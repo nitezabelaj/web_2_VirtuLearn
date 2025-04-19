@@ -67,6 +67,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
 }
 ?>
 
+
+
+
+<?php
+//Regex per validim e dates -pjesa e Amela
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Submit Birthday'])){
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
