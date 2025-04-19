@@ -54,41 +54,7 @@ $totali = array_sum($produktet);
         return $b['cmimi'] - $a['cmimi'];
     });
     }
-
-    class SiteSearch {
-      private $pages;
-  
-      public function __construct() {
-          $this->pages = [
-              "Home" => ["url" => "index.php", "content" => "Welcome to the best skating experience for everyone."],
-              "About" => ["url" => "about.php", "content" => "Learn more about our mission, team, and journey."],
-              "Skating" => ["url" => "skating.php", "content" => "Our skating school offers classes for all levels."],
-              "Shop" => ["url" => "shop.php", "content" => "Buy skateboards, helmets, and gear here."],
-              "Contact" => ["url" => "contact.php", "content" => "Reach out to us for any inquiries."]
-          ];
-      }
-
-      public function search($query) {
-         $results = [];
-         $query = strtolower(trim($query));
- 
-         // Search across page titles and content
-         foreach ($this->pages as $title => $data) {
-             if (strpos(strtolower($title), $query) !== false || strpos(strtolower($data['content']), $query) !== false) {
-                 $results[] = [
-                     'title' => $title,
-                     'url' => $data['url'],
-                     'description' => $data['content']
-                 ];
-             }
-         }
- 
-         return $results;
-     }
- }
    ?>
-
-   
 <?php
 global $emriFaqes;
 $emriFaqes = "VirtuLearn";
@@ -176,37 +142,6 @@ $emriFaqes = "VirtuLearn";
   <?php
 
 ?> 
-<form method="POST" onsubmit="return validateForm()">
-    <label for="emri">Emri:</label>
-    <input type="text" id="emri" name="emri"><br><br>
-
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email"><br><br>
-
-    <label for="mesazhi">Mesazhi:</label><br>
-    <textarea id="mesazhi" name="mesazhi" rows="4" cols="40"></textarea><br><br>
-
-    <button type="submit">Dërgo</button>
-</form>
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $emri = trim($_POST['emri']);
-    $email = trim($_POST['email']);
-    $mesazhi = trim($_POST['mesazhi']);
-
-    if (empty($emri) || empty($email) || empty($mesazhi)) {
-        echo "Ju lutem, plotësoni të gjitha fushat.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Email-i nuk është i vlefshëm.";
-    } elseif (strlen($mesazhi) < 10) {
-        echo "Mesazhi duhet të ketë të paktën 10 karaktere.";
-    } else {
-        echo "Faleminderit! Të dhënat janë dërguar me sukses.";
-        // Këtu mund të vazhdosh me ruajtje ose dërgim email-i
-    }
-}
-?>
-
       <div class="shop">
     <div class="container-fluid">
         <div class="row d_flex d_grid">
@@ -368,38 +303,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </footer>
       <!-- end footer -->
       <!-- Javascript files-->
-      <script>
-         //Validimi i kontrollimit te dhenave para dergimit ne server
-    function validateForm() {
-        var emri = document.getElementById("emri").value.trim();
-        var email = document.getElementById("email").value.trim();
-        var mesazhi = document.getElementById("mesazhi").value.trim();
-
-        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-
-        if (emri === "") {
-            alert("Ju lutem, plotësoni emrin.");
-            return false;
-        }
-
-        if (!emailRegex.test(email)) {
-            alert("Ju lutem, fusni një email të vlefshëm.");
-            return false;
-        }
-
-        if (mesazhi.length < 10) {
-            alert("Mesazhi duhet të ketë të paktën 10 karaktere.");
-            return false;
-        }
-
-        return true; // Të gjitha fushat janë në rregull
-    }
       <script src="js/jquery.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
       <script src="js/jquery-3.0.0.min.js"></script>
       <!-- sidebar -->
       <script src="js/custom.js"></script>
+      <script>
          AOS.init();
       </script>
    </body>
 </html>
+
+
