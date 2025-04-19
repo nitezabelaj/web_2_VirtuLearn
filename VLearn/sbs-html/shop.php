@@ -51,6 +51,46 @@ $totali = array_sum($produktet);
         return $b['cmimi'] - $a['cmimi'];
     });
     }
+
+    class SiteSearch {
+      private $pages;
+  
+      // Constructor to initialize pages
+      public function __construct() {
+          $this->pages = [
+              "Home" => ["url" => "index.php", "content" => "Welcome to the best skating experience for everyone."],
+              "About" => ["url" => "about.php", "content" => "Learn more about our mission, team, and journey."],
+              "Skating" => ["url" => "skating.php", "content" => "Our skating school offers classes for all levels."],
+              "Shop" => ["url" => "shop.php", "content" => "Buy skateboards, helmets, and gear here."],
+              "Contact" => ["url" => "contact.php", "content" => "Reach out to us for any inquiries."]
+          ];
+      }
+  
+      public function search($query) {
+          $results = [];
+          $query = strtolower(trim($query));
+
+          foreach ($this->pages as $title => $data) {
+              if (strpos(strtolower($title), $query) !== false || strpos(strtolower($data['content']), $query) !== false) {
+                  $results[] = [
+                      'title' => $title,
+                      'url' => $data['url'],
+                      'description' => $data['content']
+                  ];
+              }
+          }
+  
+          return $results;
+      }
+  }
+
+  $searchResults = [];
+
+if (isset($_GET['search']) && trim($_GET['search']) !== '') {
+    $search = new SiteSearch();
+
+    $searchResults = $search->search($_GET['search']);
+}
    ?>
 <?php
 global $emriFaqes;
@@ -143,9 +183,24 @@ $emriFaqes = "VirtuLearn";
             </div>
          </div>
       </div>
-  <?php
+      <?php if (!empty($searchResults)): ?>
+    <div class="container" style="margin-top: 30px;">
+        <h3>Search Results for "<?php echo htmlspecialchars($_GET['search']); ?>"</h3>
+        <ul>
+            <?php foreach ($searchResults as $result): ?>
+                <li>
+                    <a href="<?php echo $result['url']; ?>"><strong><?php echo $result['title']; ?></strong></a>: 
+                    <?php echo $result['description']; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php elseif (isset($_GET['search'])): ?>
+    <div class="container" style="margin-top: 30px;">
+        <h4>No results found for "<?php echo htmlspecialchars($_GET['search']); ?>"</h4>
+    </div>
+<?php endif; ?>
 
-?> 
       <div class="shop">
     <div class="container-fluid">
         <div class="row d_flex d_grid">
