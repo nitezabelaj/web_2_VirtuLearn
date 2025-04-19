@@ -77,6 +77,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+<?php
+//Kodi Anisit
+$success = false;
+$emri = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $emri = $_POST['name'];
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+
+    if (
+        !empty($emri) &&
+        filter_var($email, FILTER_VALIDATE_EMAIL) &&
+        !empty($subject) &&
+        strlen($message) > 10
+    ) {
+        $success = true;
+    }
+}
+?>
+
 
 
 
