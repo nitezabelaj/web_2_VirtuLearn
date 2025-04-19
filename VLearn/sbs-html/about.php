@@ -75,24 +75,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Submit Birthday'])){
    $birthday=$_POST['birthday'];
    //RegEx
-   if(preg_match("/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/",birthday)){
-      
+   if(preg_match("/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/",$birthday)){
+      echo "<p style='color: green;'>Ditelindja eshte e vlefshme :$birthday</p>";
+
+   } else {
+      echo "<p style='color: red;'>Ditelindja nuk eshte ne format te vlefshem.</p>";
    }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>
