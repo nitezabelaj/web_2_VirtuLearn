@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
        $errors[] = "Emri nuk është valid. Përdorni vetëm shkronja (minimumi 2).";
    }
 
-   if (!preg_match("/^\+?[0-9]{8,15}$/", $phone)) {
+   if (!preg_match("/^\+?[0-9\s\-\(\)]{8,20}$/", $phone)) {
        $errors[] = "Numri i telefonit nuk është valid.";
    }
 
@@ -260,7 +260,7 @@ $emriFaqes = "VirtuuLearn";
                                        <input class="newsl" placeholder="Enter your name" type="text" name="newsletterName">
                                     </div>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your phone number" type="text" name="newsletterPhone">
+                                       <input class="newsl" placeholder="Enter your number" type="text" name="newsletterPhone">
                                     </div>
                                     <div class="col-md-4">
                                        <button class="subsci_btn" type = "submit">subscribe</button>
