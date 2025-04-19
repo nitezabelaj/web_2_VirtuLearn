@@ -1,5 +1,5 @@
 <?php 
-const SITE_TIME = "SkatingBoardSchool";
+define("SITE_NAME", "VirtuLearn");
 $menu_items = [
    "index.php" => "Home",
    "about.php" => "About",
@@ -91,12 +91,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
 ?>
 
 <?php
-global $emriFaqes;
+// Krijojmë një variabël globale jashtë funksioneve
 $emriFaqes = "VirtuuLearn";
+
+function shfaqTitullinFaqes() {
+    // Përdorim global për ta pasur qasje në variablën globale
+    global $emriFaqes;
+
+    echo "<title>$emriFaqes</title>";
+}
+
+// Thirrja e funksionit diku në HTML
 ?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
+   <?php shfaqTitullinFaqes(); ?>
       <!-- basic -->
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -123,6 +133,7 @@ $emriFaqes = "VirtuuLearn";
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
    </head>
    <!-- body -->
+   <h1>Mirë se vini në <?php echo $emriFaqes; ?></h1>
    <body class="main-layout inner_page">
       <!-- loader  -->
       <div class="loader_bg">
