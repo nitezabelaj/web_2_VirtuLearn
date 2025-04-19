@@ -160,7 +160,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
                <br><br>
                <form method="POST" action="">
                   <label for="birthday">Your Birthday(format: YYYY-MM-DD):</label>
-                  
+                  <input type="text" name="birthday" id="birthday" pattern="\d{4}-\d{2}-\d{2}" required>
+                  <input type="submit" name="Submit Birthday" value="Send">
+                  </form>
                <div class="col-md-6">
                   <div class="about_img text_align_center">
                      <figure><img src="images/about.png" alt="#"/></figure>
