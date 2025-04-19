@@ -61,7 +61,7 @@ class ContentItem {
 
 <?php
 global $emriFaqes;
-$emriFaqes = "VirtuLearn";
+$emriFaqes = "VirtuuLearn";
 ?>
 <!DOCTYPE html>
 <html lang="en">
