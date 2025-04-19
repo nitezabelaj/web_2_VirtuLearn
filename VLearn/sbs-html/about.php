@@ -193,9 +193,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_birthday'])){
                $uppercase=strtoupper($teksti);
                $lowercase=strtolower($teksti);
                $titlecase=ucwords($teksti);
-               $substr=substr($teksti,0,5);
+               $substr=substr($teksti,0,6);
                echo "<div style='margin-top: 20px; padding: 15px; background-color: #eef; border-radius: 8px;'>";
-               echo "Ky eshte emri i ekipes sone:$teksti<br>";
+               echo "Ky eshte emri i ekipes sone: $teksti<br>";
                echo "Ky tekst eshte ne kartvizitat tona: $uppercase<br>";
                echo "Ky teskt eshte ne hoodiet tona: $lowercase<br>";
                echo "Vizioni yne eshte:$substr<br>";
