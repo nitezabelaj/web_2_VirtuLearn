@@ -57,6 +57,37 @@ class ContentItem {
    }
 } 
 
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["instructorId"])) {
+   $instructorId = $_POST["instructorId"];
+   if (isValidNumber($instructorId)) {
+       echo "<p style='color:green; text-align:center;'>Instruktori me ID: $instructorId është regjistruar me sukses.</p>";
+   } else {
+       echo "<p style='color:red; text-align:center;'>ID e instruktori nuk është valide.</p>";
+   }
+}
+
+// Form validation for newsletter
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
+   $name = $_POST["newsletterName"];
+   $phone = $_POST["newsletterPhone"];
+   $errors = [];
+
+   if (!preg_match("/^[a-zA-Z\s]{2,50}$/", $name)) {
+       $errors[] = "Emri nuk është valid. Përdorni vetëm shkronja (minimumi 2).";
+   }
+
+   if (!preg_match("/^\+?[0-9]{8,15}$/", $phone)) {
+       $errors[] = "Numri i telefonit nuk është valid.";
+   }
+
+   if (empty($errors)) {
+       echo "<p style='color:green; text-align:center;'>Faleminderit për abonimin!</p>";
+   } else {
+       foreach ($errors as $error) {
+           echo "<p style='color:red; text-align:center;'>$error</p>";
+       }
+   }
+}
 ?>
 
 <?php
@@ -226,13 +257,13 @@ $emriFaqes = "VirtuLearn";
                                     <div class="col-md-12">
                                     </div>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your number" type="text" name="Enter your number">
+                                       <input class="newsl" placeholder="Enter your name" type="text" name="newsletterName">
                                     </div>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your email" type="text" name="Enter your email">
+                                       <input class="newsl" placeholder="Enter your phone number" type="text" name="newsletterPhone">
                                     </div>
                                     <div class="col-md-4">
-                                       <button class="subsci_btn">subscribe</button>
+                                       <button class="subsci_btn" type = "submit">subscribe</button>
                                     </div>
                                  </div>
                               </form>
