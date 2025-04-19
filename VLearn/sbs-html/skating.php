@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
 
 <?php
 // Krijojmë një variabël globale jashtë funksioneve
-$emriFaqes = "VirtuuLearn";
+$emriFaqes = "VirtuLearn";
 
 function shfaqTitullinFaqes() {
     // Përdorim global për ta pasur qasje në variablën globale
