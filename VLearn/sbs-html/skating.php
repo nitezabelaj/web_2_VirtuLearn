@@ -265,7 +265,7 @@ $emriFaqes = "VirtuLearn";
                     echo "</ul></div>";
 
                    echo "<div class='col-md-12'><h3>Niveli që kanë arritur disa nga studentët tanë:</h3><ul>";
-                   foreach($studentet as $student){
+                   foreach($students as $student){
                      echo "<li>{$student['Emri']}-Niveli: {$student['Niveli']}</li>";
                    }
                       echo "</ul></div>";
