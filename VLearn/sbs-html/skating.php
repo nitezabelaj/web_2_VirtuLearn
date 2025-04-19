@@ -226,7 +226,7 @@ $emriFaqes = "VirtuLearn";
                                     <div class="col-md-12">
                                     </div>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your email" type="text" name="Enter your email">
+                                       <input class="newsl" placeholder="Enter your number" type="text" name="Enter your number">
                                     </div>
                                     <div class="col-md-4">
                                        <input class="newsl" placeholder="Enter your email" type="text" name="Enter your email">
