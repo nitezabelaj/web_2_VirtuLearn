@@ -223,6 +223,7 @@ $emriFaqes = "VirtuLearn";
                                           <h3>
                                              Virtu<br> Learn<br> 2025
                                           </h3>
+                                          <h2><?php echo $greeting . "<br>" . $dayMessage;?> </h2><br>
                                           <div class="link_btn">
                                              <a class="read_more" href="Javascript:void(0)">Read More   <span></span></a>
                                           </div>
@@ -246,6 +247,7 @@ $emriFaqes = "VirtuLearn";
                                           <h3>
                                              <br>VirtuLearn <br> School
                                           </h3>
+                                          <h2><?php echo $greeting . "<br>" . $dayMessage;?> </h2><br>
                                           <div class="link_btn">
                                              <a class="read_more" href="Javascript:void(0)">Read More   <span></span></a>
                                           </div>
