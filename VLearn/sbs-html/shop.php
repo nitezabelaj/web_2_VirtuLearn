@@ -140,18 +140,7 @@ $emriFaqes = "VirtuLearn";
          </div>
       </div>
   <?php
-// shop.php - Pjesë e re për sortimet
-$produktet = array(
-    array("id" => 1, "emri" => "Skateboard Pro", "cmimi" => 120),
-    array("id" => 2, "emri" => "Helmet", "cmimi" => 35),
-    array("id" => 3, "emri" => "Rrotat", "cmimi" => 45)
-);
 
-// Sortim sipas emrit (asort për vlera në array asociativ)
-function sortByEmri($a, $b) {
-    return strcmp($a["emri"], $b["emri"]);
-}
-usort($produktet, 'sortByEmri');
 ?> 
       <div class="shop">
     <div class="container-fluid">

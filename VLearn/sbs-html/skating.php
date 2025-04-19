@@ -35,7 +35,7 @@ class ContentItem {
        echo "</div>";
    }
 }
-//klasat per trashigimi nga OOP
+//klasat per trashigimi nga OOP az
    class SkatingArticle extends ContentItem {
    private $difficulty;
 
