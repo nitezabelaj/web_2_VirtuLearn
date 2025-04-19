@@ -198,7 +198,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_birthday'])){
                echo "Ky eshte emri i ekipes sone: $teksti<br>";
                echo "Ky tekst eshte ne kartvizitat tona: $uppercase<br>";
                echo "Ky teskt eshte ne hoodiet tona: $lowercase<br>";
-               echo "Vizioni yne eshte:$substr<br>";
+               echo "Vizioni yne eshte: $substr<br>";
 
                ?>
 
