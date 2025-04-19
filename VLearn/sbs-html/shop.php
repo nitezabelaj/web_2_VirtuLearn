@@ -54,7 +54,41 @@ $totali = array_sum($produktet);
         return $b['cmimi'] - $a['cmimi'];
     });
     }
+
+    class SiteSearch {
+      private $pages;
+  
+      public function __construct() {
+          $this->pages = [
+              "Home" => ["url" => "index.php", "content" => "Welcome to the best skating experience for everyone."],
+              "About" => ["url" => "about.php", "content" => "Learn more about our mission, team, and journey."],
+              "Skating" => ["url" => "skating.php", "content" => "Our skating school offers classes for all levels."],
+              "Shop" => ["url" => "shop.php", "content" => "Buy skateboards, helmets, and gear here."],
+              "Contact" => ["url" => "contact.php", "content" => "Reach out to us for any inquiries."]
+          ];
+      }
+
+      public function search($query) {
+         $results = [];
+         $query = strtolower(trim($query));
+ 
+         // Search across page titles and content
+         foreach ($this->pages as $title => $data) {
+             if (strpos(strtolower($title), $query) !== false || strpos(strtolower($data['content']), $query) !== false) {
+                 $results[] = [
+                     'title' => $title,
+                     'url' => $data['url'],
+                     'description' => $data['content']
+                 ];
+             }
+         }
+ 
+         return $results;
+     }
+ }
    ?>
+
+   
 <?php
 global $emriFaqes;
 $emriFaqes = "VirtuLearn";
