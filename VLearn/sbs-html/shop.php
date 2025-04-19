@@ -71,6 +71,19 @@ $emriFaqes = "VirtuLearn";
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
       <title>VirtuLearn</title>
+      <style>
+         special_products {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .special_products h4 {
+            color:blue;
+        }
+         </style>
+
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -178,6 +191,43 @@ usort($produktet, 'sortByEmri');
                             <strong>Total: $<?php echo $totali; ?></strong>
                         </div>
                     </div>
+                    <div class="special_products">
+                     <?php
+                     //Perdorimi tjeter i konstruktorit-Amela
+                     class ProduktetSpeciale {
+                        private $produktett=[];
+                        public function __construct() {
+                           $this->produktett = [
+                               "Gloves" => 5,
+                               "Jumper" => 5,
+                               "Skii" => 5
+                           ];
+ 
+
+                        }
+                        public function shfaqProduktet(){
+                           echo "<h4>Our special Products:</h4>";
+                           echo "<ul class='product-items'>";
+                           foreach($this->produktett as $emri=>$cmimi){
+                              echo "<li>$emri - $cmimi €</li>";
+                          }
+                          echo "</ul>";
+
+                      }
+                      public function __destruct(){
+                        
+
+                      }
+                     }
+                     $produktetSpeciale=new ProduktetSpeciale();
+                     $produktetSpeciale->shfaqProduktet();
+              
+                        
+                        
+                     ?>
+                            </div>
+
+
                     <br>
                     <br>
                     <a class="read_more" href="shop.html">Buy Now</a>

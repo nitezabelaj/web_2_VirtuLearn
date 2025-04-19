@@ -67,6 +67,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
 }
 ?>
 
+
+
+
+<?php
+//Regex per validim e dates -pjesa e Amela
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_birthday'])){
+   $birthday=$_POST['birthday'];
+   //RegEx
+   if(preg_match("/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/",$birthday)){
+      echo "<p style='color: green;'>Ditelindja eshte e vlefshme :$birthday</p>";
+
+   } else {
+      echo "<p style='color: red;'>Ditelindja nuk eshte ne format te vlefshem.</p>";
+   }
+
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -157,11 +175,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
                 <input type="text" name="email" id="email" required>
                  <input type="submit" name="Send" value="Send">
                </form>
+               <br><br>
+               <form method="POST" action="">
+                  <label for="birthday">Your Birthday(format: YYYY-MM-DD):</label>
+                  <input type="text" name="birthday" id="birthday"  required>
+                  <input type="submit" name="submit_birthday" value="Send">
+                  </form>
                <div class="col-md-6">
                   <div class="about_img text_align_center">
                      <figure><img src="images/about.png" alt="#"/></figure>
                   </div>
                </div>
+               <?php
+               //Per ndryshim stringjesh -Pjesa e ameles
+               $teksti="Future Skater Team";
+
+               $uppercase=strtoupper($teksti);
+               $lowercase=strtolower($teksti);
+               $titlecase=ucwords($teksti);
+               $substr=substr($teksti,0,6);
+               echo "<div style='margin-top: 20px; padding: 15px; background-color: #eef; border-radius: 8px;'>";
+               echo "Ky eshte emri i ekipes sone: $teksti<br>";
+               echo "Ky tekst eshte ne kartvizitat tona: $uppercase<br>";
+               echo "Ky teskt eshte ne hoodiet tona: $lowercase<br>";
+               echo "Vizioni yne eshte: $substr<br>";
+
+               ?>
+
             </div>
          </div>
       </div>
