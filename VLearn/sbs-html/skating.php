@@ -58,36 +58,7 @@ class ContentItem {
 } 
 
 ?>
-<?php
-//Pjesa e Amela ne konceptet themelore ne PHP
-$kurset=["Fillestar","Mesatar","Avancuar"]; //Kjo eshte pjesa e numeric array
-//Associative array
-$pajisjet=[
-  "Skateboard"=>60,
-  "Helmet"=>25,
-  "Mbrojteset e gjurit"=>15
-];
-//Multidimensional array
-$nxenesit=[["emri"=>"Arta","niveli"=>"Fillestar"],
-["emri"=>"Blendi","niveli"=>"Mesatar"],
-["emri"=>"Arta","niveli"=>"Avancuar"]];
-//Me poshte kemi funksion stringje me ucwords
-$mesazh="mire se vini ne shkollen tone te skating!";
-$mesazhmefunksion=ucwords($mesazh);
 
-echo "<h4>Kurset qe ne ofrojme:</h4>";
-echo implode(",",$kurset)."$<br>";
-
-echo "<h4>Cmimi i pajisjeve:</h4>";
-foreach($pajisjet as $pajisja=>$cmimi){
-   echo "$pajisja:$cmimi euro<br>";
-}
-echo "<br><h4>Cmimi i disa prej pajisjeve:</h4>";
-foreach($nxenesit as $nxenes){
-   echo $nxenes["emri"]."-Niveli: ".$nxenes["niveli"]."<br>";}
-   echo "<br><h4>Mesazh mirseardhje:</h4>";
-   echo $mesazhmefunksion;
-?>
 <?php
 global $emriFaqes;
 $emriFaqes = "VirtuLearn";
@@ -274,10 +245,22 @@ $emriFaqes = "VirtuLearn";
             <div class="copyright">
                <div class="container">
                   <div class="row">
+
                      <div class="col-md-12">
                         <p>© 2020 All Rights Reserved. Design by <a href="https://html.design/"> Free html Templates</a></p>
                      </div>
                   </div>
+                  <?php
+                  //Vagjet numerike dhe multidimensional
+                  $nivelet=["Beginner","Intermediate","Advance"];
+                  $students=[
+                     ["Emri"=>"Arta","Niveli"=>"Intermediate"],
+                     ["Emri"=>"Alba","Niveli"=>"Advance"],
+                     ["Emri"=>"Alma","Niveli"=>"Beginner"]
+                  ];
+                  
+
+                  ?>
                </div>
             </div>
          </div>

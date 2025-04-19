@@ -193,6 +193,7 @@ usort($produktet, 'sortByEmri');
                     </div>
                     <div class="special_products">
                      <?php
+                     //Perdorimi tjeter i konstruktorit-Amela
                      class ProduktetSpeciale {
                         private $produktett=[];
                         public function __construct() {
