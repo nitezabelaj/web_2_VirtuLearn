@@ -178,12 +178,12 @@ usort($produktet, 'sortByEmri');
                             <strong>Total: $<?php echo $totali; ?></strong>
                         </div>
                     </div>
-                    <div class="special products">
+                    <div class="special_products">
                      <?php
                      class ProduktetSpeciale {
                         private $produktett=[];
                         public function __construct() {
-                           $this->produktet = [
+                           $this->produktett = [
                                "Gloves" => 5,
                                "Jumper" => 5,
                                "Skii" => 5
@@ -191,7 +191,25 @@ usort($produktet, 'sortByEmri');
  
 
                         }
-                        }
+                        public function shfaqProduktet(){
+                           echo "<h4>Our special Products:</h4>";
+                           echo "<ul class='product-items'>";
+                           foreach($this->produktett as $emri=>$cmimi){
+                              echo "<li>$emri - $cmimi €</li>";
+                          }
+                          echo "</ul>";
+
+                      }
+                      public function __destruct(){
+                        
+
+                      }
+                     }
+                     $produktetSpeciale=new ProduktetSpeciale();
+                     $produktetSpeciale->shfaqProduktet();
+              
+                        
+                        
                      ?>
                             </div>
 
