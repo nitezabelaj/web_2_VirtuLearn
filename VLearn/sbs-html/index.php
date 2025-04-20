@@ -171,39 +171,39 @@ $emriFaqes = "VirtuLearn";
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
       <style>
-      .map-modal {
-         display: none;
-         position: fixed;
-         z-index: 9999;
-         left: 50%;
-         top: 50%;
-         width: 80%;
-         max-width: 600px;
-         height: 400px;
-         transform: translate(-50%, -50%);
-         background-color: white;
-         border: 2px solid #333;
-         box-shadow: 0 0 15px rgba(0,0,0,0.5);
-      }
+         .map-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 50%;
+            top: 50%;
+            width: 80%;
+            max-width: 600px;
+            height: 400px;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 2px solid #333;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+         }
 
-      .map-modal iframe {
-         width: 100%;
-         height: 100%;
-         border: none;
-      }
+         .map-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+         }
 
-      .map-modal .close-btn {
-         position: absolute;
-         top: 5px;
-         right: 10px;
-         background: #f00;
-         color: white;
-         border: none;
-         font-size: 16px;
-         padding: 2px 8px;
-         cursor: pointer;
-      }
-   </style>
+         .map-modal .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #f00;
+            color: white;
+            border: none;
+            font-size: 16px;
+            padding: 2px 8px;
+            cursor: pointer;
+         }
+      </style>
    </head>
    <!-- body -->
    <body class="main-layout">
@@ -668,7 +668,7 @@ $emriFaqes = "VirtuLearn";
                                  <div class="row">
                                     <div class="col-md-12">
                                     </div>
-                                    <?php if (!empty($newsletterMessages)) echo $newsletterMessages; ?>
+                                       <?php if (!empty($newsletterMessages)) echo $newsletterMessages; ?>
                                     <div class="col-md-4">
                                        <input class="newsl" placeholder="Enter your name" type="text" name="newsletterName">
                                     </div>
@@ -730,17 +730,17 @@ $emriFaqes = "VirtuLearn";
          AOS.init();
       </script>
       <script>
-      function toggleDiv(id) {
-         const div = document.getElementById(id);
-         div.style.display = (div.style.display === "none" || div.style.display === "") ? "block" : "none";
-      }
+         function toggleDiv(id) {
+            const div = document.getElementById(id);
+            div.style.display = (div.style.display === "none" || div.style.display === "") ? "block" : "none";
+         }
 
-      function openMapModal() {
-         document.getElementById("mapModal").style.display = "block";
-      }
-      function closeMapModal() {
-         document.getElementById("mapModal").style.display = "none";
-      }
+         function openMapModal() {
+            document.getElementById("mapModal").style.display = "block";
+         }
+         function closeMapModal() {
+            document.getElementById("mapModal").style.display = "none";
+         }
       </script>
    </body>
 </html>
