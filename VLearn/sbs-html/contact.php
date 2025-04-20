@@ -57,7 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subject = $_POST['subject'];
     $message = trim($_POST['message']);
 
-    // RegEx për validim e stringjeve - AnitaC
     $validName = preg_match("/^[A-ZÇËa-zçë' -]{2,50}$/", $emri);
     $validPhone = preg_match("/^\+?[0-9]{8,15}$/", $phone);
     $validEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
@@ -70,12 +69,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         !empty($subject) &&
         $validMessage
     ) {
-        $success = true;
+        
+
+        echo "<script>alert('Të dhënat janë ruajtur me sukses në server!');</script>";
     } else {
         echo "<script>alert('Ju lutem kontrolloni formatin e të dhënave që keni futur.');</script>";
     }
 }
-
 ?>
 
 <?php
