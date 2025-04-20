@@ -121,6 +121,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
        }
    }
 }
+
+$address = "123 Main Street, Tirana";
+$phone = "+355 4 123 4567";
+$email = "info@skatingschool.com";
+$mapQuery = urlencode($address);
+   
    ?>
 <?php
 global $emriFaqes;
@@ -164,6 +170,41 @@ $emriFaqes = "VirtuLearn";
       <link rel="icon" href="images/fevicon.png" type="image/gif" />
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+      <style>
+         .map-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 50%;
+            top: 50%;
+            width: 80%;
+            max-width: 600px;
+            height: 400px;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 2px solid #333;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+         }
+
+         .map-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+         }
+
+         .map-modal .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #f00;
+            color: white;
+            border: none;
+            font-size: 16px;
+            padding: 2px 8px;
+            cursor: pointer;
+         }
+      </style>
    </head>
    <!-- body -->
    <body class="main-layout inner_page">
@@ -326,10 +367,22 @@ $emriFaqes = "VirtuLearn";
                      <div class="infoma">
                         <h3>Contact Us</h3>
                         <ul class="conta">
-                           <li><i class="fa fa-map-marker" aria-hidden="true"></i>123 Main Street, Tirana 
+                        <li>
+                              <i class="fa fa-map-marker" aria-hidden="true"></i>
+                              <a href="javascript:void(0);" onclick="openMapModal()">
+                                 <?php echo $address; ?>
+                              </a>
                            </li>
-                           <li><i class="fa fa-phone" aria-hidden="true"></i>Call +355 4 123 4567</li>
-                           <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="Javascript:void(0)"> info@skatingschool.com</a></li>
+                           <li>
+                              <i class="fa fa-phone" aria-hidden="true"></i>
+                              <a href="tel:<?php echo preg_replace('/\s+/', '', $phone); ?>">
+                                 Call <?php echo $phone; ?>
+                              </a>
+                           </li>
+                           <li> 
+                              <i class="fa fa-envelope" aria-hidden="true"></i>
+                              <a href="mailto:<?php echo $email; ?>"><?php echo $email; ?></a>
+                           </li>
                         </ul>
                      </div>
                   </div>
@@ -402,7 +455,7 @@ $emriFaqes = "VirtuLearn";
 
       <script>
       
-       function toggleSearch() {
+         function toggleSearch() {
             const searchForm = document.getElementById('search-form');
             if (searchForm.style.display === 'none' || searchForm.style.display === '') {
                searchForm.style.display = 'block';
@@ -411,15 +464,22 @@ $emriFaqes = "VirtuLearn";
             }
          }
 
-      document.addEventListener('click', function(e) {
-      const form = document.getElementById('search-form');
-      const icon = e.target.closest('.fa-search');
-      const insideForm = e.target.closest('#search-form');
-      if (!insideForm && !icon) {
-         form.style.display = 'none';
-      }
-   });
-</script>
+         document.addEventListener('click', function(e) {
+            const form = document.getElementById('search-form');
+            const icon = e.target.closest('.fa-search');
+            const insideForm = e.target.closest('#search-form');
+            if (!insideForm && !icon) {
+               form.style.display = 'none';
+            }
+         });
+
+         function openMapModal() {
+            document.getElementById("mapModal").style.display = "block";
+         }
+         function closeMapModal() {
+            document.getElementById("mapModal").style.display = "none";
+         }
+      </script>
 
       <script src="js/custom.js"></script>
       <script>

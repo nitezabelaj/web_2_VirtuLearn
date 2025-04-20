@@ -87,6 +87,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
        }
    }
 }
+
+$address = "123 Main Street, Tirana";
+$phone = "+355 4 123 4567";
+$email = "info@skatingschool.com";
+$mapQuery = urlencode($address);
+
 ?>
 
 <?php
@@ -130,6 +136,41 @@ function shfaqTitullinFaqes() {
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+      <style>
+         .map-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 50%;
+            top: 50%;
+            width: 80%;
+            max-width: 600px;
+            height: 400px;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 2px solid #333;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+         }
+
+         .map-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+         }
+
+         .map-modal .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #f00;
+            color: white;
+            border: none;
+            font-size: 16px;
+            padding: 2px 8px;
+            cursor: pointer;
+         }
+      </style>
    </head>
    <!-- body -->
    <h1>Mirë se vini në <?php echo $emriFaqes; ?></h1>
@@ -250,10 +291,22 @@ function shfaqTitullinFaqes() {
                      <div class="infoma">
                         <h3>Contact Us</h3>
                         <ul class="conta">
-                           <li><i class="fa fa-map-marker" aria-hidden="true"></i>Locations 
+                        <li>
+                              <i class="fa fa-map-marker" aria-hidden="true"></i>
+                              <a href="javascript:void(0);" onclick="openMapModal()">
+                                 <?php echo $address; ?>
+                              </a>
                            </li>
-                           <li><i class="fa fa-phone" aria-hidden="true"></i>Call +01 1234567890</li>
-                           <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="Javascript:void(0)"> demo@gmail.com</a></li>
+                           <li>
+                              <i class="fa fa-phone" aria-hidden="true"></i>
+                              <a href="tel:<?php echo preg_replace('/\s+/', '', $phone); ?>">
+                                 Call <?php echo $phone; ?>
+                              </a>
+                           </li>
+                           <li> 
+                              <i class="fa fa-envelope" aria-hidden="true"></i>
+                              <a href="mailto:<?php echo $email; ?>"><?php echo $email; ?></a>
+                           </li>
                         </ul>
                      </div>
                   </div>
@@ -328,6 +381,13 @@ function shfaqTitullinFaqes() {
       <!-- sidebar -->
       <script src="js/custom.js"></script>
       <script>
+          function openMapModal() {
+            document.getElementById("mapModal").style.display = "block";
+         }
+         function closeMapModal() {
+            document.getElementById("mapModal").style.display = "none";
+         }
+         
          AOS.init();
       </script>
    </body>
