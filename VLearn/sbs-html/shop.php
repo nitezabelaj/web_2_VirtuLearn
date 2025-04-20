@@ -1,5 +1,11 @@
 <?php 
 
+$address = "123 Main Street, Tirana";
+$phone = "+355 4 123 4567";
+$email = "info@skatingschool.com";
+$mapQuery = urlencode($address);
+   
+
 if (isset($_GET['search'])) {
     $query = trim($_GET['search']);
     header("Location: search.php?q=" . urlencode($query));
@@ -122,11 +128,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
    }
 }
 
-$address = "123 Main Street, Tirana";
-$phone = "+355 4 123 4567";
-$email = "info@skatingschool.com";
-$mapQuery = urlencode($address);
-   
    ?>
 <?php
 global $emriFaqes;
@@ -244,14 +245,16 @@ $emriFaqes = "VirtuLearn";
                         <a href="Javascript:void(0)" onclick="toggleSearch()">
                            <i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"></i>
                         </a>
+                        </li>
+                        </ul>
                         <form method="GET" id="search-form" style="display: none; position: absolute; top: 30px; right: 0; background: white; padding: 5px; border-radius: 5px; z-index: 100;">
                            <input type="text" name="search" placeholder="Search..." required>
                            <button type="submit" style="border: none; background: none;">
                               <i class="fa fa-arrow-right"></i>
                            </button>
                         </form>
-                     </li>
-                  </ul>
+                     
+                  
                </div>
             </div>
          </div>

@@ -1,5 +1,10 @@
 <?php
 
+$address = "123 Main Street, Tirana";
+$phone = "+355 4 123 4567";
+$email = "info@skatingschool.com";
+$mapQuery = urlencode($address);
+
 // Lista për asort (renditje sipas grupmoshës)//asort
 $studentetAsort = [
     "Ardi Kola" => "4-8",
@@ -131,11 +136,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
        }
    }
 }
-
-$address = "123 Main Street, Tirana";
-$phone = "+355 4 123 4567";
-$email = "info@skatingschool.com";
-$mapQuery = urlencode($address);
 
 ?>
 <?php
