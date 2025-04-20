@@ -631,14 +631,23 @@ $emriFaqes = "VirtuLearn";
                      <div class="infoma">
                         <h3>Contact Us</h3>
                         <ul class="conta">
-                           <?php
-                           $contact = new ContactInfo();
-                           $contactInfo = $contact->getAllInfo();
-                           ?>
-                           <li><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo $contactInfo['location']; ?></li>
-                           <li><i class="fa fa-phone" aria-hidden="true"></i> <?php echo $contactInfo['phone']; ?></li>
-                           <li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:<?php echo $contactInfo['email']; ?>"> <?php echo $contactInfo['email']; ?></a></li>
-                        </ul>
+                            <li>
+                               <i class="fa fa-map-marker" aria-hidden="true"></i>
+                               <a href="javascript:void(0);" onclick="openMapModal()">
+                                  <?php echo $address; ?>
+                               </a>
+                            </li>
+                            <li>
+                               <i class="fa fa-phone" aria-hidden="true"></i>
+                               <a href="tel:<?php echo preg_replace('/\s+/', '', $phone); ?>">
+                                  Call <?php echo $phone; ?>
+                               </a>
+                            </li>
+                            <li> 
+                               <i class="fa fa-envelope" aria-hidden="true"></i>
+                               <a href="mailto:<?php echo $email; ?>"><?php echo $email; ?></a>
+                            </li>
+                           </ul>
                      </div>
 
                      <div id="mapModal" class="map-modal">
