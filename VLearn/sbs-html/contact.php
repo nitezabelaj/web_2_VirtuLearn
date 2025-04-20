@@ -361,47 +361,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <!-- sidebar -->
       <script src="js/custom.js"></script>
       <script>
-         //validimi i te dhenave para dergimit ne server -az
-      document.getElementById("request").addEventListener("submit", function (e) {
-    const name = document.querySelector("input[name='name']").value.trim();
-    const phone = document.querySelector("input[name='phone']").value.trim();
-    const email = document.querySelector("input[name='email']").value.trim();
-    const subject = document.querySelector("select[name='subject']").value;
-    const message = document.querySelector("textarea[name='message']").value.trim();
-
-    const nameRegex = /^[A-ZÇËa-zçë' -]{2,50}$/;
-    const phoneRegex = /^\+?[0-9]{8,15}$/;
-    const emailRegex = /^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/;
-
-    let errors = [];
-
-    if (!nameRegex.test(name)) {
-        errors.push("Emri nuk është në formatin e duhur.");
-    }
-
-    if (!phoneRegex.test(phone)) {
-        errors.push("Numri i telefonit nuk është valid.");
-    }
-
-    if (!emailRegex.test(email)) {
-        errors.push("Email-i nuk është valid.");
-    }
-
-    if (!subject) {
-        errors.push("Ju lutem zgjidhni një subjekt.");
-    }
-
-    if (message.length < 10) {
-        errors.push("Mesazhi duhet të përmbajë të paktën 10 karaktere.");
-    }
-
-    if (errors.length > 0) {
-        e.preventDefault(); // Ndalo dërgimin në server
-        alert(errors.join("\n"));
-    } else {
-        alert("Të dhënat janë ruajtur në server!");
-    }
-});
 </script>
 
       <?php if ($success): ?>
