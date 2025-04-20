@@ -696,8 +696,15 @@ $emriFaqes = "VirtuLearn";
       </script>
       <script>
       function toggleDiv(id) {
-      const div = document.getElementById(id);
-      div.style.display = (div.style.display === "none" || div.style.display === "") ? "block" : "none";
+         const div = document.getElementById(id);
+         div.style.display = (div.style.display === "none" || div.style.display === "") ? "block" : "none";
+      }
+
+      function openMapModal() {
+         document.getElementById("mapModal").style.display = "block";
+      }
+      function closeMapModal() {
+         document.getElementById("mapModal").style.display = "none";
       }
       </script>
    </body>
