@@ -403,7 +403,15 @@ $emriFaqes = "VirtuLearn";
                searchForm.style.display = 'none';
             }
          }
-         
+
+      document.addEventListener('click', function(e) {
+      const form = document.getElementById('search-form');
+      const icon = e.target.closest('.fa-search');
+      const insideForm = e.target.closest('#search-form');
+      if (!insideForm && !icon) {
+         form.style.display = 'none';
+      }
+   });
 </script>
 
       <script src="js/custom.js"></script>
