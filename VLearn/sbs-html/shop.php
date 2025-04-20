@@ -28,9 +28,6 @@ $produktet = [
 ];
 
 
-
-
-
 // Llogaritja e totalit permes operatorit +
 $totali = array_sum($produktet);
 ?>
@@ -54,6 +51,69 @@ $totali = array_sum($produktet);
         return $b['cmimi'] - $a['cmimi'];
     });
     }
+
+    class SiteSearch {
+      private $pages;
+  
+  
+      public function __construct() {
+          $this->pages = [
+              "Home" => ["url" => "index.php", "content" => "Welcome to the best skating experience for everyone."],
+              "About" => ["url" => "about.php", "content" => "Learn more about our mission, team, and journey."],
+              "Skating" => ["url" => "skating.php", "content" => "Our skating school offers classes for all levels."],
+              "Shop" => ["url" => "shop.php", "content" => "Buy skateboards, helmets, and gear here."],
+              "Contact" => ["url" => "contact.php", "content" => "Reach out to us for any inquiries."]
+          ];
+      }
+  
+      public function search($query) {
+          $results = [];
+          $query = strtolower(trim($query));
+
+          foreach ($this->pages as $title => $data) {
+              if (strpos(strtolower($title), $query) !== false || strpos(strtolower($data['content']), $query) !== false) {
+                  $results[] = [
+                      'title' => $title,
+                      'url' => $data['url'],
+                      'description' => $data['content']
+                  ];
+              }
+          }
+  
+          return $results;
+      }
+  }
+
+  $searchResults = [];
+
+if (isset($_GET['search']) && trim($_GET['search']) !== '') {
+    $search = new SiteSearch();
+
+    $searchResults = $search->search($_GET['search']);
+}
+
+//Newsletter validation
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
+   $name = $_POST["newsletterName"];
+   $phone = $_POST["newsletterPhone"];
+   $errors = [];
+
+   if (!preg_match("/^[a-zA-Z\s]{2,50}$/", $name)) {
+       $errors[] = "Emri nuk është valid. Përdorni vetëm shkronja (minimumi 2).";
+   }
+
+   if (!preg_match("/^\+?[0-9\s\-\(\)]{8,20}$/", $phone)) {
+       $errors[] = "Numri i telefonit nuk është valid.";
+   }
+
+   if (empty($errors)) {
+       echo "<p style='color:green; text-align:center;'>Faleminderit për abonimin!</p>";
+   } else {
+       foreach ($errors as $error) {
+           echo "<p style='color:red; text-align:center;'>$error</p>";
+       }
+   }
+}
    ?>
 <?php
 global $emriFaqes;
@@ -131,17 +191,39 @@ $emriFaqes = "VirtuLearn";
                   </nav>
                </div>
                <div class="col-md-2">
-                  <ul class="email text_align_right">
-                     <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
-                     <li class="d_none"> <a href="Javascript:void(0)"><i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"></i></a> </li>
-                  </ul>
+               <ul class="email text_align_right" style="position: relative;">
+                  <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                  <li class="d_none">
+                     <a href="Javascript:void(0)" onclick="toggleSearch()"><i class="fa fa-search" aria-hidden="true"></i></a>
+                     <form method="GET" id="search-form" style="display: none; position: absolute; top: 30px; right: 0; background: white; padding: 5px; border-radius: 5px; z-index: 100;">
+                        <input type="text" name="search" placeholder="Search..." required>
+                        <button type="submit" style="border: none; background: none;"><i class="fa fa-arrow-right"></i></button>
+                     </form>
+                  </li>
+               </ul>
+
                </div>
             </div>
          </div>
       </div>
-  <?php
+      <?php if (!empty($searchResults)): ?>
+    <div class="container" style="margin-top: 30px;">
+        <h3>Search Results for "<?php echo htmlspecialchars($_GET['search']); ?>"</h3>
+        <ul>
+            <?php foreach ($searchResults as $result): ?>
+                <li>
+                    <a href="<?php echo $result['url']; ?>"><strong><?php echo $result['title']; ?></strong></a>: 
+                    <?php echo $result['description']; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php elseif (isset($_GET['search'])): ?>
+    <div class="container" style="margin-top: 30px;">
+        <h4>No results found for "<?php echo htmlspecialchars($_GET['search']); ?>"</h4>
+    </div>
+<?php endif; ?>
 
-?> 
       <div class="shop">
     <div class="container-fluid">
         <div class="row d_flex d_grid">
@@ -251,14 +333,15 @@ $emriFaqes = "VirtuLearn";
                                  <div class="row">
                                     <div class="col-md-12">
                                     </div>
+                                    <?php if (!empty($newsletterMessages)) echo $newsletterMessages; ?>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your email" type="text" name="Enter your email">
+                                       <input class="newsl" placeholder="Enter your name" type="text" name="newsletterName">
                                     </div>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your email" type="text" name="Enter your email">
+                                       <input class="newsl" placeholder="Enter your number" type="text" name="newsletterPhone">
                                     </div>
                                     <div class="col-md-4">
-                                       <button class="subsci_btn">subscribe</button>
+                                       <button class="subsci_btn" type = "submit">subscribe</button>
                                     </div>
                                  </div>
                               </form>
@@ -307,6 +390,19 @@ $emriFaqes = "VirtuLearn";
       <script src="js/bootstrap.bundle.min.js"></script>
       <script src="js/jquery-3.0.0.min.js"></script>
       <!-- sidebar -->
+
+      <script>
+      
+       /*  function toggleSearch() {
+            const searchForm = document.getElementById('search-form');
+            if (searchForm.style.display === 'none' || searchForm.style.display === '') {
+               searchForm.style.display = 'block';
+            } else {
+               searchForm.style.display = 'none';
+            }
+         } */
+</script>
+
       <script src="js/custom.js"></script>
       <script>
          AOS.init();

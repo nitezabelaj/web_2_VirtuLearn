@@ -66,7 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["instructorId"])) {
    }
 }
 
-// Form validation for newsletter
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
    $name = $_POST["newsletterName"];
    $phone = $_POST["newsletterPhone"];

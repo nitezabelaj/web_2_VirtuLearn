@@ -99,6 +99,29 @@ function generateMenu($items) {
    }
 }
 
+//Newsletter validation
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
+   $name = $_POST["newsletterName"];
+   $phone = $_POST["newsletterPhone"];
+   $errors = [];
+
+   if (!preg_match("/^[a-zA-Z\s]{2,50}$/", $name)) {
+       $errors[] = "Emri nuk është valid. Përdorni vetëm shkronja (minimumi 2).";
+   }
+
+   if (!preg_match("/^\+?[0-9\s\-\(\)]{8,20}$/", $phone)) {
+       $errors[] = "Numri i telefonit nuk është valid.";
+   }
+
+   if (empty($errors)) {
+       echo "<p style='color:green; text-align:center;'>Faleminderit për abonimin!</p>";
+   } else {
+       foreach ($errors as $error) {
+           echo "<p style='color:red; text-align:center;'>$error</p>";
+       }
+   }
+}
+
 ?>
 <?php
 global $emriFaqes;
@@ -223,6 +246,7 @@ $emriFaqes = "VirtuLearn";
                                           <h3>
                                              Virtu<br> Learn<br> 2025
                                           </h3>
+                                          <h2><?php echo $greeting . "<br>" . $dayMessage;?> </h2><br>
                                           <div class="link_btn">
                                              <a class="read_more" href="Javascript:void(0)">Read More   <span></span></a>
                                           </div>
@@ -246,6 +270,7 @@ $emriFaqes = "VirtuLearn";
                                           <h3>
                                              <br>VirtuLearn <br> School
                                           </h3>
+                                          <h2><?php echo $greeting . "<br>" . $dayMessage;?> </h2><br>
                                           <div class="link_btn">
                                              <a class="read_more" href="Javascript:void(0)">Read More   <span></span></a>
                                           </div>
@@ -563,14 +588,15 @@ $emriFaqes = "VirtuLearn";
                                  <div class="row">
                                     <div class="col-md-12">
                                     </div>
+                                    <?php if (!empty($newsletterMessages)) echo $newsletterMessages; ?>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your email" type="text" name="Enter your email">
+                                       <input class="newsl" placeholder="Enter your name" type="text" name="newsletterName">
                                     </div>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your email" type="text" name="Enter your email">
+                                       <input class="newsl" placeholder="Enter your number" type="text" name="newsletterPhone">
                                     </div>
                                     <div class="col-md-4">
-                                       <button class="subsci_btn">subscribe</button>
+                                       <button class="subsci_btn" type = "submit">subscribe</button>
                                     </div>
                                  </div>
                               </form>
