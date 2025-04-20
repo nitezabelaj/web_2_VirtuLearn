@@ -269,22 +269,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                      <div class="infoma">
                         <h3>Contact Us</h3>
                         <ul class="conta">
-                        <li>
-                              <i class="fa fa-map-marker" aria-hidden="true"></i>
-                              <a href="javascript:void(0);" onclick="openMapModal()">
-                                 <?php echo $address; ?>
-                              </a>
-                           </li>
-                           <li>
-                              <i class="fa fa-phone" aria-hidden="true"></i>
-                              <a href="tel:<?php echo preg_replace('/\s+/', '', $phone); ?>">
-                                 Call <?php echo $phone; ?>
-                              </a>
-                           </li>
-                           <li> 
-                              <i class="fa fa-envelope" aria-hidden="true"></i>
-                              <a href="mailto:<?php echo $email; ?>"><?php echo $email; ?></a>
-                           </li>
+                        <li><i class="fa fa-map-marker" aria-hidden="true"></i>123 Main Street, Tirana 
+                            </li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i>+355 4 123 4567</li>
+                            <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="Javascript:void(0)"> info@skatingschool.com</a></li>
                         </ul>
                      </div>
                   </div>
