@@ -169,6 +169,41 @@ $emriFaqes = "VirtuLearn";
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+      <style>
+      .map-modal {
+         display: none;
+         position: fixed;
+         z-index: 9999;
+         left: 50%;
+         top: 50%;
+         width: 80%;
+         max-width: 600px;
+         height: 400px;
+         transform: translate(-50%, -50%);
+         background-color: white;
+         border: 2px solid #333;
+         box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      }
+
+      .map-modal iframe {
+         width: 100%;
+         height: 100%;
+         border: none;
+      }
+
+      .map-modal .close-btn {
+         position: absolute;
+         top: 5px;
+         right: 10px;
+         background: #f00;
+         color: white;
+         border: none;
+         font-size: 16px;
+         padding: 2px 8px;
+         cursor: pointer;
+      }
+   </style>
    </head>
    <!-- body -->
    <body class="main-layout">
