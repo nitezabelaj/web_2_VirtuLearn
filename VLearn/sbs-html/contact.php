@@ -180,6 +180,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                <div class="col-md-12 text_align_center">
                   <?php
                   $greeting= new UserGreeting();
+                  unset($greeting);
                   ?>
                   </div>
                </div> <!-- mos i prekni qeto veq nese muj i bini nfije me bo per tana phpt qe i kem shkru nelt-->
