@@ -1,4 +1,9 @@
 <?php 
+$address = "123 Main Street, Tirana";
+$phone = "+355 4 123 4567";
+$email = "info@skatingschool.com";
+$mapQuery = urlencode($address);
+
 define("SITE_NAME", "VirtuLearn");
 $menu_items = [
    "index.php" => "Home",
@@ -88,10 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
    }
 }
 
-$address = "123 Main Street, Tirana";
-$phone = "+355 4 123 4567";
-$email = "info@skatingschool.com";
-$mapQuery = urlencode($address);
 
 ?>
 
@@ -387,7 +388,7 @@ function shfaqTitullinFaqes() {
          function closeMapModal() {
             document.getElementById("mapModal").style.display = "none";
          }
-         
+
          AOS.init();
       </script>
    </body>

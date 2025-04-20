@@ -1,4 +1,10 @@
 <?php 
+
+$address = "123 Main Street, Tirana";
+$tel = "+355 4 123 4567";
+$e_mail = "info@skatingschool.com";
+$mapQuery = urlencode($address);
+
 const SITE_TIME = "SkatingBoardSchool"; //AnitaC
 $success = false;
 $menu_items = [
@@ -277,13 +283,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                            </li>
                            <li>
                               <i class="fa fa-phone" aria-hidden="true"></i>
-                              <a href="tel:<?php echo preg_replace('/\s+/', '', $phone); ?>">
-                                 Call <?php echo $phone; ?>
+                              <a href="tel:<?php echo preg_replace('/\s+/', '', $tel); ?>">
+                                 Call <?php echo $tel; ?>
                               </a>
                            </li>
                            <li> 
                               <i class="fa fa-envelope" aria-hidden="true"></i>
-                              <a href="mailto:<?php echo $email; ?>"><?php echo $email; ?></a>
+                              <a href="mailto:<?php echo $e_mail; ?>"><?php echo $e_mail; ?></a>
                            </li>
                         </ul>
                      </div>

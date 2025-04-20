@@ -1,5 +1,11 @@
 <?php 
 
+$address = "123 Main Street, Tirana";
+$phone = "+355 4 123 4567";
+$email = "info@skatingschool.com";
+$mapQuery = urlencode($address);
+   
+
 if (isset($_GET['search'])) {
     $query = trim($_GET['search']);
     header("Location: search.php?q=" . urlencode($query));
@@ -122,11 +128,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
    }
 }
 
-$address = "123 Main Street, Tirana";
-$phone = "+355 4 123 4567";
-$email = "info@skatingschool.com";
-$mapQuery = urlencode($address);
-   
    ?>
 <?php
 global $emriFaqes;
