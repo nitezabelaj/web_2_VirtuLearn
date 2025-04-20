@@ -132,6 +132,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
    }
 }
 
+$address = "123 Main Street, Tirana";
+$phone = "+355 4 123 4567";
+$email = "info@skatingschool.com";
+$mapQuery = urlencode($address);
+
 ?>
 <?php
 global $emriFaqes;
@@ -591,11 +596,32 @@ $emriFaqes = "VirtuLearn";
                      <div class="infoma">
                         <h3>Contact Us</h3>
                         <ul class="conta">
-                           <li><i class="fa fa-map-marker" aria-hidden="true"></i>123 Main Street, Tirana 
+                           <li>
+                              <i class="fa fa-map-marker" aria-hidden="true"></i>
+                              <a href="javascript:void(0);" onclick="openMapModal()">
+                                 <?php echo $address; ?>
+                              </a>
                            </li>
-                           <li><i class="fa fa-phone" aria-hidden="true"></i>Call +355 4 123 4567</li>
-                           <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="Javascript:void(0)"> info@skatingschool.com</a></li>
+                           <li>
+                              <i class="fa fa-phone" aria-hidden="true"></i>
+                              <a href="tel:<?php echo preg_replace('/\s+/', '', $phone); ?>">
+                                 Call <?php echo $phone; ?>
+                              </a>
+                           </li>
+                           <li> 
+                              <i class="fa fa-envelope" aria-hidden="true"></i>
+                              <a href="mailto:<?php echo $email; ?>"><?php echo $email; ?></a>
+                           </li>
                         </ul>
+                     </div>
+
+                     <div id="mapModal" class="map-modal">
+                        <button class="close-btn" onclick="closeMapModal()">×</button>
+                        <iframe
+                           src="https://www.google.com/maps?q=<?php echo $mapQuery; ?>&output=embed"
+                           allowfullscreen
+                           loading="lazy">
+                        </iframe>
                      </div>
                   </div>
                   <div class="col-md-8">
