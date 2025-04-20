@@ -336,6 +336,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <!-- sidebar -->
       <script src="js/custom.js"></script>
       <script>
+         //validimi i te dhenave para se mi dergu ne server az
          document.getElementById("request").addEventListener("submit", function (e) {
     const name = document.querySelector("input[name='name']").value.trim();
     const phone = document.querySelector("input[name='phone']").value.trim();
