@@ -27,7 +27,7 @@ function generateMenu($items) {
 
 
 <?php
-// Përcaktimi i produkteve
+
 $produktet = [
     "Helmet" => 35,
     "Rrotat" => 45,
@@ -39,14 +39,14 @@ $produktet = [
 $totali = array_sum($produktet);
 ?>
    <?php
-   // Përcaktimi i produkteve me të dhëna të plota
+   
    $produktet = array(
     array("id" => 1, "emri" => "Skateboard Pro", "cmimi" => 120),
     array("id" => 2, "emri" => "Helmet", "cmimi" => 35),
      array("id" => 3, "emri" => "Rrotat", "cmimi" => 45)
     );
 
-  // Marrim vlerën e sortimit nga dropdown
+ 
   $sortimi = isset($_GET['sort']) ? $_GET['sort'] : '';
 
    if ($sortimi === 'low_high') {

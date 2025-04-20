@@ -76,28 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-//Newsletter validation
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
-   $name = $_POST["newsletterName"];
-   $phone = $_POST["newsletterPhone"];
-   $errors = [];
-
-   if (!preg_match("/^[a-zA-Z\s]{2,50}$/", $name)) {
-       $errors[] = "Emri nuk është valid. Përdorni vetëm shkronja (minimumi 2).";
-   }
-
-   if (!preg_match("/^\+?[0-9\s\-\(\)]{8,20}$/", $phone)) {
-       $errors[] = "Numri i telefonit nuk është valid.";
-   }
-
-   if (empty($errors)) {
-       echo "<p style='color:green; text-align:center;'>Faleminderit për abonimin!</p>";
-   } else {
-       foreach ($errors as $error) {
-           echo "<p style='color:red; text-align:center;'>$error</p>";
-       }
-   }
-}
 ?>
 
 <?php
@@ -335,48 +313,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <script src="js/jquery-3.0.0.min.js"></script>
       <!-- sidebar -->
       <script src="js/custom.js"></script>
-      <script>
-         //validimi i te dhenave para se mi dergu ne server az
-         document.getElementById("request").addEventListener("submit", function (e) {
-    const name = document.querySelector("input[name='name']").value.trim();
-    const phone = document.querySelector("input[name='phone']").value.trim();
-    const email = document.querySelector("input[name='email']").value.trim();
-    const subject = document.querySelector("select[name='subject']").value;
-    const message = document.querySelector("textarea[name='message']").value.trim();
 
-    const nameRegex = /^[A-ZÇËa-zçë' -]{2,50}$/;
-    const phoneRegex = /^\+?[0-9]{8,15}$/;
-    const emailRegex = /^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/;
-
-    let errors = [];
-
-    if (!nameRegex.test(name)) {
-        errors.push("Emri nuk është në formatin e duhur.");
-    }
-
-    if (!phoneRegex.test(phone)) {
-        errors.push("Numri i telefonit nuk është valid.");
-    }
-
-    if (!emailRegex.test(email)) {
-        errors.push("Email-i nuk është valid.");
-    }
-
-    if (!subject) {
-        errors.push("Ju lutem zgjidhni një subjekt.");
-    }
-
-    if (message.length < 10) {
-        errors.push("Mesazhi duhet të përmbajë të paktën 10 karaktere.");
-    }
-
-    if (errors.length > 0) {
-        e.preventDefault(); // Ndalo dërgimin në server
-        alert(errors.join("\n"));
-    }
-});
-         AOS.init();
-      </script>
       <?php if ($success): ?>
       <script>
        window.addEventListener("DOMContentLoaded", function () {
