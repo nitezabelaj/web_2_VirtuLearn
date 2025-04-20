@@ -412,4 +412,4 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
          AOS.init();
       </script>
    </body>
-</html>
+</html> 
