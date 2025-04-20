@@ -1,5 +1,15 @@
 <?php
 
+// Lista për asort (renditje sipas grupmoshës)//asort
+$studentetAsort = [
+    "Ardi Kola" => "4-8",
+    "Elira Mehmeti" => "9-14",
+    "Luan Dervishi" => "9-14",
+    "Ina Muca" => "15-18",
+    "Blerina Hoti" => "15-18"
+];
+
+asort($studentetAsort);
 
 $greeting = "";
 $hour = date("H");
@@ -285,6 +295,15 @@ $emriFaqes = "VirtuLearn";
                               </div>
                            </div>
                         </div>
+                        <div class="container">
+                         <h3>Students based on their group age (asort):</h3>
+                         <ul>
+                           <?php foreach ($studentetAsort as $emri => $grupi): ?>
+                          <li><?php echo $emri; ?> - group age <?php echo $grupi; ?> years</li>
+                          <?php endforeach; ?>
+                          </ul>
+                         </div>
+
                         <!-- controls -->
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                         <i class="fa fa-arrow-left" aria-hidden="true"></i>
