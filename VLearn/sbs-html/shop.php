@@ -1,4 +1,11 @@
 <?php 
+
+if (isset($_GET['search'])) {
+    $query = trim($_GET['search']);
+    header("Location: search.php?q=" . urlencode($query));
+    exit();
+}
+
 const SITE_TIME = "SkatingBoardSchool";
 $menu_items = [
    "index.php" => "Home",
