@@ -226,19 +226,7 @@ $emriFaqes = "VirtuLearn";
             cursor: pointer;
          }
        
-.product-items li .product-list {
-    font-family: 'Poppins', sans-serif; 
-    font-weight: bold;
-    font-size: 16px;
-    transition: transform 0.2s ease;
-    display: inline-block;
-}
 
-
-.product-items li .product-list:hover {
-    transform: scale(1.1); 
-}
-      </style>
    </head>
    <!-- body -->
    <body class="main-layout inner_page">
