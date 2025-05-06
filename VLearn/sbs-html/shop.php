@@ -176,6 +176,20 @@ $emriFaqes = "VirtuLearn";
     top: 50%;
     transform: translateY(-50%);
 }
+#sort {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+}
+
+#sort::before {
+    content: url('https://upload.wikimedia.org/wikipedia/commons/a/a7/Font_Awesome_5_regular_money-bill-alt.svg');
+    margin-right: 8px;
+    vertical-align: middle;
+}
          </style>
 
       <meta name="keywords" content="">
