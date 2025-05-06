@@ -156,6 +156,12 @@ $emriFaqes = "VirtuLearn";
         .special_products h4 {
             color:blue;
         }
+        .product-items li::before {
+    content: "\f07a"; 
+    font-family: "FontAwesome";
+    margin-right: 10px;
+    color: #007bff;
+}
          </style>
 
       <meta name="keywords" content="">
