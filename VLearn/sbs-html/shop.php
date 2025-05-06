@@ -226,7 +226,7 @@ $emriFaqes = "VirtuLearn";
             cursor: pointer;
          }
        
-
+</style>
    </head>
    <!-- body -->
    <body class="main-layout inner_page">
