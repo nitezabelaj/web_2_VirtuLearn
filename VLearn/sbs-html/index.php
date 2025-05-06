@@ -219,6 +219,46 @@ $emriFaqes = "VirtuLearn";
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
       <style>
+         .container h3 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #3498db;
+    display: inline-block;
+}
+
+.container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.container ul li {
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    background-color: white;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    border-left: 4px solid #3498db;
+}
+
+.container ul li:hover {
+    transform: translateX(5px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.container ul li:nth-child(odd) {
+    background-color: #f0f8ff;
+}
+
+.container ul li strong {
+    color: #3498db;
+}
          .map-modal {
             display: none;
             position: fixed;
