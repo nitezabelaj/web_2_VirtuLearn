@@ -310,9 +310,9 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                $titlecase=ucwords($teksti);
                $substr=substr($teksti,0,6);
                echo "<div style='margin-top: 20px; padding: 15px; background-color: #eef; border-radius: 8px;'>";
-               echo "Ky eshte emri i ekipes sone: $teksti<br>";
-               echo "Ky tekst eshte ne kartvizitat tona: $uppercase<br>";
-               echo "Ky teskt eshte ne hoodiet tona: $lowercase<br>";
+               echo "Ky eshte emri i ekipes sone: <span class='highlighted-text'>$teksti</span><br>";
+               echo "Ky tekst eshte ne kartvizitat tona:<span class='highlighted-text'> $uppercase</span><br>";
+               echo "Ky teskt eshte ne hoodiet tona: <span class='highlighted-text'>$lowercase</span><br>";
                echo "Vizioni yne eshte: <span class='highlighted-text'>$substr</span><br>";
 
                ?>
