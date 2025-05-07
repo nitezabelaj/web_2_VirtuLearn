@@ -244,7 +244,6 @@ function shfaqTitullinFaqes() {
                   </div>
                </div>
                <div class="col-md-8 col-sm-12">
-               <h1>Mirë se vini në <?php echo $emriFaqes; ?></h1>
                   <nav class="navigation navbar navbar-expand-md navbar-dark ">
                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                      <span class="navbar-toggler-icon"></span>
@@ -299,6 +298,7 @@ function shfaqTitullinFaqes() {
             <div class="row">
                <div class="col-md-12">
                   <div class="titlepage text_align_center">
+                  <h1>Mirë se vini në <?php echo $emriFaqes; ?></h1>
                      <h2>Our Skating Class</h2>
                      <p>There are many variations of passages of Lorem</p>
                   </div>
