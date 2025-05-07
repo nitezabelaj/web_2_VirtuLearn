@@ -450,7 +450,7 @@ $emriFaqes = "VirtuLearn";
                            </div>
                         </div>
                         <div class="container">
-                         <h3>Students based on their group age (asort):</h3>
+                         <h3>Students based on their group age </h3>
                          <ul>
                            <?php foreach ($studentetAsort as $emri => $grupi): ?>
                           <li><?php echo $emri; ?> - group age <?php echo $grupi; ?> years</li>
