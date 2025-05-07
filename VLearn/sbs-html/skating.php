@@ -222,7 +222,7 @@ function shfaqTitullinFaqes() {
       </style>
    </head>
    <!-- body -->
-   <h1>Mirë se vini në <?php echo $emriFaqes; ?></h1>
+   
    <body class="main-layout inner_page">
       <!-- loader  -->
       <div class="loader_bg">
@@ -231,6 +231,7 @@ function shfaqTitullinFaqes() {
       <!-- end loader -->
       <!-- header -->
       <div class="header">
+
          <div class="container-fluid">
             <div class="row d_flex">
                <div class=" col-md-2 col-sm-3 col logo_section">
@@ -243,6 +244,7 @@ function shfaqTitullinFaqes() {
                   </div>
                </div>
                <div class="col-md-8 col-sm-12">
+               <h1>Mirë se vini në <?php echo $emriFaqes; ?></h1>
                   <nav class="navigation navbar navbar-expand-md navbar-dark ">
                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                      <span class="navbar-toggler-icon"></span>
