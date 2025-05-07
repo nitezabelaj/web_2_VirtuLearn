@@ -165,6 +165,23 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
       <title>sbs</title>
+      <style>
+         .highlighted-text {
+    color: purple;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+    padding: 6px 12px;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.highlighted-text:hover {
+    transform: scale(1.05);
+}
+         </style>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -296,7 +313,7 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                echo "Ky eshte emri i ekipes sone: $teksti<br>";
                echo "Ky tekst eshte ne kartvizitat tona: $uppercase<br>";
                echo "Ky teskt eshte ne hoodiet tona: $lowercase<br>";
-               echo "Vizioni yne eshte: $substr<br>";
+               echo "Vizioni yne eshte: <span class='highlighted-text'>$substr</span><br>";
 
                ?>
 
