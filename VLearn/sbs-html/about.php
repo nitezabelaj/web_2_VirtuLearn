@@ -24,6 +24,23 @@ function readFromFile() {
         return "Skedari nuk ekziston.";
     }
 }
+function checkFileSize() {
+    if (file_exists('data.txt')) {
+        $size = filesize('data.txt');
+        return "Madhësia e skedarit është: $size bytes";
+    } else {
+        return "Skedari nuk ekziston.";
+    }
+}
+
+$content_to_write = "Emri: Amela\nMbiemri: Syla";
+
+writeToFile($content_to_write);
+
+echo "<br>Përmbajtja e skedarit është:<br>";
+echo "<pre>" . readFromFile() . "</pre>";
+
+echo "<br>" . checkFileSize();
 ?>
 
 
