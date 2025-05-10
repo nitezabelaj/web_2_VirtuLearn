@@ -1,32 +1,29 @@
-<?php 
-
-
-
+<?php
 $cookie_name = "user_visit";
-
-$user_data = [
-    "first_visit" => date("Y-m-d H:i:s"),
-    "last_page" => basename($_SERVER['PHP_SELF'])
-];
-
-$cookie_value = json_encode($user_data);
-
-setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
 
 if (isset($_COOKIE[$cookie_name])) {
     $user_data = json_decode($_COOKIE[$cookie_name], true);
-    echo "<p>Data e vizitës së parë: " . $user_data['first_visit'] . "</p>";
-    echo "<p>Faqja e fundit që vizituat: " . $user_data['last_page'] . "</p>";
+    $user_data['last_page'] = basename($_SERVER['PHP_SELF']);
 } else {
-    echo "<p>Cookie nuk është krijuar ende!</p>";
+    $user_data = [
+        'first_visit' => date("Y-m-d H:i:s"),
+        'last_page' => basename($_SERVER['PHP_SELF'])
+    ];
 }
+
+setcookie($cookie_name, json_encode($user_data), time() + (86400 * 30), "/", "", true, true);
 
 if (isset($_GET['delete_cookie'])) {
-    setcookie($cookie_name, "", time() - 3600, "/");
-    echo "<script>alert('Cookie u fshi!');</script>";
+    $current_page = basename($_SERVER['PHP_SELF']);
+    setcookie($cookie_name, "", time() - 3600, "/", "", true, true);
+    echo "<script>alert('Cookie u fshi me sukses!'); window.location.href = '$current_page';</script>";
 }
-
 ?>
+
+
+
+
+
 <?php
 if (isset($_GET['search'])) {
    $query = trim($_GET['search']);
