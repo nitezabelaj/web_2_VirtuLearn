@@ -1,4 +1,8 @@
 <?php
+//P2, Amela, Përdorimi i funskioneve themelore për manipulime me fajlla (si include(),
+//require(), fopen(r,w,...), fclose(...), fsize(), fread(), fwrite()
+
+//P2,Amela, Perdorimi i include dhe require
 include 'mesazhi.php';
 require 'dokument.php';
 
