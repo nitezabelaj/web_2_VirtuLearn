@@ -1,3 +1,26 @@
+<?php
+
+function writeToFile($content) {
+    $file = fopen('data.txt', 'w');
+    if ($file) {
+        fwrite($file, $content);
+        fclose($file);
+        echo "Të dhënat u shkruan me sukses në skedar.";
+    } else {
+        echo "Nuk mund të hapim skedarin për të shkruar.";
+    }
+}
+?>
+
+
+
+
+
+
+
+
+
+
 <?php 
 const SITE_TIME = "VirtuLearn";
 $menu_items = [
@@ -349,6 +372,7 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
     3 => ["persona" => 3, "cmimi" => 75],
     5 => ["persona" => 5, "cmimi" => 100]
                 ];
+                //P2,Amela,Përdorimi dhe kuptimi i pointerëve në PHP
 
          $oferta2 = &$ofertat[2];
          $oferta3 = &$ofertat[3];
