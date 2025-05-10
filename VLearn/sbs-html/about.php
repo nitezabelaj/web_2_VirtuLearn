@@ -57,7 +57,7 @@ echo "<pre>" . readFromFile() . "</pre>";
 
 echo "<br>" . checkFileSize();
 mesazhi();
-dokumenti();
+dokument();
 
 ?>
 
