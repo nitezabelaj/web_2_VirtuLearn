@@ -1,9 +1,12 @@
 <?php
 
 function writeToFile($content) {
+   //P2,Amela, Perdorimi i fopen()
     $file = fopen('data.txt', 'w');
     if ($file) {
+      //P2, Amela, Perdorimi i fwrite()
         fwrite($file, $content);
+           //P2,Amela, Perdorimi i fclose()
         fclose($file);
         echo "Të dhënat u shkruan me sukses në skedar.";
     } else {
@@ -14,6 +17,7 @@ function readFromFile() {
     if (file_exists('data.txt')) {
         $file = fopen('data.txt', 'r');
         if ($file) {
+         //P2,Amela, Perdorimi i filesize dhe fread 
             $content = fread($file, filesize('data.txt'));
             fclose($file);
             return $content;
@@ -33,7 +37,7 @@ function checkFileSize() {
     }
 }
 
-$content_to_write = "Emri: Amela\nMbiemri: Syla";
+
 
 writeToFile($content_to_write);
 
