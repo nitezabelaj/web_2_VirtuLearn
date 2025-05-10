@@ -1,4 +1,6 @@
 <?php
+include 'mesazhi.php';
+require 'dokument.php';
 
 function writeToFile($content) {
    //P2,Amela, Perdorimi i fopen()
@@ -54,6 +56,9 @@ echo "<br>Përmbajtja e skedarit është:<br>";
 echo "<pre>" . readFromFile() . "</pre>";
 
 echo "<br>" . checkFileSize();
+mesazhi();
+dokumenti();
+
 ?>
 
 
