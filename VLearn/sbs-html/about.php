@@ -181,6 +181,26 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
 .highlighted-text:hover {
     transform: scale(1.05);
 }
+.summer-offers {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.summer-offers h3 {
+    color: #ff5722;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.summer-offers p {
+    color: #333;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
          </style>
       <meta name="keywords" content="">
       <meta name="description" content="">
@@ -334,10 +354,12 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
 
          $oferta5["cmimi"] = 80;
 
-          echo "Ofertat Verore: <br>";
-         echo "Për " . $oferta2["persona"] . " persona, çmimi është " . $oferta2["cmimi"] . " Euro.<br>";
-          echo "Për " . $oferta3["persona"] . " persona, çmimi është " . $oferta3["cmimi"] . " Euro.<br>";
-         echo "Për " . $oferta5["persona"] . " persona, çmimi është " . $oferta5["cmimi"] . " Euro.<br>";
+          echo "<div class='summer-offers' style='margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);'>";
+echo "<h3 style='text-align: center; color: #ff5722;'>Ofertat Verore</h3>";
+echo "<p style='text-align: center;'>Për " . $oferta2["persona"] . " persona, çmimi është " . $oferta2["cmimi"] . " Euro.</p>";
+echo "<p style='text-align: center;'>Për " . $oferta3["persona"] . " persona, çmimi është " . $oferta3["cmimi"] . " Euro.</p>";
+echo "<p style='text-align: center;'>Për " . $oferta5["persona"] . " persona, çmimi është " . $oferta5["cmimi"] . " Euro.</p>";
+echo "</div>";
 ?>
          </div>
       </div>
