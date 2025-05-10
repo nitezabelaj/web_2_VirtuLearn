@@ -51,11 +51,12 @@ function checkFileSize() {
 
 
 
-
+writeToFile("\nKjo është një shtesë nga funksioni writeToFile().");
 echo "<br>Përmbajtja e skedarit është:<br>";
 echo "<pre>" . readFromFile() . "</pre>";
 
 echo "<br>" . checkFileSize();
+echo "<br>";
 mesazhi();
 
 
