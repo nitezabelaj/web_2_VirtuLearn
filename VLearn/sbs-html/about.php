@@ -15,19 +15,24 @@ function writeToFile($content) {
 }
 function readFromFile() {
     if (file_exists('data.txt')) {
-        $file = fopen('data.txt', 'r');
-        if ($file) {
-         //P2,Amela, Perdorimi i filesize dhe fread 
-            $content = fread($file, filesize('data.txt'));
-            fclose($file);
-            return $content;
+        $file_size = filesize('data.txt');
+        if ($file_size > 0) {
+            $file = fopen('data.txt', 'r');
+            if ($file) {
+                $content = fread($file, $file_size);
+                fclose($file);
+                return $content;
+            } else {
+                return "Nuk mund të hapim skedarin për të lexuar.";
+            }
         } else {
-            return "Nuk mund të hapim skedarin për të lexuar.";
+            return "Skedari është bosh.";
         }
     } else {
         return "Skedari nuk ekziston.";
     }
 }
+
 function checkFileSize() {
     if (file_exists('data.txt')) {
         $size = filesize('data.txt');
