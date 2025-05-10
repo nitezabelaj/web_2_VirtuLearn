@@ -343,6 +343,7 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
 
             </div>
                   <?php
+                 // P2,Amela, Vendosja e referencave në mes të anëtarëve të vargut
                   $ofertat = [
     2 => ["persona" => 2, "cmimi" => 50],
     3 => ["persona" => 3, "cmimi" => 75],
@@ -352,6 +353,14 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
          $oferta2 = &$ofertat[2];
          $oferta3 = &$ofertat[3];
          $oferta5 = &$ofertat[5];
+
+
+         function ndryshoPersonat(&$oferta, $persona) {
+    $oferta["persona"] = $persona;
+}
+
+ndryshoPersonat($oferta2, 4);
+         //P2,Amela,Përcjellja e vlerës përmes referencës
 
          $oferta5["cmimi"] = 80;
 
