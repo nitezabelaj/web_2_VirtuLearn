@@ -302,6 +302,25 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                   </div>
                </div>
                <?php
+           $ofertat = [
+    2 => ["persona" => 2, "cmimi" => 50],
+    3 => ["persona" => 3, "cmimi" => 75],
+    5 => ["persona" => 5, "cmimi" => 100]
+                ];
+
+         $oferta2 = &$ofertat[2];
+         $oferta3 = &$ofertat[3];
+         $oferta5 = &$ofertat[5];
+
+         $oferta5["cmimi"] = 80;
+
+          echo "Ofertat Verore: <br>";
+         echo "Për " . $oferta2["persona"] . " persona, çmimi është " . $oferta2["cmimi"] . " Euro.<br>";
+          echo "Për " . $oferta3["persona"] . " persona, çmimi është " . $oferta3["cmimi"] . " Euro.<br>";
+         echo "Për " . $oferta5["persona"] . " persona, çmimi është " . $oferta5["cmimi"] . " Euro.<br>";
+?>
+
+               <?php
                //Per ndryshim stringjesh -Pjesa e ameles
                $teksti="Future Skater Team";
 
