@@ -15,10 +15,12 @@ function writeToFile($content) {
 }
 function readFromFile() {
     if (file_exists('data.txt')) {
+       //P2,Amela, Perdorimi i fsize 
         $file_size = filesize('data.txt');
         if ($file_size > 0) {
             $file = fopen('data.txt', 'r');
             if ($file) {
+                //P2,Amela, Perdorimi i fread()
                 $content = fread($file, $file_size);
                 fclose($file);
                 return $content;
