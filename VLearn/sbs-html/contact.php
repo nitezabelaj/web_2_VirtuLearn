@@ -1,21 +1,31 @@
 <?php 
 
 
+
 $cookie_name = "user_visit";
-$cookie_value = json_encode(["first_visit" => date("Y-m-d H:i:s"), "last_page" => basename($_SERVER['PHP_SELF'])]);
+
+$user_data = [
+    "first_visit" => date("Y-m-d H:i:s"),
+    "last_page" => basename($_SERVER['PHP_SELF'])
+];
+
+$cookie_value = json_encode($user_data);
+
 setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
 
+if (isset($_COOKIE[$cookie_name])) {
+    $user_data = json_decode($_COOKIE[$cookie_name], true);
+    echo "<p>Data e vizitës së parë: " . $user_data['first_visit'] . "</p>";
+    echo "<p>Faqja e fundit që vizituat: " . $user_data['last_page'] . "</p>";
+} else {
+    echo "<p>Cookie nuk është krijuar ende!</p>";
+}
 
 if (isset($_GET['delete_cookie'])) {
     setcookie($cookie_name, "", time() - 3600, "/");
     echo "<script>alert('Cookie u fshi!');</script>";
 }
 
-$user_data = [];
-if (isset($_COOKIE[$cookie_name])) {
-    $user_data = json_decode($_COOKIE[$cookie_name], true);
-    echo "<script>console.log('Cookie Data:', " . json_encode($user_data) . ");</script>";
-}
 ?>
 <?php
 if (isset($_GET['search'])) {
