@@ -1,5 +1,23 @@
 <?php 
 
+
+$cookie_name = "user_visit";
+$cookie_value = json_encode(["first_visit" => date("Y-m-d H:i:s"), "last_page" => basename($_SERVER['PHP_SELF'])]);
+setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+
+
+if (isset($_GET['delete_cookie'])) {
+    setcookie($cookie_name, "", time() - 3600, "/");
+    echo "<script>alert('Cookie u fshi!');</script>";
+}
+
+$user_data = [];
+if (isset($_COOKIE[$cookie_name])) {
+    $user_data = json_decode($_COOKIE[$cookie_name], true);
+    echo "<script>console.log('Cookie Data:', " . json_encode($user_data) . ");</script>";
+}
+?>
+<?php
 if (isset($_GET['search'])) {
    $query = trim($_GET['search']);
    header("Location: search.php?q=" . urlencode($query));
