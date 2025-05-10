@@ -290,19 +290,8 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                 <input type="text" name="email" id="email" required>
                  <input type="submit" name="Send" value="Send">
                </form>
-               <br><br>
-               <form method="POST" action="">
-                  <label for="birthday">Your Birthday(format: YYYY-MM-DD):</label>
-                  <input type="text" name="birthday" id="birthday"  required>
-                  <input type="submit" name="submit_birthday" value="Send">
-                  </form>
-               <div class="col-md-6">
-                  <div class="about_img text_align_center">
-                     <figure><img src="images/about.png" alt="#"/></figure>
-                  </div>
-               </div>
                <?php
-           $ofertat = [
+                  $ofertat = [
     2 => ["persona" => 2, "cmimi" => 50],
     3 => ["persona" => 3, "cmimi" => 75],
     5 => ["persona" => 5, "cmimi" => 100]
@@ -319,6 +308,19 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
           echo "Për " . $oferta3["persona"] . " persona, çmimi është " . $oferta3["cmimi"] . " Euro.<br>";
          echo "Për " . $oferta5["persona"] . " persona, çmimi është " . $oferta5["cmimi"] . " Euro.<br>";
 ?>
+               <br><br>
+               <form method="POST" action="">
+                  <label for="birthday">Your Birthday(format: YYYY-MM-DD):</label>
+                  <input type="text" name="birthday" id="birthday"  required>
+                  <input type="submit" name="submit_birthday" value="Send">
+                  </form>
+               <div class="col-md-6">
+                  <div class="about_img text_align_center">
+                     <figure><img src="images/about.png" alt="#"/></figure>
+                  </div>
+               </div>
+               <?php
+           
 
                <?php
                //Per ndryshim stringjesh -Pjesa e ameles
