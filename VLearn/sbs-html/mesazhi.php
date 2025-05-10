@@ -1,4 +1,4 @@
 <?php
-
-echo "Ketu mund te gjeni menyrat e kontaktit."
+function mesazhi(){
+echo "Ketu mund te gjeni menyrat e kontaktit."}
 ?>
