@@ -1,6 +1,7 @@
 <?php
 $cookie_name = "user_visit";
 
+
 if (isset($_COOKIE[$cookie_name])) {
     $user_data = json_decode($_COOKIE[$cookie_name], true);
     $user_data['last_page'] = basename($_SERVER['PHP_SELF']);
@@ -11,7 +12,7 @@ if (isset($_COOKIE[$cookie_name])) {
     ];
 }
 
-setcookie($cookie_name, json_encode($user_data), time() + (86400 * 30), "/", "", true, true);
+setcookie($cookie_name, json_encode($user_data), time() + (86400 * 30), "/", "", true, true); 
 
 if (isset($_GET['delete_cookie'])) {
     $current_page = basename($_SERVER['PHP_SELF']);
