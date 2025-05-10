@@ -187,6 +187,7 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
     padding: 20px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
+    margin: 40px;
 }
 
 .summer-offers h3 {
