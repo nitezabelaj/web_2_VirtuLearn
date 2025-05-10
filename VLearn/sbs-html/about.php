@@ -290,24 +290,7 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                 <input type="text" name="email" id="email" required>
                  <input type="submit" name="Send" value="Send">
                </form>
-               <?php
-                  $ofertat = [
-    2 => ["persona" => 2, "cmimi" => 50],
-    3 => ["persona" => 3, "cmimi" => 75],
-    5 => ["persona" => 5, "cmimi" => 100]
-                ];
-
-         $oferta2 = &$ofertat[2];
-         $oferta3 = &$ofertat[3];
-         $oferta5 = &$ofertat[5];
-
-         $oferta5["cmimi"] = 80;
-
-          echo "Ofertat Verore: <br>";
-         echo "Për " . $oferta2["persona"] . " persona, çmimi është " . $oferta2["cmimi"] . " Euro.<br>";
-          echo "Për " . $oferta3["persona"] . " persona, çmimi është " . $oferta3["cmimi"] . " Euro.<br>";
-         echo "Për " . $oferta5["persona"] . " persona, çmimi është " . $oferta5["cmimi"] . " Euro.<br>";
-?>
+               
                <br><br>
                <form method="POST" action="">
                   <label for="birthday">Your Birthday(format: YYYY-MM-DD):</label>
@@ -335,6 +318,24 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                echo "Vizioni yne eshte: <span class='highlighted-text'>$substr</span><br>";
 
                ?>
+               <?php
+                  $ofertat = [
+    2 => ["persona" => 2, "cmimi" => 50],
+    3 => ["persona" => 3, "cmimi" => 75],
+    5 => ["persona" => 5, "cmimi" => 100]
+                ];
+
+         $oferta2 = &$ofertat[2];
+         $oferta3 = &$ofertat[3];
+         $oferta5 = &$ofertat[5];
+
+         $oferta5["cmimi"] = 80;
+
+          echo "Ofertat Verore: <br>";
+         echo "Për " . $oferta2["persona"] . " persona, çmimi është " . $oferta2["cmimi"] . " Euro.<br>";
+          echo "Për " . $oferta3["persona"] . " persona, çmimi është " . $oferta3["cmimi"] . " Euro.<br>";
+         echo "Për " . $oferta5["persona"] . " persona, çmimi është " . $oferta5["cmimi"] . " Euro.<br>";
+?>
 
             </div>
          </div>
