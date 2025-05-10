@@ -354,12 +354,20 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
          $oferta3 = &$ofertat[3];
          $oferta5 = &$ofertat[5];
 
-
+          //P2,Amela,Përdorimi i funksioneve me referencë
          function ndryshoPersonat(&$oferta, $persona) {
     $oferta["persona"] = $persona;
 }
+ndryshoPersonat($oferta2, 1);
+         //P2,Amela, Përcjellja përmes referencës
 
-ndryshoPersonat($oferta2, 4);
+function rritCmiminMeReferencë(&$cmimi, $shtesë) {
+    $cmimi += $shtesë;
+}
+
+rritCmiminMeReferencë($oferta2["cmimi"], 10);
+
+
          //P2,Amela,Përcjellja e vlerës përmes referencës
 
          $oferta5["cmimi"] = 80;
