@@ -318,7 +318,10 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                echo "Vizioni yne eshte: <span class='highlighted-text'>$substr</span><br>";
 
                ?>
-               <?php
+         
+
+            </div>
+                  <?php
                   $ofertat = [
     2 => ["persona" => 2, "cmimi" => 50],
     3 => ["persona" => 3, "cmimi" => 75],
@@ -336,8 +339,6 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
           echo "Për " . $oferta3["persona"] . " persona, çmimi është " . $oferta3["cmimi"] . " Euro.<br>";
          echo "Për " . $oferta5["persona"] . " persona, çmimi është " . $oferta5["cmimi"] . " Euro.<br>";
 ?>
-
-            </div>
          </div>
       </div>
       <!-- end about -->
