@@ -321,8 +321,6 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                </div>
                <?php
            
-
-               <?php
                //Per ndryshim stringjesh -Pjesa e ameles
                $teksti="Future Skater Team";
 
