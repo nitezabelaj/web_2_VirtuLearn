@@ -39,7 +39,7 @@ function checkFileSize() {
 
 
 
-writeToFile($content_to_write);
+
 
 echo "<br>Përmbajtja e skedarit është:<br>";
 echo "<pre>" . readFromFile() . "</pre>";
