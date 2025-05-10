@@ -5,6 +5,8 @@ function writeToFile($content) {
     $file = fopen('data.txt', 'w');
     if ($file) {
       //P2, Amela, Perdorimi i fwrite()
+        $content1="Ky eshte nje dokument.";
+        fwrite($file, $content1);
         fwrite($file, $content);
            //P2,Amela, Perdorimi i fclose()
         fclose($file);
