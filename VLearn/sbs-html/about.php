@@ -1,3 +1,80 @@
+<?php
+//P2, Amela, Përdorimi i funskioneve themelore për manipulime me fajlla (si include(),
+//require(), fopen(r,w,...), fclose(...), fsize(), fread(), fwrite()
+
+//P2,Amela, Perdorimi i include dhe require
+include 'mesazhi.php';
+require 'dokument.php';
+
+function writeToFile($content) {
+   //P2,Amela, Perdorimi i fopen()
+    $file = fopen('data.txt', 'w');
+    if ($file) {
+      //P2, Amela, Perdorimi i fwrite()
+        $content1="Ky eshte nje dokument.";
+        fwrite($file, $content1);
+        fwrite($file, $content);
+           //P2,Amela, Perdorimi i fclose()
+        fclose($file);
+        echo "Të dhënat u shkruan me sukses në skedar.";
+    } else {
+        echo "Nuk mund të hapim skedarin për të shkruar.";
+    }
+}
+function readFromFile() {
+    if (file_exists('data.txt')) {
+       //P2,Amela, Perdorimi i fsize 
+        $file_size = filesize('data.txt');
+        if ($file_size > 0) {
+            $file = fopen('data.txt', 'r');
+            if ($file) {
+                //P2,Amela, Perdorimi i fread()
+                $content = fread($file, $file_size);
+                fclose($file);
+                return $content;
+            } else {
+                return "Nuk mund të hapim skedarin për të lexuar.";
+            }
+        } else {
+            return "Skedari është bosh.";
+        }
+    } else {
+        return "Skedari nuk ekziston.";
+    }
+}
+
+function checkFileSize() {
+    if (file_exists('data.txt')) {
+        $size = filesize('data.txt');
+        return "Madhësia e skedarit është: $size bytes";
+    } else {
+        return "Skedari nuk ekziston.";
+    }
+}
+
+
+
+
+writeToFile("\nKjo është një shtesë nga funksioni writeToFile().");
+echo "<br>Përmbajtja e skedarit është:<br>";
+echo "<pre>" . readFromFile() . "</pre>";
+
+echo "<br>" . checkFileSize();
+echo "<br>";
+mesazhi();
+
+
+?>
+
+
+
+
+
+
+
+
+
+
 <?php 
 const SITE_TIME = "VirtuLearn";
 $menu_items = [
@@ -165,6 +242,44 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
       <title>sbs</title>
+      <style>
+         .highlighted-text {
+    color: purple;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+    padding: 6px 12px;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.highlighted-text:hover {
+    transform: scale(1.05);
+}
+.summer-offers {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    margin: 40px;
+}
+
+.summer-offers h3 {
+    color: #ff5722;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.summer-offers p {
+    color: #333;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+         </style>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -273,6 +388,7 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                 <input type="text" name="email" id="email" required>
                  <input type="submit" name="Send" value="Send">
                </form>
+               
                <br><br>
                <form method="POST" action="">
                   <label for="birthday">Your Birthday(format: YYYY-MM-DD):</label>
@@ -285,6 +401,7 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                   </div>
                </div>
                <?php
+           
                //Per ndryshim stringjesh -Pjesa e ameles
                $teksti="Future Skater Team";
 
@@ -293,14 +410,53 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                $titlecase=ucwords($teksti);
                $substr=substr($teksti,0,6);
                echo "<div style='margin-top: 20px; padding: 15px; background-color: #eef; border-radius: 8px;'>";
-               echo "Ky eshte emri i ekipes sone: $teksti<br>";
-               echo "Ky tekst eshte ne kartvizitat tona: $uppercase<br>";
-               echo "Ky teskt eshte ne hoodiet tona: $lowercase<br>";
-               echo "Vizioni yne eshte: $substr<br>";
+               echo "Ky eshte emri i ekipes sone: <span class='highlighted-text'>$teksti</span><br>";
+               echo "Ky tekst eshte ne kartvizitat tona:<span class='highlighted-text'> $uppercase</span><br>";
+               echo "Ky teskt eshte ne hoodiet tona: <span class='highlighted-text'>$lowercase</span><br>";
+               echo "Vizioni yne eshte: <span class='highlighted-text'>$substr</span><br>";
 
                ?>
+         
 
             </div>
+                  <?php
+                 // P2,Amela, Vendosja e referencave në mes të anëtarëve të vargut
+                  $ofertat = [
+    2 => ["persona" => 2, "cmimi" => 50],
+    3 => ["persona" => 3, "cmimi" => 75],
+    5 => ["persona" => 5, "cmimi" => 100]
+                ];
+                //P2,Amela,Përdorimi dhe kuptimi i pointerëve në PHP
+
+         $oferta2 = &$ofertat[2];
+         $oferta3 = &$ofertat[3];
+         $oferta5 = &$ofertat[5];
+
+          //P2,Amela,Përdorimi i funksioneve me referencë
+         function ndryshoPersonat(&$oferta, $persona) {
+    $oferta["persona"] = $persona;
+}
+ndryshoPersonat($oferta2, 1);
+         //P2,Amela, Përcjellja përmes referencës
+
+function rritCmiminMeReferencë(&$cmimi, $shtesë) {
+    $cmimi += $shtesë;
+}
+
+rritCmiminMeReferencë($oferta2["cmimi"], 10);
+
+
+         //P2,Amela,Përcjellja e vlerës përmes referencës
+
+         $oferta5["cmimi"] = 80;
+
+          echo "<div class='summer-offers' style='margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);'>";
+echo "<h3 style='text-align: center; color: #ff5722;'>Ofertat Verore</h3>";
+echo "<p style='text-align: center;'>Për " . $oferta2["persona"] . " persona, çmimi është " . $oferta2["cmimi"] . " Euro.</p>";
+echo "<p style='text-align: center;'>Për " . $oferta3["persona"] . " persona, çmimi është " . $oferta3["cmimi"] . " Euro.</p>";
+echo "<p style='text-align: center;'>Për " . $oferta5["persona"] . " persona, çmimi është " . $oferta5["cmimi"] . " Euro.</p>";
+echo "</div>";
+?>
          </div>
       </div>
       <!-- end about -->

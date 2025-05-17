@@ -20,6 +20,16 @@ $studentetAsort = [
     "Ina Muca" => "15-18",
     "Blerina Hoti" => "15-18"
 ];
+//implementimi i ndryshimit te permbajtjes ne shembullin tone backgroundit
+if (isset($_POST['theme'])) {
+    $theme = $_POST['theme'];
+    setcookie("theme", $theme, time() + (86400 * 30), "/");
+
+    // Kthehu në faqen kryesore pas ndryshimit të temës
+    header("Location: index.php");
+    exit();
+}
+
 
 asort($studentetAsort);
 
@@ -190,9 +200,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
 global $emriFaqes;
 $emriFaqes = "VirtuLearn";
 ?>
+
+<?php
+// Lexo cookie AZ
+$theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'default';
+
+// Përcakto CSS ose background sipas temës
+$cssFile = "css/style-$theme.css";
+$bgImage = "images/bg-$theme.jpg";
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
+    <link rel="stylesheet" href="<?php echo $cssFile; ?>">
+    <style>
+        body {
+            background-image: url('<?php echo $bgImage; ?>');
+            background-size: cover;
+        }
       <!-- basic -->
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -219,6 +244,46 @@ $emriFaqes = "VirtuLearn";
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
       <style>
+         .container h3 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #3498db;
+    display: inline-block;
+}
+
+.container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.container ul li {
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    background-color: white;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    border-left: 4px solid #3498db;
+}
+
+.container ul li:hover {
+    transform: translateX(5px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.container ul li:nth-child(odd) {
+    background-color: #f0f8ff;
+}
+
+.container ul li strong {
+    color: #3498db;
+}
          .map-modal {
             display: none;
             position: fixed;
@@ -410,7 +475,7 @@ $emriFaqes = "VirtuLearn";
                            </div>
                         </div>
                         <div class="container">
-                         <h3>Students based on their group age (asort):</h3>
+                         <h3>Students based on their group age </h3>
                          <ul>
                            <?php foreach ($studentetAsort as $emri => $grupi): ?>
                           <li><?php echo $emri; ?> - group age <?php echo $grupi; ?> years</li>
@@ -782,6 +847,15 @@ $emriFaqes = "VirtuLearn";
                   </div>
                </div>
             </div>
+            <form method="POST" action="set_theme.php">
+    <label>Choose your theme:</label>
+    <select name="theme">
+        <option value="default">Default</option>
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+    </select>
+    <button type="submit">Save</button>
+</form>
             <div class="copyright">
                <div class="container">
                   <div class="row">

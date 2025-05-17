@@ -1,5 +1,31 @@
-<?php 
+<?php
+$cookie_name = "user_visit";
 
+
+if (isset($_COOKIE[$cookie_name])) {
+    $user_data = json_decode($_COOKIE[$cookie_name], true);
+    $user_data['last_page'] = basename($_SERVER['PHP_SELF']);
+} else {
+    $user_data = [
+        'first_visit' => date("Y-m-d H:i:s"),
+        'last_page' => basename($_SERVER['PHP_SELF'])
+    ];
+}
+
+setcookie($cookie_name, json_encode($user_data), time() + (86400 * 30), "/", "", true, true); 
+
+if (isset($_GET['delete_cookie'])) {
+    $current_page = basename($_SERVER['PHP_SELF']);
+    setcookie($cookie_name, "", time() - 3600, "/", "", true, true);
+    echo "<script>alert('Cookie u fshi me sukses!'); window.location.href = '$current_page';</script>";
+}
+?>
+
+
+
+
+
+<?php
 if (isset($_GET['search'])) {
    $query = trim($_GET['search']);
    header("Location: search.php?q=" . urlencode($query));

@@ -222,7 +222,7 @@ function shfaqTitullinFaqes() {
       </style>
    </head>
    <!-- body -->
-   <h1>Mirë se vini në <?php echo $emriFaqes; ?></h1>
+   
    <body class="main-layout inner_page">
       <!-- loader  -->
       <div class="loader_bg">
@@ -231,6 +231,7 @@ function shfaqTitullinFaqes() {
       <!-- end loader -->
       <!-- header -->
       <div class="header">
+
          <div class="container-fluid">
             <div class="row d_flex">
                <div class=" col-md-2 col-sm-3 col logo_section">
@@ -297,6 +298,7 @@ function shfaqTitullinFaqes() {
             <div class="row">
                <div class="col-md-12">
                   <div class="titlepage text_align_center">
+                  <h1>Mirë se vini në <?php echo $emriFaqes; ?></h1>
                      <h2>Our Skating Class</h2>
                      <p>There are many variations of passages of Lorem</p>
                   </div>

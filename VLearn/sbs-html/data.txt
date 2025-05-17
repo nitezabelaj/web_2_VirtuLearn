@@ -1,0 +1,2 @@
+Ky eshte nje dokument.
+Kjo është një shtesë nga funksioni writeToFile().

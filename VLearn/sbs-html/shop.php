@@ -156,6 +156,40 @@ $emriFaqes = "VirtuLearn";
         .special_products h4 {
             color:blue;
         }
+        .product-items li {
+    font-family: inherit; 
+    font-size: 16px;       
+    color: #333;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 30px; 
+}
+
+
+.product-items li::before {
+    content: "\f07a"; 
+    font-family: "FontAwesome";
+    font-size: 24px; 
+    color: #007bff;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+#sort {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+}
+
+#sort::before {
+    content: url('https://upload.wikimedia.org/wikipedia/commons/a/a7/Font_Awesome_5_regular_money-bill-alt.svg');
+    margin-right: 8px;
+    vertical-align: middle;
+}
          </style>
 
       <meta name="keywords" content="">
@@ -205,7 +239,8 @@ $emriFaqes = "VirtuLearn";
             padding: 2px 8px;
             cursor: pointer;
          }
-      </style>
+       
+</style>
    </head>
    <!-- body -->
    <body class="main-layout inner_page">
