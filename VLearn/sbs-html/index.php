@@ -124,7 +124,6 @@ function generateMenu($items) {
 class SiteSearch {
    private $pages;
 
-
    public function __construct() {
        $this->pages = [
            "Home" => ["url" => "index.php", "content" => "Welcome to the best skating experience for everyone."],
@@ -737,6 +736,21 @@ $emriFaqes = "VirtuLearn";
       <!-- end testimonial -->
       <!--  footer -->
       <footer>
+                           <!--Implementimi i cookies te ndryshimit te ngjyres background ne footer A.Z-->
+         <footer id="footer" style="padding: 20px;">
+    <form onsubmit="changeFooterColor(event)">
+        <label for="color">Choose the color of footer:</label>
+        <select id="color">
+            <option value="white">White</option>
+            <option value="black">Black</option>
+            <option value="lightblue">Light Blue</option>
+            <option value="lightgray">Light Gray</option>
+        </select>
+        <button type="submit">Ndrysho</button>
+    </form>
+</footer>
+<script src="footerTheme.js"></script>
+
          <div class="footer">
             <div class="container">
                <div class="row">
@@ -871,6 +885,40 @@ $emriFaqes = "VirtuLearn";
          function closeMapModal() {
             document.getElementById("mapModal").style.display = "none";
          }
+         //Funksione per ndryshimin e cookies e implementuar ne footer AniteZabelaj
+         function changeFooterColor(event) {
+    event.preventDefault(); // që të mos rifreskohet faqja
+    const selectedColor = document.getElementById("color").value;
+    setCookie("footerColor", selectedColor, 30);
+    applyFooterColor();
+}
+
+function applyFooterColor() {
+    const color = getCookie("footerColor");
+    const footer = document.getElementById("footer");
+    if (color) {
+        footer.style.backgroundColor = color;
+    }
+}
+
+// funksione ndihmëse për cookie
+function setCookie(name, value, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + (days*24*60*60*1000));
+    document.cookie = `${name}=${value};expires=${d.toUTCString()};path=/`;
+}
+
+function getCookie(name) {
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(name + "=") === 0) return c.substring(name.length + 1);
+    }
+    return "";
+}
+
+window.onload = applyFooterColor;
+
       </script>
    </body>
 </html>
