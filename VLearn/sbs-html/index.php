@@ -736,19 +736,6 @@ $emriFaqes = "VirtuLearn";
       <!-- end testimonial -->
       <!--  footer -->
       <footer>
-                           <!--Implementimi i cookies te ndryshimit te ngjyres background ne footer A.Z-->
-         <footer id="footer" style="padding: 20px;">
-    <form onsubmit="changeFooterColor(event)">
-        <label for="color">Choose the color of footer:</label>
-        <select id="color">
-            <option value="white">White</option>
-            <option value="black">Black</option>
-            <option value="lightblue">Light Blue</option>
-            <option value="lightgray">Light Gray</option>
-        </select>
-        <button type="submit">Ndrysho</button>
-    </form>
-</footer>
 <script src="footerTheme.js"></script>
 
          <div class="footer">
@@ -846,6 +833,19 @@ $emriFaqes = "VirtuLearn";
             </div>
          </div>
       </footer>
+  <!--Implementimi i cookies te ndryshimit te ngjyres background ne footer A.Z-->
+         <footer id="footer" style="padding: 20px;">
+    <form onsubmit="changeFooterColor(event)">
+        <label for="color">Choose the color of footer:</label>
+        <select id="color">
+            <option value="white">White</option>
+            <option value="black">Black</option>
+            <option value="lightblue">Light Blue</option>
+            <option value="lightgray">Light Gray</option>
+        </select>
+        <button type="submit">Change</button>
+    </form>
+</footer>
       <!-- end footer -->
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>
