@@ -887,7 +887,7 @@ $emriFaqes = "VirtuLearn";
          }
          //Funksione per ndryshimin e cookies e implementuar ne footer AniteZabelaj
          function changeFooterColor(event) {
-    event.preventDefault(); // që të mos rifreskohet faqja
+    event.preventDefault(); // qe mos me mujt mu rifresku faqja 
     const selectedColor = document.getElementById("color").value;
     setCookie("footerColor", selectedColor, 30);
     applyFooterColor();
@@ -901,7 +901,7 @@ function applyFooterColor() {
     }
 }
 
-// funksione ndihmëse për cookie
+// funksionet ndihmese per cookie
 function setCookie(name, value, days) {
     const d = new Date();
     d.setTime(d.getTime() + (days*24*60*60*1000));
