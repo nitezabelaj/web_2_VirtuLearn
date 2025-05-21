@@ -20,17 +20,6 @@ $studentetAsort = [
     "Ina Muca" => "15-18",
     "Blerina Hoti" => "15-18"
 ];
-//implementimi i ndryshimit te permbajtjes ne shembullin tone backgroundit
-if (isset($_POST['theme'])) {
-    $theme = $_POST['theme'];
-    setcookie("theme", $theme, time() + (86400 * 30), "/");
-
-    // Kthehu në faqen kryesore pas ndryshimit të temës
-    header("Location: index.php");
-    exit();
-}
-
-
 asort($studentetAsort);
 
 $greeting = "";
@@ -200,24 +189,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
 global $emriFaqes;
 $emriFaqes = "VirtuLearn";
 ?>
-
-<?php
-// Lexo cookie AZ
-$theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'default';
-
-// Përcakto CSS ose background sipas temës
-$cssFile = "css/style-$theme.css";
-$bgImage = "images/bg-$theme.jpg";
-?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
-    <link rel="stylesheet" href="<?php echo $cssFile; ?>">
-    <style>
-        body {
-            background-image: url('<?php echo $bgImage; ?>');
-            background-size: cover;
-        }
       <!-- basic -->
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -847,15 +821,6 @@ $bgImage = "images/bg-$theme.jpg";
                   </div>
                </div>
             </div>
-            <form method="POST" action="set_theme.php">
-    <label>Choose your theme:</label>
-    <select name="theme">
-        <option value="default">Default</option>
-        <option value="dark">Dark</option>
-        <option value="light">Light</option>
-    </select>
-    <button type="submit">Save</button>
-</form>
             <div class="copyright">
                <div class="container">
                   <div class="row">
