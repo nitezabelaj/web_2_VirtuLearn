@@ -1,4 +1,35 @@
 <?php
+//AnitaC - P2 / Sessions
+session_start();
+
+const SITE_TIME = "SkatingBoardSchool";
+
+$menu_items = [
+   "index.php" => "Home",
+   "about.php" => "About",
+   "skating.php" => "Skating",
+   "shop.php" => "Shop",
+   "contact.php" => "Contact Us",
+   "login.php" => "Login",
+   "register.php" => "Register"
+];
+
+
+if (isset($_SESSION['user_id'])) {
+   $menu_items['dashboard.php'] = "Dashboard";
+   $menu_items['logout.php'] = "Logout";
+}
+
+
+function generateMenu($items) {
+   $current = basename($_SERVER['PHP_SELF']);
+   foreach ($items as $link => $label) {
+       $isActive = ($current === basename($link)) ? " active" : "";
+       echo "<li class='nav-item$isActive'><a class='nav-link' href='$link'>$label</a></li>";
+   }
+}
+?>
+<?php
 //P2, Amela, Përdorimi i funskioneve themelore për manipulime me fajlla (si include(),
 //require(), fopen(r,w,...), fclose(...), fsize(), fread(), fwrite()
 
@@ -76,14 +107,7 @@ mesazhi();
 
 
 <?php 
-const SITE_TIME = "VirtuLearn";
-$menu_items = [
-   "index.php" => "Home",
-   "about.php" => "About",
-   "skating.php" => "Skating",
-   "shop.php" => "Shop",
-   "contact.php" => "Contact Us"
-];
+
 
 if (isset($_GET['search'])) {
    $query = trim($_GET['search']);
@@ -91,13 +115,6 @@ if (isset($_GET['search'])) {
    exit();
 }
 
-function generateMenu($items) {
-   $current = basename($_SERVER['PHP_SELF']);
-   foreach ($items as $link => $label) {
-       $isActive = ($current === basename($link)) ? " active" : "";
-       echo "<li class='nav-item$isActive'><a class='nav-link' href='$link'>$label</a></li>";
-   }
-}
 
 class ContactInfo {
    // Vetitë private - mund të qasen vetëm nga brenda klasës

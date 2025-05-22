@@ -1,3 +1,37 @@
+<?php
+session_start();
+
+//AnitaC - P2 / Sessions
+const SITE_TIME = "SkatingBoardSchool";
+
+
+$menu_items = [
+   "index.php" => "Home",
+   "about.php" => "About",
+   "skating.php" => "Skating",
+   "shop.php" => "Shop",
+   "contact.php" => "Contact Us",
+  
+   "login.php" => "Login",
+   "register.php" => "Register"
+];
+
+
+if (isset($_SESSION['user_id'])) {
+   $menu_items['dashboard.php'] = "Dashboard";
+   $menu_items['logout.php'] = "Logout";
+}
+
+
+function generateMenu($items) {
+   $current = basename($_SERVER['PHP_SELF']);
+   foreach ($items as $link => $label) {
+       $isActive = ($current === basename($link)) ? " active" : "";
+       echo "<li class='nav-item$isActive'><a class='nav-link' href='$link'>$label</a></li>";
+   }
+}
+?>
+
 <?php 
 $address = "123 Main Street, Tirana";
 $phone = "+355 4 123 4567";
@@ -8,13 +42,7 @@ $mapQuery = urlencode($address);
 
 
 define("SITE_NAME", "VirtuLearn");
-$menu_items = [
-   "index.php" => "Home",
-   "about.php" => "About",
-   "skating.php" => "Skating",
-   "shop.php" => "Shop",
-   "contact.php" => "Contact Us"
-];
+
 
 if (isset($_GET['search'])) {
    $query = trim($_GET['search']);
@@ -22,13 +50,7 @@ if (isset($_GET['search'])) {
    exit();
 }
 
-function generateMenu($items) {
-   $current = basename($_SERVER['PHP_SELF']);
-   foreach ($items as $link => $label) {
-       $isActive = ($current === basename($link)) ? " active" : "";
-       echo "<li class='nav-item$isActive'><a class='nav-link' href='$link'>$label</a></li>";
-   }
-}
+
 class ContentItem {
    protected $title;
    protected $description;
