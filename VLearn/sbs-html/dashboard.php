@@ -1,5 +1,5 @@
 <?php
-//AnitaC - P2 / Sessions
+// AnitaC - P2 / Sessions
 session_start();
 require 'config.php';
 
@@ -15,10 +15,17 @@ $menu_items = [
     "about.php" => "About",
     "skating.php" => "Skating",
     "shop.php" => "Shop",
-    "contact.php" => "Contact Us",
-    "dashboard.php" => "Dashboard",
-    "logout.php" => "Logout"
+    "contact.php" => "Contact Us"
 ];
+
+// Shto menunë sipas rolit të përdoruesit
+if ($_SESSION['role'] === 'admin') {
+    $menu_items['admin_dashboard.php'] = "Admin Panel";
+} else {
+    $menu_items['dashboard.php'] = "Dashboard";
+}
+
+$menu_items['logout.php'] = "Logout";
 
 // Funksioni për menunë dinamike
 function generateMenu($items) {
@@ -41,6 +48,7 @@ function generateMenu($items) {
         nav li { display: inline; }
         nav a { text-decoration: none; color: #007BFF; }
         nav a:hover { text-decoration: underline; }
+        .active a { font-weight: bold; }
     </style>
 </head>
 <body>

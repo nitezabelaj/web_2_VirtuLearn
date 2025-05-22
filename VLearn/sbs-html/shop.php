@@ -16,9 +16,12 @@ $menu_items = [
    "register.php" => "Register"
 ];
 
-
 if (isset($_SESSION['user_id'])) {
-   $menu_items['dashboard.php'] = "Dashboard";
+   if ($_SESSION['role'] === 'admin') {
+       $menu_items['admin_dashboard.php'] = "Admin Panel";
+   } else {
+       $menu_items['dashboard.php'] = "Dashboard";
+   }
    $menu_items['logout.php'] = "Logout";
 }
 
