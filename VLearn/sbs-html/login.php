@@ -9,7 +9,7 @@ session_start();
 
 const SITE_TIME = "SkatingBoardSchool";
 
-// Menu fillestare
+
 $menu_items = [
     "index.php" => "Home",
     "about.php" => "About",
@@ -20,7 +20,7 @@ $menu_items = [
     "register.php" => "Register"
 ];
 
-// Nëse jemi kyçur, ndrysho menunë sipas rolit
+
 if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] === 'admin') {
         $menu_items['admin_panel.php'] = "Admin Panel";
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        // Përgatitja e query për të marrë user me email OSE username
+        //php data objects - AnitaC
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :input OR username = :input LIMIT 1");
         $stmt->execute(['input' => $email_or_username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -1,9 +1,7 @@
 <?php
+//Anita C - Implementimi i Sessioneve dhe SQL INJECTION
 session_start();
-
-//AnitaC - P2 / Sessions
 require 'config.php';
-
 
 const SITE_TIME = "SkatingBoardSchool";
 
@@ -34,8 +32,9 @@ function generateMenu($items) {
    }
 }
 
-// Formulari i regjistrimit
+
 $errors = [];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = sanitizeInput($_POST['username'] ?? '');
     $email = sanitizeInput($_POST['email'] ?? '');
@@ -45,28 +44,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$username || !$email || !$password) {
         $errors[] = "Të gjitha fushat janë të detyrueshme.";
     }
+
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Email i pavlefshëm.";
     }
+
     if ($password !== $password_confirm) {
         $errors[] = "Fjalëkalimet nuk përputhen.";
     }
 
+    // Kontrollo nëse username ose email ekziston tashmë
     if (empty($errors)) {
-        // Kontrollo nëse emaili ekziston
-        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
-        $stmt->execute([$email]);
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? OR username = ?");
+        $stmt->execute([$email, $username]);
         if ($stmt->fetch()) {
-            $errors[] = "Emaili është përdorur më parë.";
-        } else {
-            // Shto në databazë
-            $password_hash = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare("INSERT INTO users (username, email, password, role, created_at) VALUES (?, ?, ?, 'user', NOW())");
-            $stmt->execute([$username, $email, $password_hash]);
-
-            header('Location: login.php?registered=1');
-            exit;
+            $errors[] = "Emaili ose username është përdorur më parë.";
         }
+    }
+
+    if (empty($errors)) {
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("INSERT INTO users (username, email, password, role, created_at) VALUES (?, ?, ?, 'user', NOW())");
+        $stmt->execute([$username, $email, $password_hash]);
+
+        header('Location: login.php?registered=1');
+        exit;
     }
 }
 ?>
