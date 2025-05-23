@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/error_handler.php';//Per trajtim gabimesh
 require_once 'config.php';
 session_start();
 

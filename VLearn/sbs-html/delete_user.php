@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/error_handler.php';//T.G
 require_once 'config.php';
 session_start();
 

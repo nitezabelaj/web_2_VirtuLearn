@@ -1,4 +1,6 @@
 <?php
+require_once 'includes/error_handler.php';
+
 session_start();
 
 //AnitaC - P2 / Sessions

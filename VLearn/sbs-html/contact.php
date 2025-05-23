@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/error_handler.php';//T.G
 
 session_start(); // Vetëm një herë!
 //AnitaC - P2 / Sessions

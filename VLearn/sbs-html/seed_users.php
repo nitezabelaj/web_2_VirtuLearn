@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+require_once 'includes/error_handler.php';//per trajtimin e gabimeve
 
 $adminPassword = password_hash("admin123", PASSWORD_DEFAULT);
 $userPassword = password_hash("user123", PASSWORD_DEFAULT);

@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/error_handler.php';//A.Z
 //Anita C
 require_once 'config.php';
 // test përfshin funksionin sanitizeInput()

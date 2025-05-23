@@ -1,6 +1,5 @@
-
-
 <?php
+require_once 'includes/error_handler.php';//T.G
 function error_handler($errno, $errstr, $errfile, $errline, $errcontext = null) {
     switch ($errno) {
         case E_USER_ERROR:

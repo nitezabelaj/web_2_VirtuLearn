@@ -3,6 +3,7 @@
 //ME RËNDËSI: përdorimi i PHP Email për dërgim të emailit nga një
 //email i zakonshëm (gmail, yahoo, hotmail. )
 require_once 'config.php';
+require_once 'includes/error_handler.php';//per trajtimin e gabimeve A.Z
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
 require 'PHPMailer/Exception.php';

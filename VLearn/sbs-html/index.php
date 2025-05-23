@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/error_handler.php';//T.G
 session_start();
 //AnitaC - P2 / Sessions
 const SITE_TIME = "SkatingBoardSchool";

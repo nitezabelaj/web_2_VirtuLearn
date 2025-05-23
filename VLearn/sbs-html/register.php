@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/error_handler.php';//per trajtim gabimeve
 session_start(); // DUHET të jetë i pari në skedar
 
 ini_set('display_errors', 1);
