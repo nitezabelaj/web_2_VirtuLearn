@@ -1,7 +1,6 @@
 <?php
 require_once 'includes/error_handler.php';//T.G
 session_start(); // DUHET të jetë i pari në skedar
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -192,14 +191,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         font-weight: bold;
     }
 </style>
-<?php
-function shfaqGabim($mesazh) {
-    echo "<div class='gabim'><strong>Gabim:</strong> $mesazh</div>";
-}
-echo "<div class='gabim'>Ky është një gabim i personalizuar</div>";
-?>
-
-
 <!-- Bootstrap JS dhe Popper.js (nëse përdor Bootstrap 5) -->
 <script src="js/bootstrap.bundle.min.js"></script>
 
