@@ -1,8 +1,6 @@
 <?php
 session_start(); // DUHET të jetë i pari në skedar
 
-// AnitaC - P2 / Sessions
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -96,38 +94,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Login - <?= SITE_TIME ?></title>
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
 <header>
-    <nav>
-        <ul style="list-style: none; display: flex; gap: 10px;">
-            <?php generateMenu($menu_items); ?>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.php"><?= SITE_TIME ?></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <?php generateMenu($menu_items); ?>
+                </ul>
+            </div>
+        </div>
     </nav>
 </header>
 
-<main>
-    <h2>Kyçu</h2>
+<main class="container my-5" style="max-width: 420px;">
+    <h2 class="mb-4">Kyçu</h2>
 
     <?php if ($errors): ?>
-        <ul style="color:red;">
-            <?php foreach ($errors as $error): ?>
-                <li><?= htmlspecialchars($error) ?></li>
-            <?php endforeach; ?>
-        </ul>
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                <?php foreach ($errors as $error): ?>
+                    <li><?= htmlspecialchars($error) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
     <?php endif; ?>
 
     <form method="post" action="">
-        <input type="text" name="email_or_username" placeholder="Email ose Username" required
-               value="<?= htmlspecialchars($email_or_username) ?>"><br>
-        <input type="password" name="password" placeholder="Fjalëkalimi" required><br>
-        <button type="submit">Kyçu</button>
+        <div class="mb-3">
+            <label for="email_or_username" class="form-label">Email ose Username</label>
+            <input type="text" class="form-control" id="email_or_username" name="email_or_username" required
+                   value="<?= htmlspecialchars($email_or_username) ?>">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Fjalëkalimi</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Kyçu</button>
     </form>
 
-    <p>Nuk ke llogari? <a href="register.php">Regjistrohu këtu</a>.</p>
+    <p class="mt-3 text-center">Nuk ke llogari? <a href="register.php">Regjistrohu këtu</a>.</p>
 </main>
+
+<!-- Bootstrap JS dhe Popper.js (nëse përdor Bootstrap 5) -->
+<script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
