@@ -1,7 +1,26 @@
 <?php
+session_start(); // Vetëm një herë!
+//AnitaC - P2 / Sessions
+
+if (isset($_SESSION['user_visit'])) {
+    $user_data = $_SESSION['user_visit'];
+    $user_data['last_page'] = basename($_SERVER['PHP_SELF']);
+} else {
+    $user_data = [
+        'first_visit' => date("Y-m-d H:i:s"),
+        'last_page' => basename($_SERVER['PHP_SELF'])
+    ];
+}
+$_SESSION['user_visit'] = $user_data;
+
+if (isset($_GET['delete_session'])) {
+    session_unset();
+    session_destroy();
+    echo "<script>alert('Session u fshi me sukses!'); window.location.href = '" . basename($_SERVER['PHP_SELF']) . "';</script>";
+    exit();
+}
+
 $cookie_name = "user_visit";
-
-
 if (isset($_COOKIE[$cookie_name])) {
     $user_data = json_decode($_COOKIE[$cookie_name], true);
     $user_data['last_page'] = basename($_SERVER['PHP_SELF']);
@@ -11,13 +30,49 @@ if (isset($_COOKIE[$cookie_name])) {
         'last_page' => basename($_SERVER['PHP_SELF'])
     ];
 }
-
-setcookie($cookie_name, json_encode($user_data), time() + (86400 * 30), "/", "", true, true); 
+setcookie($cookie_name, json_encode($user_data), time() + (86400 * 30), "/", "", true, true);
 
 if (isset($_GET['delete_cookie'])) {
-    $current_page = basename($_SERVER['PHP_SELF']);
     setcookie($cookie_name, "", time() - 3600, "/", "", true, true);
-    echo "<script>alert('Cookie u fshi me sukses!'); window.location.href = '$current_page';</script>";
+    echo "<script>alert('Cookie u fshi me sukses!'); window.location.href = '" . basename($_SERVER['PHP_SELF']) . "';</script>";
+    exit();
+}
+
+
+
+
+const SITE_TIME = "SkatingBoardSchool";
+
+
+$menu_items = [
+   "index.php" => "Home",
+   "about.php" => "About",
+   "skating.php" => "Skating",
+   "shop.php" => "Shop",
+   "contact.php" => "Contact Us",
+   // Login dhe Register janë gjithmonë aty
+   "login.php" => "Login",
+   "register.php" => "Register"
+];
+
+
+if (isset($_SESSION['user_id'])) {
+   if ($_SESSION['role'] === 'admin') {
+       $menu_items['admin_dashboard.php'] = "Admin Panel";
+   } else {
+       $menu_items['dashboard.php'] = "Dashboard";
+   }
+   $menu_items['logout.php'] = "Logout";
+}
+
+
+// Funksioni për të gjeneruar menunë dinamike
+function generateMenu($items) {
+   $current = basename($_SERVER['PHP_SELF']);
+   foreach ($items as $link => $label) {
+       $isActive = ($current === basename($link)) ? " active" : "";
+       echo "<li class='nav-item$isActive'><a class='nav-link' href='$link'>$label</a></li>";
+   }
 }
 ?>
 
@@ -32,24 +87,7 @@ if (isset($_GET['search'])) {
    exit();
 }
 
-const SITE_TIME = "SkatingBoardSchool"; //AnitaC
-$success = false;
-$menu_items = [
-  
-   "index.php" => "Home",
-   "about.php" => "About",
-   "skating.php" => "Skating",
-   "shop.php" => "Shop",
-   "contact.php" => "Contact Us"
-];
 
-function generateMenu($items) {
-   $current = basename($_SERVER['PHP_SELF']);
-   foreach ($items as $link => $label) {
-       $isActive = ($current === basename($link)) ? " active" : "";
-       echo "<li class='nav-item$isActive'><a class='nav-link' href='$link'>$label</a></li>";
-   }
-}
 
 ?>
 <?php
