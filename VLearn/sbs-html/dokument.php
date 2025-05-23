@@ -1,3 +1,6 @@
 <?php
-echo "Me poshte jepni te dhenat e juaja"
+function dokument(){
+echo "Me poshte jepni te dhenat e juaja";
+
+}
 ?>
