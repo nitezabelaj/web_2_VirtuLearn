@@ -1,5 +1,6 @@
 <?php
-require 'config.php'; // Lidhja me databazën A.Z
+require_once 'config.php';
+ // Lidhja me databazën A.Z
 
 if (isset($_GET['id'])) {
     $id = $_GET['id']; // Merr ID-në nga URL

@@ -1,5 +1,6 @@
 <?php
-require 'config.php';
+require_once 'config.php';
+
 //Anita C - test qe lidhja e config.php me databazen eshte ne rregull
 
 try {

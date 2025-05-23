@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require_once 'config.php';
 
 $adminPassword = password_hash("admin123", PASSWORD_DEFAULT);
 $userPassword = password_hash("user123", PASSWORD_DEFAULT);

@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 
 
-require 'config.php';
+require_once 'config.php';
 session_start();
 
 const SITE_TIME = "SkatingBoardSchool";
@@ -57,8 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         //php data objects - AnitaC
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :input OR username = :input LIMIT 1");
-        $stmt->execute(['input' => $email_or_username]);
+       $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username LIMIT 1");
+       $stmt->execute([
+            'email' => $email_or_username,
+            'username' => $email_or_username
+        ]);
+
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password'])) {

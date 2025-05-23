@@ -1,7 +1,8 @@
 <?php
 //Anita C - Implementimi i Sessioneve dhe SQL INJECTION
 session_start();
-require 'config.php';
+require_once 'config.php';
+
 
 const SITE_TIME = "SkatingBoardSchool";
 

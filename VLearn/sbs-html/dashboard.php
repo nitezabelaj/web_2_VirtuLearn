@@ -1,7 +1,8 @@
 <?php
 // AnitaC - P2 / Sessions
 session_start();
-require 'config.php';
+require_once 'config.php';
+
 
 // Nëse përdoruesi nuk është i kyçur, ridrejtoje në login
 if (!isset($_SESSION['user_id'])) {

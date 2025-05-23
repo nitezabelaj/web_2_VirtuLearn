@@ -19,8 +19,9 @@ try {
     die("Lidhja me databazën dështoi: " . $e->getMessage());
 }
 
-
-function sanitizeInput($data) {
-    return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+if (!function_exists('sanitizeInput')) {
+    function sanitizeInput($data) {
+        return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+    }
 }
 ?>

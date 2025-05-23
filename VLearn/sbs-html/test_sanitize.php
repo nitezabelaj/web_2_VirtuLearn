@@ -1,6 +1,7 @@
 <?php
 //Anita C
-require 'config.php'; // test përfshin funksionin sanitizeInput()
+require_once 'config.php';
+// test përfshin funksionin sanitizeInput()
 
 $input = "<script>alert('hacked')</script> Hello world!";
 $clean = sanitizeInput($input);

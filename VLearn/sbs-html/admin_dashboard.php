@@ -1,21 +1,25 @@
 <?php
 // admin_dashboard.php
+
 session_start();
+require_once 'config.php';
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header('Location: login.php');
     exit;
 }
 
-require 'config.php';
 
-$adminName = htmlspecialchars($_SESSION['username']);
+
+$adminName = sanitizeInput($_SESSION['username']);
+?>
+
+<!-- Tani fillon HTML jashtë PHP-së -->
 <td>
     <a href="delete_user.php?id=<?= $user['id'] ?>" onclick="return confirm('A je i sigurt që do ta fshish këtë përdorues?');">🗑️ Fshi</a>
     |
     <a href="update_user.php?id=<?= $user['id'] ?>">✏️ Përditëso</a>
 </td>
-?>
 
 <!DOCTYPE html>
 <html lang="sq">
