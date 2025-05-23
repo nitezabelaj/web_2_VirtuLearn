@@ -90,7 +90,7 @@ function generateMenu($items) {
 </main>
 
  <!--Insertimi i perdorueseve te ri A.Z -->
-<<section class="container mt-5" style="max-width: 600px;">
+<section class="container mt-5" style="max-width: 600px;">
     <h2 class="mb-4">Shto Përdorues të Ri</h2>
     <form action="insert_user.php" method="POST" class="border p-4 rounded shadow-sm bg-light">
         <div class="mb-3">
