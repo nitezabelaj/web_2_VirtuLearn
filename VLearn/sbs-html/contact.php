@@ -1,6 +1,8 @@
 <?php
+
 session_start(); // Vetëm një herë!
 //AnitaC - P2 / Sessions
+require_once 'config.php';
 
 if (isset($_SESSION['user_visit'])) {
     $user_data = $_SESSION['user_visit'];
@@ -358,7 +360,7 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                   </div>
                </div> <!-- mos i prekni qeto veq nese muj i bini nfije me bo per tana phpt qe i kem shkru nelt-->
                <div class="col-md-6">
-               <form id="request" class="main_form" method="post">
+               <form id="request" class="main_form" method="post" action="send_contact.php"> <!--Anita\C -->
          <div class="row">
              <div class="col-md-6">
                  <input class="contactus" placeholder="Name*" type="text" name="name" required> 
