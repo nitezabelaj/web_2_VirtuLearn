@@ -71,18 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
-//Insertimi ku perdoruesi regjistrohet DB A.Z
-require 'config.php';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $emri = $_POST['username'];
-    $fjalekalimi = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
-    $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-    $stmt->execute([$emri, $fjalekalimi]);
-
-    echo "Regjistrimiu krye me sukses!";
-}
 ?>
 
 <!DOCTYPE html>
