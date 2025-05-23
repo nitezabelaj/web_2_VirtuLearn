@@ -89,6 +89,25 @@ function generateMenu($items) {
     </section>
 </main>
 
+ <!--Insertimi i perdorueseve te ri A.Z -->
+<h2>Shto Përdorues të Ri</h2>
+<form action="insert_user.php" method="POST">
+    <label>Emri i përdoruesit:</label>
+    <input type="text" name="username" required>
+
+    <label>Passwordi:</label>
+    <input type="password" name="password" required>
+
+    <label>Roli:</label>
+    <select name="role" required>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+    </select>
+
+    <button type="submit">Shto</button>
+</form>
+
+
 <!-- Bootstrap JS bundle -->
 <script src="js/bootstrap.bundle.min.js"></script>
 </body>
