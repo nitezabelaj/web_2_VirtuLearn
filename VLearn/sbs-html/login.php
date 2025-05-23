@@ -1,18 +1,17 @@
 <?php
+session_start(); // DUHET të jetë i pari në skedar
+
 // AnitaC - P2 / Sessions
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
-
 require_once 'config.php';
-session_start();
 
 const SITE_TIME = "SkatingBoardSchool";
 
-
+// Menu dinamike
 $menu_items = [
     "index.php" => "Home",
     "about.php" => "About",
@@ -23,19 +22,19 @@ $menu_items = [
     "register.php" => "Register"
 ];
 
-
 if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] === 'admin') {
-        $menu_items['admin_panel.php'] = "Admin Panel";
+        $menu_items['admin_dashboard.php'] = "Admin Panel";
     } else {
         $menu_items['dashboard.php'] = "Dashboard";
     }
     $menu_items['logout.php'] = "Logout";
 
-    // Heq "Login" dhe "Register" nga menuja nëse jemi kyçur
+    // Hiq "Login" dhe "Register"
     unset($menu_items['login.php'], $menu_items['register.php']);
 }
 
+// Funksion për të krijuar menunë
 function generateMenu($items) {
     $current = basename($_SERVER['PHP_SELF']);
     foreach ($items as $link => $label) {
@@ -44,6 +43,17 @@ function generateMenu($items) {
     }
 }
 
+// Funksion për redirektim sipas rolit
+function redirect_logged_user($role) {
+    if ($role === 'admin') {
+        header('Location: admin_dashboard.php');
+    } else {
+        header('Location: dashboard.php');
+    }
+    exit;
+}
+
+// Login logjika
 $errors = [];
 $email_or_username = '';
 
@@ -56,34 +66,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        //php data objects - AnitaC
-       $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username LIMIT 1");
-       $stmt->execute([
+        // Kërko përdoruesin me email ose username
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username LIMIT 1");
+        $stmt->execute([
             'email' => $email_or_username,
             'username' => $email_or_username
         ]);
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($password, $user['password'])) {
-            // Sukses, ruaj session-et
+        if (!$user) {
+            $errors[] = "Përdoruesi nuk ekziston.";
+        } elseif (!password_verify($password, $user['password'])) {
+            $errors[] = "Fjalëkalimi është i gabuar.";
+        } else {
+            // Sukses – ruaj sesionin
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
 
-            // Redirect bazuar në rol
-            if ($user['role'] === 'admin') {
-                header('Location: admin_panel.php');
-            } else {
-                header('Location: dashboard.php');
-            }
-            exit;
-        } else {
-            $errors[] = "Email/Username ose fjalëkalimi i gabuar.";
+            redirect_logged_user($user['role']);
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
