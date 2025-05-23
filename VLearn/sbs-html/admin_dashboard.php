@@ -90,22 +90,31 @@ function generateMenu($items) {
 </main>
 
  <!--Insertimi i perdorueseve te ri A.Z -->
-<h2>Shto Përdorues të Ri</h2>
-<form action="insert_user.php" method="POST">
-    <label>Emri i përdoruesit:</label>
-    <input type="text" name="username" required>
+<<section class="container mt-5" style="max-width: 600px;">
+    <h2 class="mb-4">Shto Përdorues të Ri</h2>
+    <form action="insert_user.php" method="POST" class="border p-4 rounded shadow-sm bg-light">
+        <div class="mb-3">
+            <label for="username" class="form-label">Emri i përdoruesit</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
 
-    <label>Passwordi:</label>
-    <input type="password" name="password" required>
+        <div class="mb-3">
+            <label for="password" class="form-label">Fjalëkalimi</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
 
-    <label>Roli:</label>
-    <select name="role" required>
-        <option value="user">User</option>
-        <option value="admin">Admin</option>
-    </select>
+        <div class="mb-3">
+            <label for="role" class="form-label">Roli</label>
+            <select class="form-select" id="role" name="role" required>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
 
-    <button type="submit">Shto</button>
-</form>
+        <button type="submit" class="btn btn-primary">Shto</button>
+    </form>
+</section>
+
 
 
 <!-- Bootstrap JS bundle -->
