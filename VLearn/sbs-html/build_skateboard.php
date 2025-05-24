@@ -1,4 +1,4 @@
-<?php
+ <?php
 //T.G
 //AnitaC - P2 / Sessions
 session_start();
@@ -118,7 +118,7 @@ if (!isset($_SESSION['build'])) {
 
 $mysqli->close();
 ?>
-<?php include 'gabimet.php'; ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -345,13 +345,6 @@ $mysqli->close();
     <title>Autentikimi</title>
 </head>
 <body>
-
-<h2>Forma e Hyrjes</h2>
-<form method="post" action="">
-    Emri i përdoruesit: <input type="text" name="username"><br><br>
-    Fjalëkalimi: <input type="password" name="password"><br><br>
-    <input type="submit" value="Hyr">
-</form>
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

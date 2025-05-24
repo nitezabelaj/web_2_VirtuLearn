@@ -8,9 +8,19 @@ if (!isset($_SESSION['visit_count_contact'])) {
 } else {
     $_SESSION['visit_count_contact']++;
 }
+$gjatesiaMesazhit = 0;
+$karaktereMbetur = 500;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["message"])) {
-    $gjatesiaMesazhit = strlen(trim($_POST["message"]));
+    $mesazhi = trim($_POST["message"]);
+    $gjatesiaMesazhit = strlen($mesazhi);
+
+    function llogaritKarakteretMbetura($gjatesia) {
+        $limiti = 500;
+        return max(0, $limiti - $gjatesia);
+    }
+
+    $karaktereMbetur = llogaritKarakteretMbetura($gjatesiaMesazhit);
 }
 
 //AnitaC - P2 / Sessions
@@ -392,8 +402,44 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                  </select>
              </div>
              <div class="col-md-12">
-                 <textarea class="textarea" placeholder="Message" name="message"></textarea>
+                 <textarea class="textarea" placeholder="Message" name="message"><?php echo isset($_POST['message']) ? htmlspecialchars($_POST['message']) : ''; ?></textarea>
+               <p id="messageInfo" style="margin-top: 5px; font-size: 0.9em; color: #333;"></p>
+
+               <script>
+               document.addEventListener("DOMContentLoaded", function () {
+                  const messageField = document.querySelector('textarea[name="message"]');
+                  const messageInfo = document.getElementById('messageInfo');
+                  const form = messageField.closest("form");
+
+                  if (!messageField || !messageInfo || !form) return;
+
+                  const maxLength = 500;
+
+                  function updateCounter() {
+                     const currentLength = messageField.value.trim().length;
+                     const remaining = maxLength - currentLength;
+
+                     messageInfo.innerHTML = 
+                           `Gjatësia e mesazhit tuaj: <strong>${currentLength}</strong> karaktere.<br>` +
+                           `Karaktere të mbetura: <strong>${remaining >= 0 ? remaining : 0}</strong> nga ${maxLength} të lejuara.`;
+
+                     messageInfo.style.color = remaining < 0 ? "red" : "#333";
+                  }
+
+                  messageField.addEventListener("input", updateCounter);
+                  updateCounter(); 
+
+                  form.addEventListener("submit", function (e) {
+                     const currentLength = messageField.value.trim().length;
+                     if (currentLength > maxLength) {
+                           e.preventDefault();
+                           alert("Mesazhi nuk mund të kalojë 500 karaktere.");
+                     }
+                  });
+               });
+               </script>
              </div>
+            
              <div class="col-md-12">
                  <button class="send_btn" type="submit" name="submit">Send</button>
              </div>
