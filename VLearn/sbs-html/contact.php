@@ -10,26 +10,17 @@ if (!isset($_SESSION['visit_count_contact'])) {
 }
 $gjatesiaMesazhit = 0;
 $karaktereMbetur = 500;
-$mesazhi = '';
-$gabim = '';
 
-function llogaritKarakteretMbetura($gjatesia) {
-    $limiti = 500;
-    return max(0, $limiti - $gjatesia);
-}
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["message"])) {
     $mesazhi = trim($_POST["message"]);
     $gjatesiaMesazhit = strlen($mesazhi);
-    $karaktereMbetur = llogaritKarakteretMbetura($gjatesiaMesazhit);
 
-    if ($gjatesiaMesazhit > 500) {
-        $gabim = "❌ Mesazhi nuk duhet të ketë më shumë se 500 karaktere.";
-    } elseif ($gjatesiaMesazhit < 10) {
-        $gabim = "❗ Mesazhi duhet të ketë të paktën 10 karaktere.";
-    } else {
-        $sukses = "✅ Mesazhi u pranua me sukses!";
+    function llogaritKarakteretMbetura($gjatesia) {
+        $limiti = 500;
+        return max(0, $limiti - $gjatesia);
     }
+
+    $karaktereMbetur = llogaritKarakteretMbetura($gjatesiaMesazhit);
 }
 
 //AnitaC - P2 / Sessions
