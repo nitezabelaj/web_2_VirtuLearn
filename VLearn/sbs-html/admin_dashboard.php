@@ -192,35 +192,6 @@ function generateMenu($items) {
         </ul>
     </section>
 </main>
-
- <!--Insertimi i perdorueseve te ri A.Z -->
-<section class="container mt-5" style="max-width: 600px;">
-    <h2 class="mb-4">Shto Përdorues të Ri</h2>
-    <form action="insert_user.php" method="POST" class="border p-4 rounded shadow-sm bg-light">
-        <div class="mb-3">
-            <label for="username" class="form-label">Emri i përdoruesit</label>
-            <input type="text" class="form-control" id="username" name="username" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="password" class="form-label">Fjalëkalimi</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="role" class="form-label">Roli</label>
-            <select class="form-select" id="role" name="role" required>
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Shto</button>
-    </form>
-</section>
-
-
-
 <!-- Bootstrap JS bundle -->
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/ajax_operations.js"></script>
