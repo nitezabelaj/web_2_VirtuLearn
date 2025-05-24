@@ -12,6 +12,25 @@ if (!isset($_SESSION['visit_count_about'])) {
     $_SESSION['visit_count_about']++;
 }
 
+function filtroMesazhetRendesishem($teGjithaMesazhet, &$mesazhetRendesishem) {
+    foreach ($teGjithaMesazhet as $mesazh) {
+        if (str_contains($mesazh, 'rëndësishëm') || str_contains($mesazh, 'siguri')) {
+            $mesazhetRendesishem[] = $mesazh;
+        }
+    }
+}
+
+$mesazhet = [
+    "Ky sistem ofron përmbajtje të personalizuar për çdo përdorues.",
+    "Siguria e të dhënave është prioritet ynë kryesor.",
+    "Ju mund të gjurmoni progresin tuaj në çdo moment.",
+    "Ky mesazh është shumë i rëndësishëm për përdoruesit e rinj.",
+    "Përdorimi i platformës është falas për studentë."
+];
+
+$teRendesishem = [];
+filtroMesazhetRendesishem($mesazhet, $teRendesishem);
+
 $menu_items = [
    "index.php" => "Home",
    "about.php" => "About",
