@@ -65,28 +65,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         // Kërko përdoruesin me email ose username
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username LIMIT 1");
-        $stmt->execute([
-            'email' => $email_or_username,
-            'username' => $email_or_username
-        ]);
+        //perdorimi i try catch throw...
+       try {
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username LIMIT 1");
+    $stmt->execute([
+        'email' => $email_or_username,
+        'username' => $email_or_username
+    ]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$user) {
+        throw new Exception("Përdoruesi nuk u gjet.");
+    }
 
-        if (!$user) {
-            $errors[] = "Përdoruesi nuk ekziston.";
-        } elseif (!password_verify($password, $user['password'])) {
-            $errors[] = "Fjalëkalimi është i gabuar.";
-        } else {
-            // Sukses – ruaj sesionin
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role'];
+    if (!password_verify($password, $user['password'])) {
+        throw new Exception("Fjalëkalimi nuk përputhet.");
+    }
 
-            redirect_logged_user($user['role']);
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['username'] = $user['username'];
+    $_SESSION['role'] = $user['role'];
+    redirect_logged_user($user['role']);
+
+} catch (Exception $e) {
+    $errors[] = $e->getMessage();
+}
+
         }
     }
-}
 //Definimi dhe trajtimi i disa prej gabimeve në projektin,ne formen costumize
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
