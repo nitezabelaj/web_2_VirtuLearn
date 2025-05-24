@@ -2,6 +2,13 @@
 require_once 'includes/error_handler.php';//T.G
 
 session_start(); // Vetëm një herë!
+
+if (!isset($_SESSION['visit_count_contact'])) {
+    $_SESSION['visit_count_contact'] = 1;
+} else {
+    $_SESSION['visit_count_contact']++;
+}
+
 //AnitaC - P2 / Sessions
 require_once 'config.php';
 
@@ -398,6 +405,7 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                </div>
             </div>
          </div>
+         <p style="text-align: center; color:black; margin-top: 100px;">Kjo faqe është vizituar <?php echo $_SESSION['visit_count_contact']; ?> herë gjatë këtij sesioni.</p>
       </div>
    
       <!-- contact -->
