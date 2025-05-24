@@ -36,6 +36,83 @@ function generateMenu($items) {
 }
 ?>
 
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    die("Ju lutem, identifikohuni për të vazhduar.");
+}
+
+$user_id = $_SESSION['user_id'];
+
+$mysqli = new mysqli("localhost", "username_db", "password_db", "virtu_learn");
+if ($mysqli->connect_error) {
+    die("Lidhja me bazën e të dhënave dështoi: " . $mysqli->connect_error);
+}
+
+if (isset($_GET['clear']) && $_GET['clear'] === 'true') {
+    $stmt = $mysqli->prepare("DELETE FROM user_builds WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $stmt->close();
+
+    unset($_SESSION['build']);
+
+    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $deck = $_POST['deck'] ?? '';
+    $wheels = $_POST['wheels'] ?? '';
+    $trucks = $_POST['trucks'] ?? '';
+    $color = $_POST['color'] ?? '';
+
+    if ($deck && $wheels && $trucks && $color) {
+        $query = "
+            INSERT INTO user_builds (user_id, deck, wheels, trucks, color, updated_at)
+            VALUES (?, ?, ?, ?, ?, NOW())
+            ON DUPLICATE KEY UPDATE
+                deck = VALUES(deck),
+                wheels = VALUES(wheels),
+                trucks = VALUES(trucks),
+                color = VALUES(color),
+                updated_at = NOW()
+        ";
+
+        $stmt = $mysqli->prepare($query);
+        $stmt->bind_param("issss", $user_id, $deck, $wheels, $trucks, $color);
+        $stmt->execute();
+        $stmt->close();
+
+        $_SESSION['build'] = [
+            'deck' => $deck,
+            'wheels' => $wheels,
+            'trucks' => $trucks,
+            'color' => $color
+        ];
+
+        header("Location: " . $_SERVER['REQUEST_URI']);
+        exit;
+    } else {
+        echo "<p style='color:red;'>Ju lutem plotësoni të gjitha fushat!</p>";
+    }
+}
+
+if (!isset($_SESSION['build'])) {
+    $stmt = $mysqli->prepare("SELECT deck, wheels, trucks, color FROM user_builds WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $_SESSION['build'] = $row;
+    }
+    $stmt->close();
+}
+
+$mysqli->close();
+?>
+
 
 
 
