@@ -93,46 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         }
     }
-//Definimi dhe trajtimi i disa prej gabimeve në projektin,ne formen costumize
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['email_or_username']) && isset($_POST['password']) && !isset($_POST['role'])) {
-        // LOGIN logic
-        $email_or_username = trim($_POST['email_or_username']);
-        $password = $_POST['password'];
-
-        if (!$email_or_username || !$password) {
-            $errors[] = "Ju lutem plotësoni të gjitha fushat.";
-        }
-
-        if (empty($errors)) {
-            try {
-                $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username LIMIT 1");
-                $stmt->execute([
-                    'email' => $email_or_username,
-                    'username' => $email_or_username
-                ]);
-                $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                if (!$user) {
-                    throw new Exception("Përdoruesi nuk u gjet.");
-                }
-
-                if (!password_verify($password, $user['password'])) {
-                    throw new Exception("Fjalëkalimi nuk përputhet.");
-                }
-
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['role'] = $user['role'];
-                redirect_logged_user($user['role']);
-
-            } catch (Exception $e) {
-                $errors[] = $e->getMessage();
-            }
-        }
-    }
-}
 
 ?>
 
@@ -196,17 +156,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <p class="mt-3 text-center">Nuk ke llogari? <a href="register.php">Regjistrohu këtu</a>.</p>
 </main>
-<style>
-    .gabim {
-        color: red;
-        background-color: #ffe6e6;
-        border: 1px solid red;
-        padding: 10px;
-        margin: 10px 0;
-        border-radius: 5px;
-        font-weight: bold;
-    }
-</style>
 <!-- Bootstrap JS dhe Popper.js (nëse përdor Bootstrap 5) -->
 <script src="js/bootstrap.bundle.min.js"></script>
 
