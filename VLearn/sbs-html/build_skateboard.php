@@ -118,6 +118,7 @@ if (!isset($_SESSION['build'])) {
 
 $mysqli->close();
 ?>
+<?php include 'gabimet.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -338,6 +339,39 @@ $mysqli->close();
             }
         }
     </style>
+    <head>
+    <title>Autentikimi</title>
+</head>
+<body>
+
+<h2>Forma e Hyrjes</h2>
+<form method="post" action="">
+    Emri i përdoruesit: <input type="text" name="username"><br><br>
+    Fjalëkalimi: <input type="password" name="password"><br><br>
+    <input type="submit" value="Hyr">
+</form>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    try {
+        if (empty($_POST['username']) || empty($_POST['password'])) {
+            throw new GabimAutentikim("Duhet të plotësoni të gjitha fushat.");
+        }
+
+        if ($_POST['username'] !== 'admin' || $_POST['password'] !== '1234') {
+            throw new GabimAutentikim("Emri i përdoruesit ose fjalëkalimi është i pasaktë.");
+        }
+
+        echo "<div style='color:green; font-weight:bold;'>Hyrja u bë me sukses!</div>";
+    } catch (GabimAutentikim $gabim) {
+        echo "<div style='color:red; font-weight:bold;'>" . $gabim->mesazhi() . "</div>";
+    }
+}
+?>
+
+</body>
+</html>
+
 </head>
 <body>
     <nav>
