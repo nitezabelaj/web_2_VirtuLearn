@@ -1,3 +1,56 @@
+<?php
+require_once 'includes/error_handler.php';//T.G
+//AnitaC - P2 / Sessions
+session_start();
+
+const SITE_TIME = "SkatingBoardSchool";
+
+$menu_items = [
+   "index.php" => "Home",
+   "about.php" => "About",
+   "skating.php" => "Skating",
+   "shop.php" => "Shop",
+   "contact.php" => "Contact Us",
+   "login.php" => "Login",
+   "register.php" => "Register",
+   "build_skateboard.php"=>"Build your Skateboard"
+];
+
+
+if (isset($_SESSION['user_id'])) {
+   if ($_SESSION['role'] === 'admin') {
+       $menu_items['admin_dashboard.php'] = "Admin Panel";
+   } else {
+       $menu_items['dashboard.php'] = "Dashboard";
+   }
+   $menu_items['logout.php'] = "Logout";
+}
+
+
+function generateMenu($items) {
+   $current = basename($_SERVER['PHP_SELF']);
+   foreach ($items as $link => $label) {
+       $isActive = ($current === basename($link)) ? " active" : "";
+       echo "<li class='nav-item$isActive'><a class='nav-link' href='$link'>$label</a></li>";
+   }
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
