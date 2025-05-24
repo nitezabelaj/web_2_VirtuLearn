@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/error_handler.php';//T.G
+require_once 'includes/error_handler.php'; // T.G
 session_start();
 require_once 'config.php';
 
@@ -39,7 +39,10 @@ $users = $stmt->fetchAll();
         </tr>
         <?php endforeach; ?>
     </table>
-    <br>
+
+    <br><br>
+    <a href="insert_user.php">➕ Shto Përdorues të Ri</a>
+    <br><br>
     <a href="admin_dashboard.php">⟵ Kthehu te Paneli</a>
 </body>
 </html>
