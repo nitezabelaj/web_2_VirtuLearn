@@ -96,34 +96,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //Definimi dhe trajtimi i disa prej gabimeve në projektin,ne formen costumize
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
-    $password = $_POST['password'];
-    $role = $_POST['role'];
+    if (isset($_POST['email_or_username']) && isset($_POST['password']) && !isset($_POST['role'])) {
+        // LOGIN logic
+        $email_or_username = trim($_POST['email_or_username']);
+        $password = $_POST['password'];
 
-    if (empty($username) || empty($password)) {
-        shfaqGabim("Ju lutem plotësoni të gjitha fushat.");
-        exit;
-    }
+        if (!$email_or_username || !$password) {
+            $errors[] = "Ju lutem plotësoni të gjitha fushat.";
+        }
 
-    // Kontrollo nëse ekziston
-    $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
-    $stmt->execute([$username]);
-    if ($stmt->rowCount() > 0) {
-        shfaqGabim("Ky emër përdoruesi është i zënë. Ju lutem provoni një tjetër.");
-        exit;
-    }
+        if (empty($errors)) {
+            try {
+                $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username LIMIT 1");
+                $stmt->execute([
+                    'email' => $email_or_username,
+                    'username' => $email_or_username
+                ]);
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Try to insert
-    try {
-        $stmt = $pdo->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
-        $stmt->execute([$username, password_hash($password, PASSWORD_DEFAULT), $role]);
-        header("Location: admin_dashboard.php");
-        exit;
-    } catch (PDOException $e) {
-        shfaqGabim("Ndodhi një gabim gjatë ruajtjes në databazë.");
-        exit;
+                if (!$user) {
+                    throw new Exception("Përdoruesi nuk u gjet.");
+                }
+
+                if (!password_verify($password, $user['password'])) {
+                    throw new Exception("Fjalëkalimi nuk përputhet.");
+                }
+
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role'];
+                redirect_logged_user($user['role']);
+
+            } catch (Exception $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
