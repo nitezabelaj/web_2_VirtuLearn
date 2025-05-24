@@ -69,5 +69,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['email'], $_POST['subj
     @mail($to, $subject, $message, $headers, $additional_parameters);
 }
 
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['email'], $_POST['name'], $_POST['message'])) {
+    $to = $_POST['email'];
+    $subject = "Faleminderit për mesazhin tuaj!";
 
+    $message = "Përshëndetje " . htmlspecialchars($_POST['name']) . ",\n\n";
+    $message .= "Faleminderit që na kontaktuat. Mesazhi juaj u pranua me sukses.\n\n";
+    $message .= "Kjo është një kopje e mesazhit që dërguat:\n";
+    $message .= "------------------------------------------\n";
+    $message .= htmlspecialchars($_POST['message']) . "\n";
+    $message .= "------------------------------------------\n\n";
+    $message .= "Ne do të përgjigjemi sa më shpejt të jetë e mundur.\n";
+    $message .= "Tungjatjeta,\n";
+    $message .= "Ekipi i Skating School";
+
+    $headers = "From: noreply@skatingschool.com\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+    $additional_parameters = "-fnoreply@skatingschool.com";
+
+    @mail($to, $subject, $message, $headers, $additional_parameters);
+}
 ?>
