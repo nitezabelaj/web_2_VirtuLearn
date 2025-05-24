@@ -1,9 +1,16 @@
 <?php
-require_once 'includes/error_handler.php';//T.G
-session_start(); // DUHET të jetë i pari në skedar
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require_once 'includes/error_handler.php';
+session_start();
+
+// Kontrollo nëse përdoruesi është tashmë i kyçur
+if (isset($_SESSION['user_id'])) {
+    if ($_SESSION['role'] === 'admin') {
+        header('Location: admin_dashboard.php');
+    } else {
+        header('Location: dashboard.php');
+    }
+    exit;
+}
 
 require_once 'config.php';
 
@@ -18,7 +25,7 @@ $menu_items = [
     "contact.php" => "Contact Us",
     "login.php" => "Login",
     "register.php" => "Register",
-    "build_skateboard.php"=>"Build your Skateboard"
+    "build_skateboard.php" => "Build your Skateboard"
 ];
 
 if (isset($_SESSION['user_id'])) {
@@ -53,48 +60,56 @@ function redirect_logged_user($role) {
 }
 
 // Login logjika
-$errors = [];
 $email_or_username = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email_or_username = trim($_POST['email_or_username'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    if (!$email_or_username || !$password) {
-        $errors[] = "Ju lutem plotësoni të gjitha fushat.";
-    }
+    if (empty($email_or_username) || empty($password)) {
+        shfaqGabim("Ju lutem plotësoni të gjitha fushat.", 'kritike');
+    } else {
+        try {
+            // Kërko përdoruesin me email ose username
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username LIMIT 1");
+            $stmt->execute([
+                'email' => $email_or_username,
+                'username' => $email_or_username
+            ]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (empty($errors)) {
-        // Kërko përdoruesin me email ose username
-        //perdorimi i try catch throw...
-       try {
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username LIMIT 1");
-    $stmt->execute([
-        'email' => $email_or_username,
-        'username' => $email_or_username
-    ]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$user) {
-        throw new Exception("Përdoruesi nuk u gjet.");
-    }
-
-    if (!password_verify($password, $user['password'])) {
-        throw new Exception("Fjalëkalimi nuk përputhet.");
-    }
-
-    $_SESSION['user_id'] = $user['id'];
-    $_SESSION['username'] = $user['username'];
-    $_SESSION['role'] = $user['role'];
-    redirect_logged_user($user['role']);
-
-} catch (Exception $e) {
-    $errors[] = $e->getMessage();
-}
-
+            if (!$user) {
+                shfaqGabim("Përdoruesi nuk u gjet. Kontrolloni emailin ose username-in.", 'paralajmerim');
+            } elseif (!password_verify($password, $user['password'])) {
+                shfaqGabim("Fjalëkalimi i dhënë është i pasaktë.", 'paralajmerim');
+            } elseif ($user['is_active'] == 0) {
+                shfaqGabim("Llogaria juaj është e çaktivizuar. Ju lutem kontaktoni administratorin.", 'kritike');
+            } else {
+                // Kyçja e suksesshme
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role'];
+                
+                // Regjistro hyrjen e suksesshme
+                $stmt = $pdo->prepare("UPDATE users SET last_login = NOW() WHERE id = ?");
+                $stmt->execute([$user['id']]);
+                
+                shfaqSukses("Mirësevini, " . htmlspecialchars($user['username']) . "! Ju jeni kyçur me sukses.");
+                
+                // Ridrejto pas 2 sekondash
+                echo '<script>
+                    setTimeout(function() {
+                        window.location.href = "' . ($user['role'] === 'admin' ? 'admin_dashboard.php' : 'dashboard.php') . '";
+                    }, 2000);
+                </script>';
+                exit;
+            }
+        } catch (PDOException $e) {
+            shfaqGabim("Gabim në lidhje me bazën e të dhënave. Ju lutem provoni përsëri më vonë.", 'kritike');
+            error_log("Gabim në login: " . $e->getMessage());
         }
     }
-
+}
 ?>
 
 <!DOCTYPE html>
@@ -132,16 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main class="container my-5" style="max-width: 420px;">
     <h2 class="mb-4">Kyçu</h2>
 
-    <?php if ($errors): ?>
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                <?php foreach ($errors as $error): ?>
-                    <li><?= htmlspecialchars($error) ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
-
     <form method="post" action="">
         <div class="mb-3">
             <label for="email_or_username" class="form-label">Email ose Username</label>
@@ -155,9 +160,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit" class="btn btn-primary w-100">Kyçu</button>
     </form>
 
-    <p class="mt-3 text-center">Nuk ke llogari? <a href="register.php">Regjistrohu këtu</a>.</p>
+    <div class="mt-3 text-center">
+        <p>Nuk ke llogari? <a href="register.php">Regjistrohu këtu</a>.</p>
+        <p><a href="forgot_password.php">Keni harruar fjalëkalimin?</a></p>
+    </div>
 </main>
-<!-- Bootstrap JS dhe Popper.js (nëse përdor Bootstrap 5) -->
+
+<!-- Bootstrap JS dhe Popper.js -->
 <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
