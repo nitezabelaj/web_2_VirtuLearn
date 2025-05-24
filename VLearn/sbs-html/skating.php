@@ -2,6 +2,11 @@
 require_once 'includes/error_handler.php';
 
 session_start();
+if (!isset($_SESSION['visit_count_skating'])) {
+    $_SESSION['visit_count_skating'] = 1;
+} else {
+    $_SESSION['visit_count_skating']++;
+}
 
 //AnitaC - P2 / Sessions
 const SITE_TIME = "SkatingBoardSchool";
@@ -388,6 +393,8 @@ function shfaqTitullinFaqes() {
                   ?>
             </div>
          </div>
+                          <p style="text-align: center; color:black; margin-top: 100px;">Kjo faqe është vizituar <?php echo $_SESSION['visit_count_skating']; ?> herë gjatë këtij sesioni.</p>
+
       </div>
       <!-- end our class -->
       <!--  footer -->
