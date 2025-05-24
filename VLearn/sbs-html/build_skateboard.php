@@ -37,7 +37,7 @@ function generateMenu($items) {
 ?>
 
 <?php
-session_start();
+
 
 if (!isset($_SESSION['user_id'])) {
     die("Ju lutem, identifikohuni për të vazhduar.");
@@ -45,7 +45,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-$mysqli = new mysqli("localhost", "username_db", "password_db", "virtu_learn");
+$mysqli = new mysqli("localhost", "username", "password", "virtu_learn");
 if ($mysqli->connect_error) {
     die("Lidhja me bazën e të dhënave dështoi: " . $mysqli->connect_error);
 }
