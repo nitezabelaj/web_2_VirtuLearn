@@ -54,4 +54,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
         }
     }
 }
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['email'], $_POST['subject'], $_POST['message'])) {
+    $to = "admin@skatingschool.com";
+    $subject = "Kontakt nga: " . $_POST['email'];
+    $message = "Subjekti: " . $_POST['subject'] . "\n\nMesazhi:\n" . $_POST['message'];
+
+    $headers = "From: noreply@skatingschool.com\r\n";
+    $headers .= "Reply-To: " . $_POST['email'] . "\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+    $additional_parameters = "-fwebmaster@skatingschool.com";
+
+    @mail($to, $subject, $message, $headers, $additional_parameters);
+}
+
+
 ?>
