@@ -5,6 +5,13 @@ session_start();
 
 const SITE_TIME = "SkatingBoardSchool";
 
+session_start();
+if (!isset($_SESSION['visit_count_about'])) {
+    $_SESSION['visit_count_about'] = 1;
+} else {
+    $_SESSION['visit_count_about']++;
+}
+
 $menu_items = [
    "index.php" => "Home",
    "about.php" => "About",
@@ -481,6 +488,8 @@ echo "<p style='text-align: center;'>Për " . $oferta5["persona"] . " persona, �
 echo "</div>";
 ?>
          </div>
+
+   
       </div>
       <!-- end about -->
       <!--  footer -->
@@ -550,6 +559,7 @@ echo "</div>";
                      </div>
                   </div>
                </div>
+                         <p style="text-align: center; color:black; margin-top: 100px;">Kjo faqe është vizituar <?php echo $_SESSION['visit_count_about']; ?> herë gjatë këtij sesioni.</p>
             </div>
             <div class="copyright">
                <div class="container">
@@ -638,5 +648,6 @@ function getCookie(name) {
 
 window.onload = applyFooterColor;
       </script>
+
    </body>
 </html> 
