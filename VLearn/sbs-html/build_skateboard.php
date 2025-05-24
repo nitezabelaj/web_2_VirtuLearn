@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<p style='color:red;'>Ju lutem plotësoni të gjitha fushat!</p>";
     }
 }
-
+//Error_hadler me te gjithaspecifikat
 function error_handler($errno, $errstr, $errfile, $errline) {
     echo "<div style='background:#fee;border:1px solid #c00;padding:10px;margin:10px 0;color:#900;'>";
     echo "<strong>Gabim u kap!</strong><br>";
@@ -307,13 +307,15 @@ $mysqli->close();
             max-height: 70vh;
             overflow-y: auto;
             background: rgba(255,255,255,0.9);
-            padding: 15px;
+            padding: 35px;
             border-radius: 12px;
             box-shadow: 0 0 10px rgba(0,0,0,0.15);
             font-size: 14px;
             color: #333;
             z-index: 900;
             font-weight: 500;
+            margin:20px;
+
         }
 
  
@@ -348,6 +350,9 @@ $mysqli->close();
 
     <div class="sidebar">
         <?php
+        //Definimi dhe përdorimi i COOKIES me të gjitha specifikat (krijim, fshirja,
+           //ruajtja në varg).
+
         $cookieConsent = $_COOKIE['cookie_consent'] ?? null;
 
         if ($cookieConsent !== 'accepted') {
@@ -375,7 +380,7 @@ $mysqli->close();
 
             if (isset($_COOKIE['last_visits'])) {
                 $visits = json_decode($_COOKIE['last_visits'], true);
-                // Merr vetëm 3 vizitat e fundit
+                
                 $lastThree = array_slice($visits, -3, 3, true);
 
                 echo "Your last 3 visits: <ul>";
@@ -426,8 +431,12 @@ $mysqli->close();
 
             <button type="submit">💾 Save Configuration</button>
         </form>
+      
 
-        <?php if (isset($_SESSION['build'])): ?>
+        <?php 
+           //Manipulimi me PHP Sesione (psh ruajtje të ndryshme të vlerave, pastaj ndryshim i tyre dhe manipulime të tilla).
+        if (isset($_SESSION['build'])): ?>
+           
             <div class="session-box">
                 <h2>🔧 Your Current Build</h2>
                 <ul>
@@ -444,4 +453,4 @@ $mysqli->close();
 </html>
 <?php
 ob_end_flush();  
-?>
+?> 
