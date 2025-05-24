@@ -508,11 +508,20 @@ echo "</div>";
 ?>
          </div>
 
-   
       </div>
       <!-- end about -->
       <!--  footer -->
       <footer>
+         <div style="margin-top: 20px; text-align: center; color: white; margin-top: 100px; margin-bottom: 20px;">
+    <h3 style="color:white;">Mesazhe të rëndësishme për ju:</h3>
+    <ul>
+        <?php foreach ($teRendesishem as $msg): ?>
+            <li><?php echo $msg; ?></li>
+        <?php endforeach; ?>
+    </ul>
+    <p style="color:red;"><strong>Gjithsej: <?php echo count($teRendesishem); ?> mesazhe të rëndësishme u gjetën për ju.</strong></p>
+</div>
+   
          <div class="footer">
             <div class="container">
                <div class="row">
