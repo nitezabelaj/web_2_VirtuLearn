@@ -47,6 +47,7 @@ function generateMenu($items) {
 <!DOCTYPE html>
 <html lang="sq">
 <head>
+    <meta name="csrf-token" content="<?= $_SESSION['csrf_token'] ?>">
     <meta charset="UTF-8" />
     <title>Admin Dashboard - SkatingBoardSchool</title>
     <!-- Bootstrap CSS -->
@@ -70,6 +71,108 @@ function generateMenu($items) {
             </div>
         </div>
     </nav>
+<!-- Zëvendësoni tabelën ekzistuese me këtë strukturë -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">Menaxhimi i Përdoruesve</h6>
+        <div>
+            <button class="btn btn-sm btn-primary" onclick="loadUsersData()">
+                <i class="fas fa-sync-alt"></i> Rifresko
+            </button>
+            <button class="btn btn-sm btn-success ms-2" onclick="showAddUserModal()">
+                <i class="fas fa-plus"></i> Shto të Ri
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="users-table" width="100%" cellspacing="0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th width="5%">ID</th>
+                        <th>Emri i Përdoruesit</th>
+                        <th width="15%">Roli</th>
+                        <th width="20%">Veprimet</th>
+                    </tr>
+                </thead>
+                <tbody id="users-table-body">
+                    <!-- Rreshti i ngarkimit -->
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Duke ngarkuar...</span>
+                            </div>
+                            <p>Duke ngarkuar të dhënat...</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<style>
+    /* Stilizimi i tabelës së përdoruesve */
+#users-table {
+    font-size: 0.9rem;
+}
+
+#users-table th {
+    background-color: #4e73df;
+    color: white;
+    font-weight: 600;
+}
+
+.role-select {
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+}
+
+.update-btn, .delete-btn {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+    #users-table td:nth-child(1):before { content: "ID: "; font-weight: bold; }
+    #users-table td:nth-child(2):before { content: "Emri: "; font-weight: bold; }
+    #users-table td:nth-child(3):before { content: "Roli: "; font-weight: bold; }
+    #users-table td:nth-child(4):before { content: "Veprimet: "; font-weight: bold; }
+    
+    #users-table td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+    
+    #users-table td::before {
+        position: absolute;
+        left: 0.5rem;
+        width: calc(50% - 1rem);
+        padding-right: 1rem;
+        text-align: left;
+    }
+}
+</style>
+
+<!-- Modal për Shtimin e Përdoruesit (opsional) -->
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Shto Përdorues të Ri</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Forma do të shtohet këtu -->
+            </div>
+        </div>
+    </div>
+</div>
 </header>
 
 <main class="container my-5" style="max-width: 600px;">
@@ -120,5 +223,6 @@ function generateMenu($items) {
 
 <!-- Bootstrap JS bundle -->
 <script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/ajax_operations.js"></script>
 </body>
 </html>

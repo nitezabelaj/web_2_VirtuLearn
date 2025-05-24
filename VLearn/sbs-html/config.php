@@ -24,4 +24,14 @@ if (!function_exists('sanitizeInput')) {
         return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
     }
 }
+//perdorimi i Ajax p2 A.Z
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+// Headers për siguri
+header("X-Frame-Options: DENY");
+header("X-Content-Type-Options: nosniff");
+header("Referrer-Policy: strict-origin-when-cross-origin");
+header("Content-Security-Policy: default-src 'self'");
 ?>
