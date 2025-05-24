@@ -4,6 +4,13 @@ session_start();
 //AnitaC - P2 / Sessions
 const SITE_TIME = "SkatingBoardSchool";
 
+session_start();
+if (!isset($_SESSION['visit_count_home'])) {
+    $_SESSION['visit_count_home'] = 1;
+} else {
+    $_SESSION['visit_count_home']++;
+}
+
 
 $menu_items = [
    "index.php" => "Home",
@@ -753,8 +760,9 @@ $emriFaqes = "VirtuLearn";
                </div>
             </div>
          </div>
-      </div>
       <!-- end testimonial -->
+       <div style="background-color:white; margin-top: 170px;"><p style="text-align: center; color:black; margin-top: 100px; padding-top: 90px;">Kjo faqe është vizituar <?php echo $_SESSION['visit_count_home']; ?> herë gjatë këtij sesioni.</p>
+      </div>
       <!--  footer -->
       <footer>
 <script src="footerTheme.js"></script>
