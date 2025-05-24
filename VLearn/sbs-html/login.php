@@ -96,14 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 shfaqSukses("Mirësevini, " . htmlspecialchars($user['username']) . "! Ju jeni kyçur me sukses.");
                 
-                // Ridrejto pas 2 sekondash
-                echo '<script>
-                    setTimeout(function() {
-                        window.location.href = "' . ($user['role'] === 'admin' ? 'admin_dashboard.php' : 'dashboard.php') . '";
-                    }, 2000);
-                </script>';
-                exit;
-            }
         } catch (PDOException $e) {
             shfaqGabim("Gabim në lidhje me bazën e të dhënave. Ju lutem provoni përsëri më vonë.", 'kritike');
             error_log("Gabim në login: " . $e->getMessage());
