@@ -17,7 +17,9 @@ $menu_items = [
     "about.php" => "About",
     "skating.php" => "Skating",
     "shop.php" => "Shop",
-    "contact.php" => "Contact Us"
+    "contact.php" => "Contact Us",
+    "build_skateboard.php"=>"Build your Skateboard",
+      "build_skateboard.php"=>"Build your Skateboard"
 ];
 
 // Shto menunë sipas rolit të përdoruesit
