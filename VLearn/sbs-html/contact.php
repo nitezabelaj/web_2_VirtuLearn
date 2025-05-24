@@ -9,6 +9,10 @@ if (!isset($_SESSION['visit_count_contact'])) {
     $_SESSION['visit_count_contact']++;
 }
 
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["message"])) {
+    $gjatesiaMesazhit = strlen(trim($_POST["message"]));
+}
+
 //AnitaC - P2 / Sessions
 require_once 'config.php';
 
