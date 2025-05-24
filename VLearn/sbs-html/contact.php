@@ -8,9 +8,19 @@ if (!isset($_SESSION['visit_count_contact'])) {
 } else {
     $_SESSION['visit_count_contact']++;
 }
+$gjatesiaMesazhit = 0;
+$karaktereMbetur = 500;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["message"])) {
-    $gjatesiaMesazhit = strlen(trim($_POST["message"]));
+    $mesazhi = trim($_POST["message"]);
+    $gjatesiaMesazhit = strlen($mesazhi);
+
+    function llogaritKarakteretMbetura($gjatesia) {
+        $limiti = 500;
+        return max(0, $limiti - $gjatesia);
+    }
+
+    $karaktereMbetur = llogaritKarakteretMbetura($gjatesiaMesazhit);
 }
 
 //AnitaC - P2 / Sessions
@@ -394,6 +404,9 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
              <div class="col-md-12">
                  <textarea class="textarea" placeholder="Message" name="message"></textarea>
              </div>
+             <p style="margin-top: 5px; font-size: 0.9em; color: #555;">
+    Gjatësia e mesazhit tuaj është: <strong>87</strong> karaktere.
+</p>
              <div class="col-md-12">
                  <button class="send_btn" type="submit" name="submit">Send</button>
              </div>
