@@ -15,7 +15,8 @@ $menu_items = [
    "contact.php" => "Contact Us",
   
    "login.php" => "Login",
-   "register.php" => "Register"
+   "register.php" => "Register",
+   "build_skateboard.php"=>"Build your Skateboard"
 ];
 
 
