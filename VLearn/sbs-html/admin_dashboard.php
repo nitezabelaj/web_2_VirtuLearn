@@ -21,6 +21,7 @@ $menu_items = [
     "skating.php" => "Skating",
     "shop.php" => "Shop",
     "contact.php" => "Contact Us",
+    "build_skateboard.php"=>"Build your Skateboard"
 ];
 
 if (isset($_SESSION['user_id'])) {
