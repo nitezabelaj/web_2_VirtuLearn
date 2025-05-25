@@ -579,6 +579,11 @@ echo '
 </script>
 ';
 ?>
+
+
+</body>
+</html>
+
 </body>
 </html>
 <?php
