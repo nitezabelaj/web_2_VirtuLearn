@@ -1,185 +1,120 @@
 <?php
-require_once 'includes/error_handler.php';//T.G
-session_start();
-require_once 'config.php';
+// Lidhja me databazën
+$conn = new mysqli("localhost", "root", "", "virtu_learn");
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'PHPMailer/PHPMailer.php';
-require 'PHPMailer/SMTP.php';
-require 'PHPMailer/Exception.php';
-
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
-    exit();
-}
-
-// Përgjigja me email
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reply_submit'])) {
-    $reply_to = filter_var($_POST['reply_to_email'], FILTER_VALIDATE_EMAIL);
-    $reply_message = trim($_POST['reply_message']);
-    $reply_name = htmlspecialchars($_POST['reply_name']);
-
-    if ($reply_to && $reply_message) {
-        try {
-            $mail = new PHPMailer(true);
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'anitacacaaj@gmail.com';  // vendos Gmail-in tënd
-            $mail->Password = 'tibm pqxn noic eevj';    // app password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-            $mail->Port = 465;
-
-            $mail->setFrom('anitacacaaj@gmail.com', 'Admin SkatingBoardSchool');
-            $mail->addAddress($reply_to, $reply_name);
-
-            $mail->isHTML(true);
-            $mail->Subject = "Përgjigje nga SkatingBoardSchool";
-            $mail->Body = nl2br(htmlspecialchars($reply_message));
-
-            $mail->send();
-            $success_message = "Përgjigja u dërgua me sukses tek $reply_to";
-        } catch (Exception $e) {
-            $error_message = "Gabim gjatë dërgimit të përgjigjes: {$mail->ErrorInfo}";
-        }
-    } else {
-        $error_message = "Ju lutem plotësoni të gjitha fushat e përgjigjes!";
-    }
-}
-
-// Fshirja e mesazhit
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
-    $delete_id = intval($_POST['delete_id']);
-    $stmt = $pdo->prepare("DELETE FROM contacts WHERE id = ?");
-    if ($stmt->execute([$delete_id])) {
-        $success_message = "Mesazhi me ID $delete_id u fshi me sukses.";
-    } else {
-        $error_message = "Gabim gjatë fshirjes së mesazhit.";
-    }
-}
-
-// Nxirr mesazhet
-$stmt = $pdo->query("SELECT * FROM contacts ORDER BY created_at DESC");
-$messages = $stmt->fetchAll();
+$result = $conn->query("SELECT * FROM contacts");
 ?>
 
 <!DOCTYPE html>
-<html lang="sq">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Shiko Mesazhet e Kontaktit</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .modal {
-            display: none; position: fixed; z-index: 10; padding-top: 100px; 
-            left: 0; top: 0; width: 100%; height: 100%; overflow: auto; 
-            background-color: rgba(0,0,0,0.4);
-        }
-        .modal-content {
-            background-color: #fff; margin: auto; padding: 20px;
-            border: 1px solid #888; width: 400px; border-radius: 5px;
-        }
-        .close {
-            color: #aaa; float: right; font-size: 28px; font-weight: bold;
-        }
-        .close:hover, .close:focus { color: black; cursor: pointer; }
-        form.inline { display: inline; }
-        button.deleteBtn {
-            background-color: #f44336; 
-            color: white; border: none; padding: 6px 12px; cursor: pointer;
-            border-radius: 3px;
-        }
-        button.deleteBtn:hover {
-            background-color: #d32f2f;
-        }
-    </style>
+  <title>Mesazhet e Kontaktit</title>
+  <style>
+    table, th, td {
+      border: 1px solid #999;
+      border-collapse: collapse;
+      padding: 8px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .close {
+      float: right;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 6px 12px;
+      background-color: #2a8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1a6;
+    }
+  </style>
 </head>
 <body>
-    <h1>Mesazhet e Kontaktit</h1>
 
-    <?php if (!empty($success_message)): ?>
-        <p style="color:green;"><?= htmlspecialchars($success_message) ?></p>
-    <?php endif; ?>
-    <?php if (!empty($error_message)): ?>
-        <p style="color:red;"><?= htmlspecialchars($error_message) ?></p>
-    <?php endif; ?>
+<h2>Mesazhet e Kontaktit</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th><th>Emri</th><th>Email</th><th>Telefoni</th><th>Subjekti</th><th>Mesazhi</th><th>Data</th><th>Veprime</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($messages as $msg): ?>
-                <tr>
-                    <td><?= htmlspecialchars($msg['id']) ?></td>
-                    <td><?= htmlspecialchars($msg['name']) ?></td>
-                    <td><?= htmlspecialchars($msg['email']) ?></td>
-                    <td><?= htmlspecialchars($msg['phone']) ?></td>
-                    <td><?= htmlspecialchars($msg['subject']) ?></td>
-                    <td><?= nl2br(htmlspecialchars($msg['message'])) ?></td>
-                    <td><?= htmlspecialchars($msg['created_at']) ?></td>
-                    <td>
-                        <button class="replyBtn"
-                            data-email="<?= htmlspecialchars($msg['email']) ?>"
-                            data-name="<?= htmlspecialchars($msg['name']) ?>"
-                        >Përgjigju</button>
+<table>
+  <tr>
+    <th>Emri</th>
+    <th>Email</th>
+    <th>Telefoni</th>
+    <th>Subjekti</th>
+    <th>Mesazhi</th>
+    <th>Veprimi</th>
+  </tr>
 
-                        <form method="POST" class="inline" onsubmit="return confirm('A jeni i sigurt që doni ta fshini këtë mesazh?');">
-                            <input type="hidden" name="delete_id" value="<?= $msg['id'] ?>">
-                            <button type="submit" class="deleteBtn">Fshi</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+  <?php while ($row = $result->fetch_assoc()) { ?>
+    <tr>
+      <td><?= htmlspecialchars($row['name']) ?></td>
+      <td><?= htmlspecialchars($row['email']) ?></td>
+      <td><?= htmlspecialchars($row['phone']) ?></td>
+      <td><?= htmlspecialchars($row['subject']) ?></td>
+      <td><?= htmlspecialchars($row['message']) ?></td>
+      <td><button onclick="openModal('<?= $row['email'] ?>')">Përgjigju</button></td>
+    </tr>
+  <?php } ?>
+</table>
 
-    <p><a href="admin_dashboard.php">Kthehu në Dashboard</a></p>
+<!-- Modal -->
+<div id="replyModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h3>Përgjigju përdoruesit</h3>
+    <form method="POST" action="send_reply.php">
+      <input type="hidden" name="to_email" id="to_email">
+      <label>Mesazhi:</label><br>
+      <textarea name="reply_message" rows="6" style="width: 100%;" required></textarea><br><br>
+      <input type="submit" name="submit_reply" value="Dërgo Përgjigjen">
+    </form>
+  </div>
+</div>
 
-    <!-- Modal për përgjigjen -->
-    <div id="replyModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Përgjigju përdoruesit</h2>
-            <form method="POST" id="replyForm">
-                <input type="hidden" name="reply_to_email" id="reply_to_email" required>
-                <input type="hidden" name="reply_name" id="reply_name">
-                <label for="reply_message">Mesazhi:</label><br>
-                <textarea name="reply_message" id="reply_message" rows="6" style="width: 100%;" required></textarea><br><br>
-                <button type="submit" name="reply_submit">Dërgo Përgjigjen</button>
-            </form>
-        </div>
-    </div>
+<script>
+  function openModal(email) {
+    document.getElementById('to_email').value = email;
+    document.getElementById('replyModal').style.display = 'flex';
+  }
 
-    <script>
-        var modal = document.getElementById("replyModal");
-        var span = document.getElementsByClassName("close")[0];
+  function closeModal() {
+    document.getElementById('replyModal').style.display = 'none';
+  }
 
-        document.querySelectorAll('.replyBtn').forEach(function(btn){
-            btn.onclick = function() {
-                document.getElementById('reply_to_email').value = btn.getAttribute('data-email');
-                document.getElementById('reply_name').value = btn.getAttribute('data-name');
-                document.getElementById('reply_message').value = "";
-                modal.style.display = "block";
-            };
-        });
+  // Opsionale: mbyll modal kur klikon jashtë tij
+  window.onclick = function(event) {
+    const modal = document.getElementById('replyModal');
+    if (event.target === modal) {
+      closeModal();
+    }
+  }
+</script>
 
-        span.onclick = function() {
-            modal.style.display = "none";
-        };
-
-        window.onclick = function(event) {
-            if(event.target == modal) {
-                modal.style.display = "none";
-            }
-        };
-    </script>
 </body>
 </html>
