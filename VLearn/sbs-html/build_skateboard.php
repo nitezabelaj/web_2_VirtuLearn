@@ -3,6 +3,20 @@
 //AnitaC - P2 / Sessions
 session_start();
 
+// --- COOKIE HANDLING ---
+
+
+if (!isset($_COOKIE['username'])) {
+    setcookie("username", "MIKU JONE", time() + 86400, "/"); 
+}
+
+
+if (isset($_GET['clear_cookie']) && $_GET['clear_cookie'] === 'true') {
+    setcookie("username", "", time() - 3600, "/"); 
+    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+    exit;
+}
+
 const SITE_TIME = "SkatingBoardSchool";
 
 $menu_items = [
@@ -16,7 +30,6 @@ $menu_items = [
    "build_skateboard.php"=>"Build your Skateboard"
 ];
 
-
 if (isset($_SESSION['user_id'])) {
    if ($_SESSION['role'] === 'admin') {
        $menu_items['admin_dashboard.php'] = "Admin Panel";
@@ -26,7 +39,6 @@ if (isset($_SESSION['user_id'])) {
    $menu_items['logout.php'] = "Logout";
 }
 
-
 function generateMenu($items) {
    $current = basename($_SERVER['PHP_SELF']);
    foreach ($items as $link => $label) {
@@ -34,10 +46,6 @@ function generateMenu($items) {
        echo "<li class='nav-item$isActive'><a class='nav-link' href='$link'>$label</a></li>";
    }
 }
-?>
-
-<?php
-
 
 if (!isset($_SESSION['user_id'])) {
     die("Ju lutem, identifikohuni për të vazhduar.");
@@ -97,11 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "<p style='color:red;'>Ju lutem plotësoni të gjitha fushat!</p>";
     }
-
-
 }
-//P2, AmelaSyla-Me rëndësi: definimi i funksionit për trajtim të gabimeve error_handler me të
-//gjitha parapmetrat si (errno, errstring, errfile, errline, errcontext)
 
 function error_handler($errno, $errstr, $errfile, $errline) {
     echo "<div style='background:#fee;border:1px solid #c00;padding:10px;margin:10px 0;color:#900;'>";
@@ -113,9 +117,6 @@ function error_handler($errno, $errstr, $errfile, $errline) {
     echo "</div>";
 }
 set_error_handler("error_handler");
-
-//P2-AmelaSyla-Manipulimi me PHP Sesione (psh ruajtje të ndryshme të vlerave, pastaj ndryshim
-//i tyre dhe manipulime të tilla).
 
 if (!isset($_SESSION['build'])) {
     $stmt = $mysqli->prepare("SELECT deck, wheels, trucks, color FROM user_builds WHERE user_id = ?");
@@ -130,21 +131,6 @@ if (!isset($_SESSION['build'])) {
 
 $mysqli->close();
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -163,6 +149,46 @@ $mysqli->close();
             align-items: center;
             height: 100vh;
             color: #333;
+            flex-direction: column;
+        }
+
+        nav ul.nav {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            padding: 10px 0;
+            margin: 0 0 20px 0;
+        }
+
+        nav ul.nav li.nav-item a.nav-link {
+            text-decoration: none;
+            color: #0077cc;
+            font-weight: bold;
+        }
+
+        nav ul.nav li.nav-item.active a.nav-link {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .cookie-greeting {
+            background-color: #e0f7fa;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: #00796b;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .cookie-clear {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #c00;
+            cursor: pointer;
+            text-decoration: underline;
+            background: none;
+            border: none;
         }
 
         .container {
@@ -246,58 +272,64 @@ $mysqli->close();
     </style>
 </head>
 <body>
+    <nav>
+    <ul class="nav">
+        <?php generateMenu($menu_items); ?>
+    </ul>
+    </nav>
 
-<div class="container">
-    <h1>🛹 Build Your Skateboard</h1>
-
-    <form method="POST">
-        <label for="deck">Deck:</label>
-        <select name="deck" id="deck">
-            <option value="Element">Element</option>
-            <option value="Santa Cruz">Santa Cruz</option>
-            <option value="Zero">Zero</option>
-        </select>
-
-        <label for="wheels">Wheels:</label>
-        <select name="wheels" id="wheels">
-            <option value="Spitfire">Spitfire</option>
-            <option value="Bones">Bones</option>
-            <option value="Ricta">Ricta</option>
-        </select>
-
-        <label for="trucks">Trucks:</label>
-        <select name="trucks" id="trucks">
-            <option value="Independent">Independent</option>
-            <option value="Thunder">Thunder</option>
-            <option value="Venture">Venture</option>
-        </select>
-
-        <label for="color">Color:</label>
-        <input type="color" name="color" id="color" value="#ff0000">
-
-        <button type="submit">💾 Save Configuration</button>
-    </form>
-
-    <?php if (isset($_SESSION['build'])): ?>
-        <div class="session-box">
-            <h2>🔧 Your Current Build</h2>
-            <ul>
-                <li><strong>Deck:</strong> <?= htmlspecialchars($_SESSION['build']['deck']) ?></li>
-                <li><strong>Wheels:</strong> <?= htmlspecialchars($_SESSION['build']['wheels']) ?></li>
-                <li><strong>Trucks:</strong> <?= htmlspecialchars($_SESSION['build']['trucks']) ?></li>
-                <li><strong>Color:</strong> 
-                    <span style="background: <?= htmlspecialchars($_SESSION['build']['color']) ?>; 
-                        padding: 2px 10px; 
-                        border-radius: 5px; 
-                        color: #fff;">
-                        <?= htmlspecialchars($_SESSION['build']['color']) ?>
-                    </span>
-                </li>
-            </ul>
-            <a href="?clear=true" class="clear">🗑️ Clear Build</a>
+    <?php if (isset($_COOKIE['username'])): ?>
+        <div class="cookie-greeting">
+            👋 Mirë se u riktheve, <strong><?= htmlspecialchars($_COOKIE['username']) ?></strong>!
+            <form method="GET" style="display:inline;">
+                <button name="clear_cookie" value="true" class="cookie-clear" type="submit">Fshij Përshëndetjen</button>
+            </form>
         </div>
     <?php endif; ?>
-</div>
 
+    <div class="container">
+        <h1>🛹 Build Your Skateboard</h1>
+
+        <form method="POST">
+            <label for="deck">Deck:</label>
+            <select name="deck" id="deck">
+                <option value="Element">Element</option>
+                <option value="Santa Cruz">Santa Cruz</option>
+                <option value="Zero">Zero</option>
+            </select>
+
+            <label for="wheels">Wheels:</label>
+            <select name="wheels" id="wheels">
+                <option value="Spitfire">Spitfire</option>
+                <option value="Bones">Bones</option>
+                <option value="Ricta">Ricta</option>
+            </select>
+
+            <label for="trucks">Trucks:</label>
+            <select name="trucks" id="trucks">
+                <option value="Independent">Independent</option>
+                <option value="Thunder">Thunder</option>
+                <option value="Venture">Venture</option>
+            </select>
+
+            <label for="color">Color:</label>
+            <input type="color" name="color" id="color" value="#ff0000">
+
+            <button type="submit">💾 Save Configuration</button>
+        </form>
+
+        <?php if (isset($_SESSION['build'])): ?>
+            <div class="session-box">
+                <h2>🔧 Your Current Build</h2>
+                <ul>
+                    <li><strong>Deck:</strong> <?= htmlspecialchars($_SESSION['build']['deck']) ?></li>
+                    <li><strong>Wheels:</strong> <?= htmlspecialchars($_SESSION['build']['wheels']) ?></li>
+                    <li><strong>Trucks:</strong> <?= htmlspecialchars($_SESSION['build']['trucks']) ?></li>
+                    <li><strong>Color:</strong> <span style="display:inline-block;width:20px;height:20px;background:<?= htmlspecialchars($_SESSION['build']['color']) ?>;"></span></li>
+                </ul>
+                <a href="?clear=true" class="clear">❌ Clear Build</a>
+            </div>
+        <?php endif; ?>
+    </div>
 </body>
 </html>
