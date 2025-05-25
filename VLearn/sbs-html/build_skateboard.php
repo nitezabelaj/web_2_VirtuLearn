@@ -590,6 +590,7 @@ echo '
     background: #f9faff;
     text-align: center;
 ">
+<p>Info juaj per skateboard</p>
     <h3 id="display" style="
         font-weight: 600; 
         font-size: 1.2rem; 
