@@ -13,15 +13,6 @@ echo "Lidhja u realizua me sukses!";
 ?>
 
 <?php
-require_once 'includes/error_handler.php';//T.G
-
-
-session_start();
-if (!isset($_SESSION['visit_count_home'])) {
-    $_SESSION['visit_count_home'] = 1;
-} else {
-    $_SESSION['visit_count_home']++;
-}
 
 
 $menu_items = [
@@ -80,16 +71,26 @@ $studentetAsort = [
 ];
 asort($studentetAsort);
 
-$greeting = "";
-$hour = date("H");
+session_start();
 
-if ($hour >= 5 && $hour < 12) {
-    $greeting = "Mirëmëngjes!";
-} elseif ($hour >= 12 && $hour < 18) {
-    $greeting = "Mirëdita!";
-} else {
-    $greeting = "Mirëmbrëma!";
+function getGreetingMessage() {
+    if (isset($_SESSION['greeting'])) {
+        return $_SESSION['greeting'];
+    } else {
+        $hour = (int)date('H');
+        if ($hour >= 5 && $hour < 12) {
+            $greeting = "Mirëmëngjes!";
+        } elseif ($hour >= 12 && $hour < 18) {
+            $greeting = "Mirëdita!";
+        } else {
+            $greeting = "Mirëmbrëma!";
+        }
+        
+        $_SESSION['greeting'] = $greeting;
+        return $greeting;
+    }
 }
+
 
 $dayMessage = "";
 $day = date("l"); // Monday, Tuesday...
@@ -424,7 +425,7 @@ $emriFaqes = "VirtuLearn";
                                           <h3>
                                             Welcome<br> To <br> Virtu<br> Learn<br> School
                                           </h3>
-                                          <h2><?php echo $greeting . "<br>" . $dayMessage;?> </h2><br>
+                                          <h2><?php echo getGreetingMessage() . "<br>" . $dayMessage;?> </h2><br>
                                           <div class="link_btn">
                                              <a class="read_more" href="Javascript:void(0)">Read More   <span></span></a>
                                           </div>
@@ -448,7 +449,7 @@ $emriFaqes = "VirtuLearn";
                                           <h3>
                                              Virtu<br> Learn<br> 2025
                                           </h3>
-                                          <h2><?php echo $greeting . "<br>" . $dayMessage;?> </h2><br>
+                                          <h2><?php echo getGreetingMessage() . "<br>" . $dayMessage;?> </h2><br>
                                           <div class="link_btn">
                                              <a class="read_more" href="Javascript:void(0)">Read More   <span></span></a>
                                           </div>
@@ -472,7 +473,7 @@ $emriFaqes = "VirtuLearn";
                                           <h3>
                                              <br>VirtuLearn <br> School
                                           </h3>
-                                          <h2><?php echo $greeting . "<br>" . $dayMessage;?> </h2><br>
+                                          <h2><?php echo getGreetingMessage() . "<br>" . $dayMessage;?> </h2><br>
                                           <div class="link_btn">
                                              <a class="read_more" href="Javascript:void(0)">Read More   <span></span></a>
                                           </div>
