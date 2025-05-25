@@ -62,6 +62,20 @@ function generateMenu($items) {
 }
 ?>
 <?php
+echo '<style>
+  .box-container {
+    margin: 30px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+  }
+</style>';
+
+echo '<div class="box-container">';
+
 include 'mesazhi.php';
 require 'dokument.php';
 
@@ -110,15 +124,16 @@ writeToFile("Përveç argëtimit, ai ndihmon edhe në zhvillimin fizik dhe mendo
 
 echo "<br>" . checkFileSize() . "<br><br>";
 
-echo "Përmbajtja e skedarit është:<br>";
-echo "<br>";
+echo "Përmbajtja e skedarit është:<br><br>";
+
 mesazhi();
 echo "<br>";
 dokument();
 echo "<pre>" . readFromFile() . "</pre>";
 
-
+echo '</div>';
 ?>
+
 
 
 
