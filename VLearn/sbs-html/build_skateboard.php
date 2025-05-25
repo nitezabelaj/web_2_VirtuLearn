@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 ?>
 
-<?php include 'gabimet.php'; ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
