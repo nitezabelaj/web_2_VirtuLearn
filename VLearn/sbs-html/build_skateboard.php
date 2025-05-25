@@ -2,6 +2,7 @@
 //T.G
 //AnitaC - P2 / Sessions
 session_start();
+ob_start(); 
 
 const SITE_TIME = "SkatingBoardSchool";
 
@@ -333,3 +334,6 @@ if (isset($_COOKIE['arsyetSkateboard'])) {
     </div>
 </body>
 </html>
+<?php
+ob_end_flush();  
+?>
