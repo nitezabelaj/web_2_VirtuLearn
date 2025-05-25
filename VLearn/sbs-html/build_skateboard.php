@@ -579,39 +579,6 @@ echo '
 </script>
 ';
 ?>
-<?php
-session_start();
-
-if (!isset($_SESSION['myValue'])) {
-    $_SESSION['myValue'] = "Duke përditësuar këtë fjali, ti mund të japësh info interesante rreth skateboard.";
-}
-
-if (isset($_GET['action'])) {
-    header('Content-Type: application/json');
-    $action = $_GET['action'];
-
-    switch ($action) {
-        case 'read':
-            echo json_encode(['value' => $_SESSION['myValue']]);
-            break;
-
-        case 'update':
-            $newValue = trim($_POST['value'] ?? '');
-            if ($newValue !== '') {
-                $_SESSION['myValue'] = $newValue;
-                echo json_encode(['success' => true, 'newValue' => $_SESSION['myValue']]);
-            } else {
-                echo json_encode(['error' => 'Vlera është bosh']);
-            }
-            break;
-
-        default:
-            echo json_encode(['error' => 'Veprim i pavlefshëm']);
-    }
-    exit;
-}
-?>
-
 <h3 id="display">Duke ngarkuar...</h3>
 
 <input type="text" id="inputValue" placeholder="Shkruaj info rreth skateboard" />
@@ -621,7 +588,7 @@ if (isset($_GET['action'])) {
 
 <script>
     function readValue() {
-        fetch('?action=read')
+        fetch('ajax_handler.php?action=read')
             .then(res => res.json())
             .then(data => {
                 if(data.value !== undefined){
@@ -643,7 +610,7 @@ if (isset($_GET['action'])) {
             return;
         }
 
-        fetch('?action=update', {
+        fetch('ajax_handler.php?action=update', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: `value=${encodeURIComponent(newVal)}`
@@ -665,6 +632,7 @@ if (isset($_GET['action'])) {
 
     readValue();
 </script>
+
 
 
 </body>
