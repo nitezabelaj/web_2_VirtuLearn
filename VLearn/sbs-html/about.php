@@ -88,16 +88,26 @@ echo '<style>
   }
   button {
     margin-top: 15px;
-    padding: 8px 16px;
+    padding: 12px 28px;
     font-size: 16px;
     cursor: pointer;
     border: none;
-    background-color: #007BFF;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     color: white;
-    border-radius: 5px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.4);
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+    letter-spacing: 0.05em;
   }
   button:hover {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+    box-shadow: 0 6px 20px rgba(37, 117, 252, 0.7);
+    transform: translateY(-3px);
+  }
+  button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(37, 117, 252, 0.5);
   }
 </style>';
 
@@ -150,8 +160,7 @@ function checkFileSize() {
 }
 
 writeToFile("Përveç argëtimit, ai ndihmon edhe në zhvillimin fizik dhe <br>mendor të individit.<br><br>");
-echo "<br>" . checkFileSize() . "<br><br>";
-echo "Përmbajtja e skedarit është:<br><br>";
+echo "<br>" . checkFileSize() . "<br>";
 mesazhi();
 echo "<br>";
 dokument();
@@ -168,18 +177,7 @@ echo '
 </script>
 ';
 ?>
-
-
-
-
-
-
-
-
-
-
-<?php 
-
+<?php
 
 if (isset($_GET['search'])) {
    $query = trim($_GET['search']);
