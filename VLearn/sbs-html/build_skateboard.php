@@ -261,29 +261,52 @@ $mysqli->close();
     </ul>
     </nav>
     <div class="sidebar">
+<div class="sidebar">
 <?php
+$cookieConsent = $_COOKIE['cookie_consent'] ?? null;
 
-if (isset($_GET['clear_cookie']) && $_GET['clear_cookie'] === 'true') {
-    setcookie('last_visits', '', time() - 3600, "/");
-    echo "Cookie 'last_visits' has been cleared.<br>";
-}
-
-if (isset($_COOKIE['last_visits'])) {
-    $visits = json_decode($_COOKIE['last_visits'], true);
-    echo "Your previous visits: <ul>";
-    foreach ($visits as $visit) {
-        echo "<li>" . htmlspecialchars($visit) . "</li>";
+if ($cookieConsent !== 'accepted') {
+    echo '
+    <div id="cookie-consent-banner" style="background:#f5f5f5; padding:10px; border-radius:8px; font-size:14px; color:#333;">
+        Our site uses cookies. Do you accept our <strong>Cookies Privacy</strong>?
+        <button id="accept-cookies" style="margin-left:10px; padding:5px 10px;">Accept</button>
+        <button id="decline-cookies" style="margin-left:5px; padding:5px 10px;">Decline</button>
+    </div>
+    <script>
+        document.getElementById("accept-cookies").addEventListener("click", function() {
+            document.cookie = "cookie_consent=accepted; path=/; max-age=" + 60*60*24*365;
+            location.reload();
+        });
+        document.getElementById("decline-cookies").addEventListener("click", function() {
+            document.cookie = "cookie_consent=declined; path=/; max-age=" + 60*60*24*365;
+            document.getElementById("cookie-consent-banner").style.display = "none";
+        });
+    </script>';
+} else if ($cookieConsent === 'accepted') {
+    if (isset($_GET['clear_cookie']) && $_GET['clear_cookie'] === 'true') {
+        setcookie('last_visits', '', time() - 3600, "/");
+        echo "Cookie 'last_visits' has been cleared.<br>";
     }
-    echo "</ul>";
+
+    if (isset($_COOKIE['last_visits'])) {
+        $visits = json_decode($_COOKIE['last_visits'], true);
+        echo "Your previous visits: <ul>";
+        foreach ($visits as $visit) {
+            echo "<li>" . htmlspecialchars($visit) . "</li>";
+        }
+        echo "</ul>";
+    } else {
+        echo "This is your first visit to this page. Welcome!<br>";
+        $visits = [];
+    }
+
+    $visits[] = date('Y-m-d H:i:s');
+    setcookie('last_visits', json_encode($visits), time() + (86400 * 30), "/");
 } else {
-    echo "This is your first visit to this page. Welcome!<br>";
-    $visits = [];
+    echo "You declined cookies. Some features might be limited.";
 }
-
-$visits[] = date('Y-m-d H:i:s');
-
-setcookie('last_visits', json_encode($visits), time() + (86400 * 30), "/");
 ?>
+</div>
 
 
 </div>
