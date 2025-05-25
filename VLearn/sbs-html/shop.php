@@ -43,6 +43,34 @@ function generateMenu($items) {
 }
 ?>
 
+<?php
+
+function merrProduktetNgaAPI() {
+    $api_url = "http://localhost/Projekti-UEB2/web_2_VirtuLearn/VLearn/sbs-html/api/products.php";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $api_url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    $produktet = json_decode($response, true);
+    return $produktet;
+}
+
+$produktet = merrProduktetNgaAPI();
+
+foreach ($produktet as $produkt) {
+    echo "<div>";
+    echo "<h4>" . htmlspecialchars($produkt['name']) . "</h4>";
+    echo "<p>Price: " . htmlspecialchars($produkt['price']) . " EUR</p>";
+    echo "<p>Category: " . htmlspecialchars($produkt['category']) . "</p>";
+    echo "<p>Special: " . ($produkt['is_special'] ? 'Yes' : 'No') . "</p>";
+    echo "</div><hr>";
+}
+
+
+?>
+
 <?php 
 
 $address = "123 Main Street, Tirana";
