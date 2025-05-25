@@ -91,27 +91,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors[] = $e->getMessage();
 }
 
-        }
-    }
-//pjesa e trajtimit te gabimeve
-    require_once 'errorHandler.php';
-
-if (empty($_POST['email']) || empty($_POST['password'])) {
-    $error = ErrorHandler::getErrorMessage('EMPTY_FIELDS');
-    echo "<div class='alert alert-danger'>$error</div>";
-}
-
-try {
-    if ($userExists) {
-        throw new Exception(ErrorHandler::getErrorMessage('USER_EXISTS'));
-    }
-} catch (Exception $e) {
-    echo "<div class='alert alert-warning'>{$e->getMessage()}</div>";
-}
-$error = ErrorHandler::getErrorMessage('EMPTY_FIELDS');
-
-?>
-
+        ?>
+        
 <!DOCTYPE html>
 <html lang="sq">
 <head>
