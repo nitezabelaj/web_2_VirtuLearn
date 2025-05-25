@@ -14,22 +14,32 @@ if (!isset($_SESSION['visit_count_about'])) {
 
 function filtroMesazhetRendesishem($teGjithaMesazhet, &$mesazhetRendesishem) {
     foreach ($teGjithaMesazhet as $mesazh) {
-        if (str_contains($mesazh, 'rëndësishëm') || str_contains($mesazh, 'Siguria')) {
+        if (str_contains($mesazh, 'speciale') || str_contains($mesazh, 'mosha')|| str_contains($mesazh, 'falas')) {
             $mesazhetRendesishem[] = $mesazh;
+        }
+    }
+}
+function filtroMesazheteArdhshme($teGjithaMesazhet, &$mesazhetArdhshme) {
+    foreach ($teGjithaMesazhet as $mesazh) {
+        if (str_contains($mesazh, 'skateboard') || str_contains($mesazh, 'interesante')) {
+            $mesazhetArdhshme[] = $mesazh;
         }
     }
 }
 
 $mesazhet = [
-    "Ky sistem ofron përmbajtje të personalizuar për çdo përdorues.",
-    "Siguria e të dhënave është prioritet ynë kryesor.",
-    "Ju mund të gjurmoni progresin tuaj në çdo moment.",
-    "Ky mesazh është shumë i rëndësishëm për përdoruesit e rinj.",
-    "Përdorimi i platformës është falas për studentë."
+    "Modele te reja të skateboard ...",
+    "Kurse për mosha te reja!",
+    "Produkte të reja speciale!",
+    "Kurse të reja interesante ...",
+    "Përdorimi i platformës është falas për studentë!"
 ];
 
 $teRendesishem = [];
 filtroMesazhetRendesishem($mesazhet, $teRendesishem);
+
+$teArdhshme = [];
+filtroMesazheteArdhshme($mesazhet, $teArdhshme);
 
 $menu_items = [
    "index.php" => "Home",
@@ -415,13 +425,29 @@ echo "</div>";
       <!--  footer -->
       <footer>
          <div style="margin-top: 20px; text-align: center; color: white; margin-top: 100px; margin-bottom: 20px;">
-    <h3 style="color:white;">Mesazhe të rëndësishme për ju:</h3>
+    <h3 style="color:red;"><strong>Mesazhe të rëndësishme për ju:</strong></h3>
     <ul>
         <?php foreach ($teRendesishem as $msg): ?>
             <li><?php echo $msg; ?></li>
         <?php endforeach; ?>
     </ul>
-    <p style="color:red;"><strong>Gjithsej: <?php echo count($teRendesishem); ?> mesazhe të rëndësishme u gjetën për ju.</strong></p>
+    <p style="color:white; display:none;"><small>Gjithsej: <?php echo count($teRendesishem); ?> mesazhe të rëndësishme u gjetën për ju.</small></p>
+    <?php
+
+      function shtoMesazhArdhshme($mesazhet, $iRi) {
+         $mesazhet[] = $iRi;
+         return $mesazhet;
+      }
+
+      $teArdhshmeMeShtese = shtoMesazhArdhshme($teArdhshme, "Produkte te reja profesionale...");
+
+      echo "<div style='margin-top: 40px; padding: 10px; border-radius: 6px;'>";
+      echo "<h4 style='text-align:center; color:red;'><strong>Së shpejti:</strong></h4><ul>";
+      foreach ($teArdhshmeMeShtese as $m) {
+         echo "<li>$m</li>";
+      }
+      echo "</ul></div>";
+      ?>
 </div>
    
          <div class="footer">
