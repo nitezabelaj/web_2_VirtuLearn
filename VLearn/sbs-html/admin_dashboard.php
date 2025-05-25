@@ -95,17 +95,10 @@ function generateMenu($items) {
                         <th width="20%">Veprimet</th>
                     </tr>
                 </thead>
-                <tbody id="users-table-body">
-                    <!-- Rreshti i ngarkimit -->
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Duke ngarkuar...</span>
-                            </div>
-                            <p>Duke ngarkuar të dhënat...</p>
-                        </td>
-                    </tr>
-                </tbody>
+                <!-- PJESA E IMPLMENTIMIT TE AJAX LEXIMIT DHE UPDATE NGA DB -->
+               <tbody id="users-table-body">
+    <tr><td colspan="4" id="loading-message">Duke u ngarkuar të dhënat...</td></tr>
+</tbody>
             </table>
         </div>
     </div>
@@ -158,22 +151,40 @@ function generateMenu($items) {
 </style>
 
 <!-- Modal për Shtimin e Përdoruesit (opsional) -->
-<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Shto Përdorues të Ri</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Forma do të shtohet këtu -->
-            </div>
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="addUserModalLabel">Shto Përdorues të Ri</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id="addUserForm">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Emri i përdoruesit</label>
+                    <input type="text" class="form-control" id="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Fjalëkalimi</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Roli</label>
+                    <select class="form-control" id="role">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mbyll</button>
+            <button type="button" class="btn btn-primary" onclick="submitNewUser()">Shto</button>
+            
         </div>
     </div>
+  </div>
 </div>
-</header>
 
 <main class="container my-5" style="max-width: 600px;">
     <h1 class="mb-4">Paneli i Administratorit</h1>
@@ -192,8 +203,115 @@ function generateMenu($items) {
         </ul>
     </section>
 </main>
+</div>
 <!-- Bootstrap JS bundle -->
+ 
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/ajax_operations.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    fetch('get_users.php')
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById('users-table-body');
+            if (data.length === 0) {
+                tableBody.innerHTML = "<tr><td colspan='4'>Nuk u gjet asnjë përdorues.</td></tr>";
+                return;
+            }
+
+            let rows = "";
+            data.forEach(user => {
+                rows += `<tr>
+                    <td>${user.id}</td>
+                    <td>${user.username}</td>
+                    <td>
+    <select class="role-select" onchange="updateUserRole(${user.id}, this.value)">
+        <option value="user" ${user.role === 'user' ? 'selected' : ''}>User</option>
+        <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+    </select>
+</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Edito</button>
+                        <button class="btn btn-sm btn-danger">Fshij</button>
+                    </td>
+                </tr>`;
+            });
+            tableBody.innerHTML = rows;
+        })
+        .catch(err => {
+            document.getElementById('users-table-body').innerHTML = "<tr><td colspan='4'>Gabim gjatë ngarkimit të të dhënave.</td></tr>";
+            console.error("Gabim:", err);
+        });
+});
+//per butonat rifresko dhe shto te ri
+function loadUsersData() {
+    fetch('get_users.php')
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById('users-table-body');
+            if (data.length === 0) {
+                tableBody.innerHTML = "<tr><td colspan='4'>Nuk u gjet asnjë përdorues.</td></tr>";
+                return;
+            }
+
+            let rows = "";
+            data.forEach(user => {
+                rows += `<tr>
+                    <td>${user.id}</td>
+                    <td>${user.username}</td>
+                    <td>
+                        <select class="role-select" onchange="updateUserRole(${user.id}, this.value)">
+                            <option value="user" ${user.role === 'user' ? 'selected' : ''}>User</option>
+                            <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Edito</button>
+                        <button class="btn btn-sm btn-danger">Fshij</button>
+                    </td>
+                </tr>`;
+            });
+            tableBody.innerHTML = rows;
+        })
+        .catch(err => {
+            document.getElementById('users-table-body').innerHTML = "<tr><td colspan='4'>Gabim gjatë rifreskimit.</td></tr>";
+            console.error("Gabim:", err);
+        });
+}
+function submitNewUser() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const role = document.getElementById("role").value;
+
+    if (!username || !password) {
+        alert("Ju lutem plotësoni të gjitha fushat.");
+        return;
+    }
+
+    fetch('add_user.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password, role })
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            alert("Përdoruesi u shtua me sukses.");
+            loadUsersData(); // rifresko tabelën
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addUserModal'));
+            modal.hide();
+        } else {
+            alert("Gabim: " + result.message);
+        }
+    })
+    .catch(error => {
+        console.error("Gabim:", error);
+        alert("Ndodhi një gabim gjatë shtimit të përdoruesit.");
+    });
+}
+
+<script src="js/ajax_operations.js">
+
+</script>
 </body>
 </html>

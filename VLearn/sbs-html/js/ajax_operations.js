@@ -339,4 +339,25 @@ function deleteUser(userId) {
 // Ngarko të dhënat kur faqja të jetë gati
 document.addEventListener('DOMContentLoaded', function() {
     loadUsersData();
+    function updateUserRole(userId, newRole) {
+    fetch('ajax_update_role.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: userId, role: newRole })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Roli u përditësua me sukses.");
+        } else {
+            alert("Gabim gjatë përditësimit të rolit.");
+        }
+    })
+    .catch(err => {
+        console.error("Gabim:", err);
+        alert("Gabim gjatë komunikimit me serverin.");
+    });
+}
 });
