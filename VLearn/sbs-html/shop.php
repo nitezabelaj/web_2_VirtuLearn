@@ -43,6 +43,7 @@ function generateMenu($items) {
 }
 ?>
 
+
 <?php 
 
 $address = "123 Main Street, Tirana";
@@ -603,6 +604,23 @@ function getCookie(name) {
 window.onload = applyFooterColor;
 
       </script>
+
+      <?php
+$ip = file_get_contents("https://api.ipify.org");
+$curl = curl_init("http://ip-api.com/json/{$ip}");
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($curl);
+curl_close($curl);
+
+if ($response !== false) {
+    $data = json_decode($response, true);
+    if ($data && $data['status'] === 'success') {
+        echo "<div style='text-align:center; color: black; margin-top: 40px; font-size: 0.9em;'>";
+        echo "Ju jeni duke vizituar nga <strong>{$data['city']}, {$data['country']}</strong> (IP: {$ip})";
+        echo "</div>";
+    }
+}
+?>
    </body>
 </html>
 

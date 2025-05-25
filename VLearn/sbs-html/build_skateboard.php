@@ -346,23 +346,7 @@ $mysqli->close();
 </head>
 <body>
 
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    try {
-        if (empty($_POST['username']) || empty($_POST['password'])) {
-            throw new GabimAutentikim("Duhet të plotësoni të gjitha fushat.");
-        }
 
-        if ($_POST['username'] !== 'admin' || $_POST['password'] !== '1234') {
-            throw new GabimAutentikim("Emri i përdoruesit ose fjalëkalimi është i pasaktë.");
-        }
-
-        echo "<div style='color:green; font-weight:bold;'>Hyrja u bë me sukses!</div>";
-    } catch (GabimAutentikim $gabim) {
-        echo "<div style='color:red; font-weight:bold;'>" . $gabim->mesazhi() . "</div>";
-    }
-}
-?>
 
 </body>
 </html>
@@ -476,8 +460,238 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         <?php endif; ?>
     </div>
+    <?php
+echo '<style>
+  .box-container {
+    background-color:light blue;
+    display: inline-block;
+    margin: 30px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border-radius: 8px;
+   
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    max-width: 600px;
+    white-space: normal;
+  }
+  .box-container * {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+  #content-box {
+    display: none;
+  }
+  button {
+    margin-top: 15px;
+    padding: 16px 40px;
+    font-size: 20px;
+    cursor: pointer;
+    border: 10px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 123, 255, 0.5);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    font-weight: 700;
+    max-width: 100%;
+    display: inline-block;
+    text-align: center;
+  }
+  button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 8px 25px rgba(0, 86, 179, 0.7);
+    transform: translateY(-4px);
+  }
+  button:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 86, 179, 0.6);
+  }
+</style>';
+
+echo '<div class="box-container">';
+echo '<p>Dëshironi të lexoni më shumë rreth skateboard?</p>';
+echo '<button id="showContentBtn">Po</button>';
+echo '<div id="content-box">';
+include 'mesazhi.php';
+require 'dokument.php';
+
+function writeToFile($content) {
+    $file = fopen('data.txt', 'w');
+    if ($file) {
+        $content1 = "Sot, skateboard-i është bërë pjesë e garave ndërkombëtare dhe <br>madje edhe e Lojërave Olimpike.<br><br>";
+        fwrite($file, $content1);
+        fwrite($file, $content);
+        fclose($file);
+    } else {
+        echo "Nuk mund të hapim skedarin për të shkruar.";
+    }
+}
+
+function readFromFile() {
+    if (file_exists('data.txt')) {
+        $file_size = filesize('data.txt');
+        if ($file_size > 0) {
+            $file = fopen('data.txt', 'r');
+            if ($file) {
+                $content = fread($file, $file_size);
+                fclose($file);
+                return $content;
+            } else {
+                return "Nuk mund të hapim skedarin për të lexuar.";
+            }
+        } else {
+            return "Skedari është bosh.";
+        }
+    } else {
+        return "Skedari nuk ekziston.";
+    }
+}
+
+function checkFileSize() {
+    if (file_exists('data.txt')) {
+        $size = filesize('data.txt');
+        return "Madhësia e skedarit është: $size bytes";
+    } else {
+        return "Skedari nuk ekziston.";
+    }
+}
+
+writeToFile("Përveç argëtimit, ai ndihmon edhe në zhvillimin fizik dhe <br>mendor të individit.<br><br>");
+echo "<br>" . checkFileSize() . "<br>";
+mesazhi();
+echo "<br>";
+dokument();
+echo "<pre>" . readFromFile() . "</pre>";
+echo '</div>';
+echo '</div>';
+
+echo '
+<script>
+  document.getElementById("showContentBtn").addEventListener("click", function() {
+    document.getElementById("content-box").style.display = "block";
+    this.style.display = "none";
+  });
+</script>
+';
+?>
+<div style="
+    max-width: 400px; 
+    margin: 2em auto; 
+    padding: 1.5em 2em; 
+    border: 2px solid #4A90E2; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9faff;
+    text-align: center;
+">
+    <h3 id="display" style="
+        font-weight: 600; 
+        font-size: 1.2rem; 
+        margin-bottom: 1.2em; 
+        color: #333;
+        min-height: 3em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        ">
+        Duke ngarkuar...
+    </h3>
+
+    <input type="text" id="inputValue" placeholder="Shkruaj info rreth skateboard" style="
+        width: 70%;
+        padding: 0.4em 0.6em;
+        font-size: 1rem;
+        border: 1.8px solid #4A90E2;
+        border-radius: 6px 0 0 6px;
+        outline: none;
+        box-sizing: border-box;
+        vertical-align: middle;
+    " />
+    <button onclick="updateValue()" style="
+        padding: 0.45em 1em;
+        font-size: 1rem;
+        border: 1.8px solid #4A90E2;
+        border-left: none;
+        border-radius: 0 6px 6px 0;
+        background-color: #4A90E2;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        vertical-align: middle;
+    " 
+    onmouseover="this.style.backgroundColor='#357ABD'" 
+    onmouseout="this.style.backgroundColor='#4A90E2'">
+        Përditëso Fjalinë
+    </button>
+
+    <div id="message" style="
+        margin-top: 1em; 
+        color: #4A90E2; 
+        min-height: 1.2em;
+        font-weight: 500;
+        font-size: 0.95rem;
+    "></div>
+</div>
+
+<script>
+    function readValue() {
+        fetch('ajax_handler.php?action=read')
+            .then(res => res.json())
+            .then(data => {
+                if(data.value !== undefined){
+                    document.getElementById('display').innerText = data.value;
+                    document.getElementById('message').innerText = '';
+                } else {
+                    document.getElementById('message').innerText = 'Gabim në lexim: ' + data.error;
+                }
+            })
+            .catch(err => {
+                document.getElementById('message').innerText = 'Gabim në lidhje: ' + err;
+            });
+    }
+
+    function updateValue() {
+        const newVal = document.getElementById('inputValue').value.trim();
+        if(newVal === ''){
+            document.getElementById('message').innerText = 'Fusha është bosh, shkruaj diçka!';
+            return;
+        }
+
+        fetch('ajax_handler.php?action=update', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `value=${encodeURIComponent(newVal)}`
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success){
+                document.getElementById('message').innerText = 'Fjalimi u përditësua me sukses!';
+                readValue();
+                document.getElementById('inputValue').value = '';
+            } else {
+                document.getElementById('message').innerText = 'Gabim në përditësim: ' + data.error;
+            }
+        })
+        .catch(err => {
+            document.getElementById('message').innerText = 'Gabim në lidhje: ' + err;
+        });
+    }
+
+    readValue();
+</script>
+
+
+
 </body>
 </html>
+
+
 <?php
 ob_end_flush();  
 ?> 

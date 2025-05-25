@@ -1,8 +1,20 @@
 <?php
+$serveri = "localhost";      
+$perdoruesi = "root";        
+$fjalekalimi = "";           
+$emri_db = "virtu_learn";  
+
+$conn = new mysqli($serveri, $perdoruesi, $fjalekalimi, $emri_db);
+
+if ($conn->connect_error) {
+    die("Lidhja dështoi: " . $conn->connect_error);
+}
+echo "Lidhja u realizua me sukses!";
+?>
+
+<?php
 require_once 'includes/error_handler.php';//T.G
-session_start();
-//AnitaC - P2 / Sessions
-const SITE_TIME = "SkatingBoardSchool";
+
 
 session_start();
 if (!isset($_SESSION['visit_count_home'])) {
@@ -949,5 +961,21 @@ function getCookie(name) {
 window.onload = applyFooterColor;
 
       </script>
+      <?php
+$ip = file_get_contents("https://api.ipify.org");
+$curl = curl_init("http://ip-api.com/json/{$ip}");
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($curl);
+curl_close($curl);
+
+if ($response !== false) {
+    $data = json_decode($response, true);
+    if ($data && $data['status'] === 'success') {
+        echo "<div style='text-align:center; color: white; margin-top: 40px; font-size: 0.9em;'>";
+        echo "Ju jeni duke vizituar nga <strong>{$data['city']}, {$data['country']}</strong> (IP: {$ip})";
+        echo "</div>";
+    }
+}
+?>
    </body>
 </html>

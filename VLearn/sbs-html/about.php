@@ -61,85 +61,9 @@ function generateMenu($items) {
    }
 }
 ?>
+
+
 <?php
-//P2, Amela, Përdorimi i funskioneve themelore për manipulime me fajlla (si include(),
-//require(), fopen(r,w,...), fclose(...), fsize(), fread(), fwrite()
-
-//P2,Amela, Perdorimi i include dhe require
-include 'mesazhi.php';
-require 'dokument.php';
-
-function writeToFile($content) {
-   //P2,Amela, Perdorimi i fopen()
-    $file = fopen('data.txt', 'w');
-    if ($file) {
-      //P2, Amela, Perdorimi i fwrite()
-        $content1="Ky eshte nje dokument.";
-        fwrite($file, $content1);
-        fwrite($file, $content);
-           //P2,Amela, Perdorimi i fclose()
-        fclose($file);
-        echo "Të dhënat u shkruan me sukses në skedar.";
-    } else {
-        echo "Nuk mund të hapim skedarin për të shkruar.";
-    }
-}
-function readFromFile() {
-    if (file_exists('data.txt')) {
-       //P2,Amela, Perdorimi i fsize 
-        $file_size = filesize('data.txt');
-        if ($file_size > 0) {
-            $file = fopen('data.txt', 'r');
-            if ($file) {
-                //P2,Amela, Perdorimi i fread()
-                $content = fread($file, $file_size);
-                fclose($file);
-                return $content;
-            } else {
-                return "Nuk mund të hapim skedarin për të lexuar.";
-            }
-        } else {
-            return "Skedari është bosh.";
-        }
-    } else {
-        return "Skedari nuk ekziston.";
-    }
-}
-
-function checkFileSize() {
-    if (file_exists('data.txt')) {
-        $size = filesize('data.txt');
-        return "Madhësia e skedarit është: $size bytes";
-    } else {
-        return "Skedari nuk ekziston.";
-    }
-}
-
-
-
-
-writeToFile("\nKjo është një shtesë nga funksioni writeToFile().");
-echo "<br>Përmbajtja e skedarit është:<br>";
-echo "<pre>" . readFromFile() . "</pre>";
-
-echo "<br>" . checkFileSize();
-echo "<br>";
-mesazhi();
-
-
-?>
-
-
-
-
-
-
-
-
-
-
-<?php 
-
 
 if (isset($_GET['search'])) {
    $query = trim($_GET['search']);
@@ -500,7 +424,7 @@ rritCmiminMeReferencë($oferta2["cmimi"], 10);
          $oferta5["cmimi"] = 80;
 
           echo "<div class='summer-offers' style='margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);'>";
-echo "<h3 style='text-align: center; color: #ff5722;'>Ofertat Verore</h3>";
+echo "<h3 style='text-align: center; color: #ff5722;'>Ofertat Verore</h3><br><p>Keto oferta do te jene te qasshme me 15 qershor<p>";
 echo "<p style='text-align: center;'>Për " . $oferta2["persona"] . " persona, çmimi është " . $oferta2["cmimi"] . " Euro.</p>";
 echo "<p style='text-align: center;'>Për " . $oferta3["persona"] . " persona, çmimi është " . $oferta3["cmimi"] . " Euro.</p>";
 echo "<p style='text-align: center;'>Për " . $oferta5["persona"] . " persona, çmimi është " . $oferta5["cmimi"] . " Euro.</p>";
@@ -677,5 +601,21 @@ function getCookie(name) {
 window.onload = applyFooterColor;
       </script>
 
+<?php
+$ip = file_get_contents("https://api.ipify.org");
+$curl = curl_init("http://ip-api.com/json/{$ip}");
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($curl);
+curl_close($curl);
+
+if ($response !== false) {
+    $data = json_decode($response, true);
+    if ($data && $data['status'] === 'success') {
+        echo "<div style='text-align:center; color: white; margin-top: 40px; font-size: 0.9em;'>";
+        echo "Ju jeni duke vizituar nga <strong>{$data['city']}, {$data['country']}</strong> (IP: {$ip})";
+        echo "</div>";
+    }
+}
+?>
    </body>
 </html> 
