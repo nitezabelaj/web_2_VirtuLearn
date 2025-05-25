@@ -140,28 +140,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_birthday'])){
 
 }
 
-//Newsletter validation
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
-   $name = $_POST["newsletterName"];
-   $phone = $_POST["newsletterPhone"];
-   $errors = [];
-
-   if (!preg_match("/^[a-zA-Z\s]{2,50}$/", $name)) {
-       $errors[] = "Emri nuk është valid. Përdorni vetëm shkronja (minimumi 2).";
-   }
-
-   if (!preg_match("/^\+?[0-9\s\-\(\)]{8,20}$/", $phone)) {
-       $errors[] = "Numri i telefonit nuk është valid.";
-   }
-
-   if (empty($errors)) {
-       echo "<p style='color:green; text-align:center;'>Faleminderit për abonimin!</p>";
-   } else {
-       foreach ($errors as $error) {
-           echo "<p style='color:red; text-align:center;'>$error</p>";
-       }
-   }
-}
 
 class SiteSearch {
    private $pages;
@@ -468,7 +446,7 @@ echo "</div>";
                         <div class="col-md-12">
                            <div class="infoma">
                               <h3>Newsletter</h3>
-                              <form class="form_subscri">
+                              <form class="form_subscri" method="POST" action="subscribe_newsletter.php">
                                  <div class="row">
                                     <div class="col-md-12">
                                     </div>
@@ -478,6 +456,9 @@ echo "</div>";
                                     </div>
                                     <div class="col-md-4">
                                        <input class="newsl" placeholder="Enter your number" type="text" name="newsletterPhone">
+                                    </div>
+                                    <div class="col-md-4">
+                                       <input class="newsl" placeholder="Enter your email" type="text" name="newsletterEmail">
                                     </div>
                                     <div class="col-md-4">
                                        <button class="subsci_btn" type = "submit">subscribe</button>
