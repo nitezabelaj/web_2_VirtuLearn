@@ -43,33 +43,6 @@ function generateMenu($items) {
 }
 ?>
 
-<?php
-
-function merrProduktetNgaAPI() {
-    $api_url = "http://localhost/Projekti-UEB2/web_2_VirtuLearn/VLearn/sbs-html/api/products.php";
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $api_url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $response = curl_exec($ch);
-    curl_close($ch);
-
-    $produktet = json_decode($response, true);
-    return $produktet;
-}
-
-$produktet = merrProduktetNgaAPI();
-
-foreach ($produktet as $produkt) {
-    echo "<div>";
-    echo "<h4>" . htmlspecialchars($produkt['name']) . "</h4>";
-    echo "<p>Price: " . htmlspecialchars($produkt['price']) . " EUR</p>";
-    echo "<p>Category: " . htmlspecialchars($produkt['category']) . "</p>";
-    echo "<p>Special: " . ($produkt['is_special'] ? 'Yes' : 'No') . "</p>";
-    echo "</div><hr>";
-}
-
-
-?>
 
 <?php 
 
@@ -631,6 +604,23 @@ function getCookie(name) {
 window.onload = applyFooterColor;
 
       </script>
+
+      <?php
+$ip = file_get_contents("https://api.ipify.org");
+$curl = curl_init("http://ip-api.com/json/{$ip}");
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($curl);
+curl_close($curl);
+
+if ($response !== false) {
+    $data = json_decode($response, true);
+    if ($data && $data['status'] === 'success') {
+        echo "<div style='text-align:center; color: black; margin-top: 40px; font-size: 0.9em;'>";
+        echo "Ju jeni duke vizituar nga <strong>{$data['city']}, {$data['country']}</strong> (IP: {$ip})";
+        echo "</div>";
+    }
+}
+?>
    </body>
 </html>
 

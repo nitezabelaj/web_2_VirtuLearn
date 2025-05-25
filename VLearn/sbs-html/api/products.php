@@ -1,9 +1,8 @@
 <?php
-require_once __DIR__ . '/../config.php'; // sigurohu që rruga është e saktë
 
+require_once __DIR__ . '/../config.php'; 
 header("Content-Type: application/json");
 
-// Verifikimi i kërkesës (GET, POST, etj.)
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
@@ -21,4 +20,5 @@ if ($method === 'GET') {
     http_response_code(405); // Metoda jo e lejuar
     echo json_encode(["error" => "Metoda $method nuk lejohet."]);
 }
+
 ?>
