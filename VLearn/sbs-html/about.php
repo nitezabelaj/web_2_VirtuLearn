@@ -74,7 +74,7 @@ function writeToFile($content) {
     $file = fopen('data.txt', 'w');
     if ($file) {
       //P2, Amela, Perdorimi i fwrite()
-        $content1="Ky eshte nje dokument.";
+        $content1="Sot, skateboard-i është bërë pjesë e garave ndërkombëtare dhe madje edhe e Lojërave Olimpike.<br>";
         fwrite($file, $content1);
         fwrite($file, $content);
            //P2,Amela, Perdorimi i fclose()
@@ -118,13 +118,17 @@ function checkFileSize() {
 
 
 
-writeToFile("\nKjo është një shtesë nga funksioni writeToFile().");
+writeToFile("\nPërveç argëtimit, ai ndihmon edhe në zhvillimin fizik dhe mendor të individit.
+<br> 
+
+");
 echo "<br>Përmbajtja e skedarit është:<br>";
 echo "<pre>" . readFromFile() . "</pre>";
 
 echo "<br>" . checkFileSize();
 echo "<br>";
 mesazhi();
+echo "<br>";
 dokument();
 
 
