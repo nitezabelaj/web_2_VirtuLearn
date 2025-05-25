@@ -307,13 +307,15 @@ $mysqli->close();
             max-height: 70vh;
             overflow-y: auto;
             background: rgba(255,255,255,0.9);
-            padding: 15px;
+            padding: 35px;
             border-radius: 12px;
             box-shadow: 0 0 10px rgba(0,0,0,0.15);
             font-size: 14px;
             color: #333;
             z-index: 900;
             font-weight: 500;
+            margin:20px;
+
         }
 
  
