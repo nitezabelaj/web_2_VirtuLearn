@@ -100,6 +100,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 }
+//P2, AmelaSyla-Me rëndësi: definimi i funksionit për trajtim të gabimeve error_handler me të
+//gjitha parapmetrat si (errno, errstring, errfile, errline, errcontext)
+
 function error_handler($errno, $errstr, $errfile, $errline) {
     echo "<div style='background:#fee;border:1px solid #c00;padding:10px;margin:10px 0;color:#900;'>";
     echo "<strong>Gabim u kap!</strong><br>";
@@ -110,7 +113,9 @@ function error_handler($errno, $errstr, $errfile, $errline) {
     echo "</div>";
 }
 set_error_handler("error_handler");
-echo $emri;
+
+//P2-AmelaSyla-Manipulimi me PHP Sesione (psh ruajtje të ndryshme të vlerave, pastaj ndryshim
+//i tyre dhe manipulime të tilla).
 
 if (!isset($_SESSION['build'])) {
     $stmt = $mysqli->prepare("SELECT deck, wheels, trucks, color FROM user_builds WHERE user_id = ?");
