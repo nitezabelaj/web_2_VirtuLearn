@@ -125,35 +125,218 @@ $mysqli->close();
     <meta charset="UTF-8">
     <title>🛹 Build Your Skateboard</title>
     <style>
-        /* ... stilizimi yt ekzistues ... */
-        body {
+           * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', sans-serif;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: url('https://images.ctfassets.net/3s5io6mnxfqz/153UQSRpQG8kVMiqA5UE0W/35a404178dfd824a990ce5e54d0b60e2/AdobeStock_279385959.jpeg?w=1920') no-repeat center center fixed;
             background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             color: #333;
+            min-height: 100vh;
+            display: flex;
             flex-direction: column;
         }
+
+      
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        nav ul.nav {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+        nav ul.nav li.nav-item a.nav-link {
+            color: #eee;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        nav ul.nav li.nav-item.active a.nav-link,
+        nav ul.nav li.nav-item a.nav-link:hover {
+            background-color: #ff4c00;
+            color: white;
+            box-shadow: 0 0 8px #ff4c00;
+        }
+
+   
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            max-width: 450px;
+            margin: 120px auto 50px auto; 
+            padding: 30px 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            text-align: center;
+        }
+
+        .container h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #222;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(255, 76, 0, 0.7);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        select, input[type="color"] {
+            padding: 8px 10px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            width: 100%;
+        }
+
+        select:focus, input[type="color"]:focus {
+            border-color: #ff4c00;
+            outline: none;
+            box-shadow: 0 0 6px #ff4c00;
+        }
+
+        button[type="submit"] {
+            background-color: #ff4c00;
+            color: white;
+            font-weight: 700;
+            border: none;
+            padding: 12px;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(255, 76, 0, 0.6);
+        }
+
+        button[type="submit"]:hover {
+            background-color: #e04300;
+            box-shadow: 0 6px 18px rgba(224, 67, 0, 0.8);
+        }
+
+        .session-box {
+            margin-top: 30px;
+            background-color: #fff5f0;
+            border: 2px solid #ff4c00;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(255, 76, 0, 0.3);
+            text-align: left;
+        }
+
+        .session-box h2 {
+            color: #ff4c00;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .session-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .session-box ul li {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .session-box ul li strong {
+            color: #cc3b00;
+        }
+
+        .session-box ul li span {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            vertical-align: middle;
+            border-radius: 5px;
+            border: 1px solid #cc3b00;
+            margin-left: 8px;
+        }
+
+        .clear {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #cc3b00;
+            font-weight: 600;
+            border: 1.5px solid #cc3b00;
+            padding: 6px 12px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .clear:hover {
+            background-color: #cc3b00;
+            color: white;
+            box-shadow: 0 0 10px #cc3b00;
+        }
+
         .sidebar {
             position: fixed;
-            top: 100px;
-            left: 20px;
-            width: 220px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            font-size: 14px;
-            color: #333;
+            top: 60px;
+            left: 15px;
+            width: 250px;
             max-height: 70vh;
             overflow-y: auto;
+            background: rgba(255,255,255,0.9);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+            font-size: 14px;
+            color: #333;
+            z-index: 900;
+            font-weight: 500;
         }
-        /* ... pjesa tjetër e CSS ... */
+
+ 
+        @media (max-width: 600px) {
+            nav ul.nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .container {
+                margin: 140px 15px 40px 15px;
+                padding: 25px;
+                max-width: 90%;
+            }
+            .sidebar {
+                width: 90%;
+                left: 5%;
+                top: auto;
+                bottom: 20px;
+                max-height: 150px;
+                font-size: 12px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
