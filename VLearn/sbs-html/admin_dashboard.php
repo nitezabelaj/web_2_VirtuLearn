@@ -88,9 +88,10 @@ function generateMenu($items) {
                     </tr>
                 </thead>
                 <!-- PJESA E IMPLMENTIMIT TE AJAX LEXIMIT DHE UPDATE NGA DB -->
-               <tbody id="users-table-body">
-    <tr><td colspan="4" id="loading-message">Duke u ngarkuar të dhënat...</td></tr>
+              <tbody id="users-table-body">
+    <tr><td colspan="4">Të dhënat nuk janë të disponueshme.</td></tr>
 </tbody>
+
             </table>
         </div>
     </div>
@@ -158,6 +159,8 @@ function generateMenu($items) {
             <li class="list-group-item"><a href="contact_messages.php">Shiko Mesazhet e Kontaktit</a></li>
             <li class="list-group-item"><a href="logout.php">Dil</a></li>
         </ul>
+        <li><a href="admin/manage_users.php">Menage users from DB</a></li>
+
     </section>
 </main>
 <!-- Bootstrap JS bundle -->
