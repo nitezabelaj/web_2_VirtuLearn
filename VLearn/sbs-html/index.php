@@ -14,9 +14,7 @@ echo "Lidhja u realizua me sukses!";
 
 <?php
 require_once 'includes/error_handler.php';//T.G
-session_start();
-//AnitaC - P2 / Sessions
-const SITE_TIME = "SkatingBoardSchool";
+
 
 session_start();
 if (!isset($_SESSION['visit_count_home'])) {
