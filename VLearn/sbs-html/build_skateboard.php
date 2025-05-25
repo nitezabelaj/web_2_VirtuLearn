@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/error_handler.php';//T.G
+//T.G
 //AnitaC - P2 / Sessions
 session_start();
 
@@ -97,7 +97,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "<p style='color:red;'>Ju lutem plotësoni të gjitha fushat!</p>";
     }
+
+
 }
+function error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
+    echo "<div style='background:#fee;border:1px solid #c00;padding:10px;margin:10px 0;color:#900;'>";
+    echo "<strong>Gabim u kap!</strong><br>";
+    echo "Lloji: $errno <br>";
+    echo "Mesazhi: $errstr <br>";
+    echo "Skedari: $errfile <br>";
+    echo "Rreshti: $errline <br>";
+    echo "</div>";
+}
+set_error_handler("error_handler");
+echo $emri;
 
 if (!isset($_SESSION['build'])) {
     $stmt = $mysqli->prepare("SELECT deck, wheels, trucks, color FROM user_builds WHERE user_id = ?");
