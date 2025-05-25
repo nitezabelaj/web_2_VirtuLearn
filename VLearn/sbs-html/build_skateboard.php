@@ -261,29 +261,30 @@ $mysqli->close();
     </ul>
     </nav>
     <div class="sidebar">
-    <?php
-$arsyet = [
-    "Zgjerimi jonë për krijimin e tyre",
-    "Qka ju doni më së shumti",
-    "Përcjellja e trendeve"
-];
+<?php
 
-setcookie("arsyetSkateboard", json_encode($arsyet), time() + 3600, "/");
+if (isset($_GET['clear_cookie']) && $_GET['clear_cookie'] === 'true') {
+    setcookie('last_visits', '', time() - 3600, "/");
+    echo "Cookie 'last_visits' has been cleared.<br>";
+}
 
-if (isset($_COOKIE['arsyetSkateboard'])) {
-    $arsyetCookie = json_decode($_COOKIE['arsyetSkateboard'], true);
-
-    echo "Arsyet pse duam të dimë për llojin e skateboard janë:<br>";
-
-    echo "<ul>";
-    foreach ($arsyetCookie as $arsye) {
-        echo "<li>" . htmlspecialchars($arsye) . "</li>";
+if (isset($_COOKIE['last_visits'])) {
+    $visits = json_decode($_COOKIE['last_visits'], true);
+    echo "Your previous visits: <ul>";
+    foreach ($visits as $visit) {
+        echo "<li>" . htmlspecialchars($visit) . "</li>";
     }
     echo "</ul>";
 } else {
-   // echo "Cookie 'arsyetSkateboard' nuk ekziston ende.";
+    echo "This is your first visit to this page. Welcome!<br>";
+    $visits = [];
 }
+
+$visits[] = date('Y-m-d H:i:s');
+
+setcookie('last_visits', json_encode($visits), time() + (86400 * 30), "/");
 ?>
+
 
 </div>
   
