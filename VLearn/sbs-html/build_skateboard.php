@@ -118,7 +118,7 @@ if (!isset($_SESSION['build'])) {
 
 $mysqli->close();
 ?>
-<?php include 'gabimet.php'; ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
