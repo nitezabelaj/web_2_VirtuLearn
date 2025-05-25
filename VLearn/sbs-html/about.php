@@ -111,12 +111,13 @@ writeToFile("Përveç argëtimit, ai ndihmon edhe në zhvillimin fizik dhe mendo
 echo "<br>" . checkFileSize() . "<br><br>";
 
 echo "Përmbajtja e skedarit është:<br>";
-echo "<pre>" . readFromFile() . "</pre>";
-
 echo "<br>";
 mesazhi();
 echo "<br>";
 dokument();
+echo "<pre>" . readFromFile() . "</pre>";
+
+
 ?>
 
 
