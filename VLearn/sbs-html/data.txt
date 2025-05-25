@@ -1,2 +1,4 @@
-Ky eshte nje dokument.
-Kjo është një shtesë nga funksioni writeToFile().
+Sot, skateboard-i është bërë pjesë e garave ndërkombëtare dhe madje edhe e Lojërave Olimpike.<br>
+Përveç argëtimit, ai ndihmon edhe në zhvillimin fizik dhe mendor të individit.
+<br> 
+
