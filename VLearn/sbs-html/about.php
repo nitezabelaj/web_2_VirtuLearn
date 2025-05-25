@@ -14,7 +14,7 @@ if (!isset($_SESSION['visit_count_about'])) {
 
 function filtroMesazhetRendesishem($teGjithaMesazhet, &$mesazhetRendesishem) {
     foreach ($teGjithaMesazhet as $mesazh) {
-        if (str_contains($mesazh, 'rëndësishëm') || str_contains($mesazh, 'siguri')) {
+        if (str_contains($mesazh, 'rëndësishëm') || str_contains($mesazh, 'Siguria')) {
             $mesazhetRendesishem[] = $mesazh;
         }
     }
