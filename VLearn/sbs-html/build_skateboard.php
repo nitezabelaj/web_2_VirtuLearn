@@ -125,6 +125,7 @@ $mysqli->close();
     <meta charset="UTF-8">
     <title>🛹 Build Your Skateboard</title>
     <style>
+        /* ... stilizimi yt ekzistues ... */
         body {
             margin: 0;
             padding: 0;
@@ -139,178 +140,78 @@ $mysqli->close();
             flex-direction: column;
         }
         .sidebar {
-    position: fixed;
-    top: 100px;
-    left: 20px;
-    width: 220px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    font-size: 14px;
-    color: #333;
-    max-height: 70vh;
-    overflow-y: auto;
-}
-
-        nav ul.nav {
-            list-style: none;
-            display: flex;
-            gap: 15px;
-            padding: 10px 0;
-            margin: 0 0 20px 0;
-            margin:40px;
-        }
-
-        nav ul.nav li.nav-item a.nav-link {
-            text-decoration: none;
-            color: #0077cc;
-            font-weight: bold;
-        }
-
-        nav ul.nav li.nav-item.active a.nav-link {
-            text-decoration: underline;
-            color: #0056b3;
-        }
-
-
-        .container {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-        }
-
-        h1 {
-            color: #0077cc;
-            margin-bottom: 20px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            text-align: left;
-            margin-top: 1rem;
-            font-weight: bold;
-        }
-
-        select, input[type="color"] {
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            margin-top: 5px;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            width: 220px;
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
-            font-size: 16px;
-            transition: background 0.3s ease;
-            cursor: pointer;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-size: 14px;
+            color: #333;
+            max-height: 70vh;
+            overflow-y: auto;
         }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .session-box {
-            background-color: #f4f8fb;
-            margin-top: 30px;
-            padding: 1.2rem;
-            border: 1px solid #bcd;
-            border-radius: 12px;
-            text-align: left;
-        }
-
-        .session-box h2 {
-            color: #222;
-            margin-bottom: 10px;
-        }
-
-        .session-box li {
-            margin-bottom: 5px;
-        }
-
-        a.clear {
-            display: inline-block;
-            margin-top: 15px;
-            color: #c00;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        a.clear:hover {
-            text-decoration: underline;
-        }
+        /* ... pjesa tjetër e CSS ... */
     </style>
 </head>
 <body>
     <nav>
-    <ul class="nav">
-        <?php generateMenu($menu_items); ?>
-    </ul>
+        <ul class="nav">
+            <?php generateMenu($menu_items); ?>
+        </ul>
     </nav>
+
     <div class="sidebar">
-<div class="sidebar">
-<?php
-$cookieConsent = $_COOKIE['cookie_consent'] ?? null;
+        <?php
+        $cookieConsent = $_COOKIE['cookie_consent'] ?? null;
 
-if ($cookieConsent !== 'accepted') {
-    echo '
-    <div id="cookie-consent-banner" style="background:#f5f5f5; padding:10px; border-radius:8px; font-size:14px; color:#333;">
-        Our site uses cookies. Do you accept our <strong>Cookies Privacy</strong>?
-        <button id="accept-cookies" style="margin-left:10px; padding:5px 10px;">Accept</button>
-        <button id="decline-cookies" style="margin-left:5px; padding:5px 10px;">Decline</button>
-    </div>
-    <script>
-        document.getElementById("accept-cookies").addEventListener("click", function() {
-            document.cookie = "cookie_consent=accepted; path=/; max-age=" + 60*60*24*365;
-            location.reload();
-        });
-        document.getElementById("decline-cookies").addEventListener("click", function() {
-            document.cookie = "cookie_consent=declined; path=/; max-age=" + 60*60*24*365;
-            document.getElementById("cookie-consent-banner").style.display = "none";
-        });
-    </script>';
-} else if ($cookieConsent === 'accepted') {
-    if (isset($_GET['clear_cookie']) && $_GET['clear_cookie'] === 'true') {
-        setcookie('last_visits', '', time() - 3600, "/");
-        echo "Cookie 'last_visits' has been cleared.<br>";
-    }
+        if ($cookieConsent !== 'accepted') {
+            echo '
+            <div id="cookie-consent-banner" style="background:#f5f5f5; padding:10px; border-radius:8px; font-size:14px; color:#333;">
+                Our site uses cookies. Do you accept our <strong>Cookies Privacy</strong>?
+                <button id="accept-cookies" style="margin-left:10px; padding:5px 10px;">Accept</button>
+                <button id="decline-cookies" style="margin-left:5px; padding:5px 10px;">Decline</button>
+            </div>
+            <script>
+                document.getElementById("accept-cookies").addEventListener("click", function() {
+                    document.cookie = "cookie_consent=accepted; path=/; max-age=" + 60*60*24*365;
+                    location.reload();
+                });
+                document.getElementById("decline-cookies").addEventListener("click", function() {
+                    document.cookie = "cookie_consent=declined; path=/; max-age=" + 60*60*24*365;
+                    document.getElementById("cookie-consent-banner").style.display = "none";
+                });
+            </script>';
+        } else if ($cookieConsent === 'accepted') {
+            if (isset($_GET['clear_cookie']) && $_GET['clear_cookie'] === 'true') {
+                setcookie('last_visits', '', time() - 3600, "/");
+                echo "Cookie 'last_visits' has been cleared.<br>";
+            }
 
-    if (isset($_COOKIE['last_visits'])) {
-        $visits = json_decode($_COOKIE['last_visits'], true);
-        echo "Your previous visits: <ul>";
-        foreach ($visits as $visit) {
-            echo "<li>" . htmlspecialchars($visit) . "</li>";
+            if (isset($_COOKIE['last_visits'])) {
+                $visits = json_decode($_COOKIE['last_visits'], true);
+                // Merr vetëm 3 vizitat e fundit
+                $lastThree = array_slice($visits, -3, 3, true);
+
+                echo "Your last 3 visits: <ul>";
+                foreach ($lastThree as $visit) {
+                    echo "<li>" . htmlspecialchars($visit) . "</li>";
+                }
+                echo "</ul>";
+            } else {
+                echo "This is your first visit to this page. Welcome!<br>";
+                $visits = [];
+            }
+
+            $visits[] = date('Y-m-d H:i:s');
+            setcookie('last_visits', json_encode($visits), time() + (86400 * 30), "/");
+        } else {
+            echo "You declined cookies. Some features might be limited.";
         }
-        echo "</ul>";
-    } else {
-        echo "This is your first visit to this page. Welcome!<br>";
-        $visits = [];
-    }
-
-    $visits[] = date('Y-m-d H:i:s');
-    setcookie('last_visits', json_encode($visits), time() + (86400 * 30), "/");
-} else {
-    echo "You declined cookies. Some features might be limited.";
-}
-?>
-</div>
-
-
-</div>
-  
+        ?>
+    </div>
 
     <div class="container">
         <h1>🛹 Build Your Skateboard</h1>
@@ -352,7 +253,7 @@ if ($cookieConsent !== 'accepted') {
                     <li><strong>Trucks:</strong> <?= htmlspecialchars($_SESSION['build']['trucks']) ?></li>
                     <li><strong>Color:</strong> <span style="display:inline-block;width:20px;height:20px;background:<?= htmlspecialchars($_SESSION['build']['color']) ?>;"></span></li>
                 </ul>
-                <a href="?clear=true" class="clear">❌ Clear Build</a>
+                <a href="?clear=true" class="clear"> Clear Build</a>
             </div>
         <?php endif; ?>
     </div>
