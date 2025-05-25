@@ -61,7 +61,7 @@ function generateMenu($items) {
    }
 }
 ?>
-     <?php
+  <?php
 echo '<style>
   .box-container {
     display: inline-block;
@@ -83,17 +83,35 @@ echo '<style>
     line-height: inherit;
     color: inherit;
   }
+  #content-box {
+    display: none;
+  }
+  button {
+    margin-top: 15px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
 </style>';
 
 echo '<div class="box-container">';
-
+echo '<p>Dëshironi të lexoni më shumë rreth skateboard?</p>';
+echo '<button id="showContentBtn">Po</button>';
+echo '<div id="content-box">';
 include 'mesazhi.php';
 require 'dokument.php';
 
 function writeToFile($content) {
     $file = fopen('data.txt', 'w');
     if ($file) {
-        $content1 = "Sot, skateboard-i është bërë pjesë e garave ndërkombëtare dhe madje edhe e Lojërave Olimpike.<br><br>";
+        $content1 = "Sot, skateboard-i është bërë pjesë e garave ndërkombëtare dhe <br>madje edhe e Lojërave Olimpike.<br><br>";
         fwrite($file, $content1);
         fwrite($file, $content);
         fclose($file);
@@ -131,21 +149,25 @@ function checkFileSize() {
     }
 }
 
-writeToFile("Përveç argëtimit, ai ndihmon edhe në zhvillimin fizik dhe mendor të individit.<br><br>");
-
+writeToFile("Përveç argëtimit, ai ndihmon edhe në zhvillimin fizik dhe <br>mendor të individit.<br><br>");
 echo "<br>" . checkFileSize() . "<br><br>";
-
 echo "Përmbajtja e skedarit është:<br><br>";
-
 mesazhi();
 echo "<br>";
 dokument();
 echo "<pre>" . readFromFile() . "</pre>";
-
 echo '</div>';
+echo '</div>';
+
+echo '
+<script>
+  document.getElementById("showContentBtn").addEventListener("click", function() {
+    document.getElementById("content-box").style.display = "block";
+    this.style.display = "none";
+  });
+</script>
+';
 ?>
-
-
 
 
 
