@@ -463,12 +463,13 @@ $mysqli->close();
     <?php
 echo '<style>
   .box-container {
+    background-color:light blue;
     display: inline-block;
     margin: 30px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     border-radius: 8px;
-    background-color: #fff;
+   
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
