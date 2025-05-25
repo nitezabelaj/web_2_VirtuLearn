@@ -89,10 +89,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 } catch (Exception $e) {
     $errors[] = $e->getMessage();
-}
+}}}
 
         ?>
-        
+
 <!DOCTYPE html>
 <html lang="sq">
 <head>
@@ -158,3 +158,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </body>
 </html>
+
