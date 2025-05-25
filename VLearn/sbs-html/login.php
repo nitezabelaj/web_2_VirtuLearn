@@ -90,8 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } catch (Exception $e) {
     $errors[] = $e->getMessage();
 }}}
-
-        ?>
+// Shkakto një gabim për test
+trigger_error("Gabim testues për krijimin e folderit WebsiteErrors", E_USER_NOTICE);
+ ?>
 
 <!DOCTYPE html>
 <html lang="sq">
