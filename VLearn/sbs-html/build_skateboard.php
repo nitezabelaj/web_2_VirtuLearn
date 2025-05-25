@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 }
-function error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
+function error_handler($errno, $errstr, $errfile, $errline) {
     echo "<div style='background:#fee;border:1px solid #c00;padding:10px;margin:10px 0;color:#900;'>";
     echo "<strong>Gabim u kap!</strong><br>";
     echo "Lloji: $errno <br>";
