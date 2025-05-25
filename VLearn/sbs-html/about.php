@@ -62,36 +62,27 @@ function generateMenu($items) {
 }
 ?>
 <?php
-//P2, Amela, Përdorimi i funskioneve themelore për manipulime me fajlla (si include(),
-//require(), fopen(r,w,...), fclose(...), fsize(), fread(), fwrite()
-
-//P2,Amela, Perdorimi i include dhe require
 include 'mesazhi.php';
 require 'dokument.php';
 
 function writeToFile($content) {
-   //P2,Amela, Perdorimi i fopen()
     $file = fopen('data.txt', 'w');
     if ($file) {
-      //P2, Amela, Perdorimi i fwrite()
-        $content1="Sot, skateboard-i është bërë pjesë e garave ndërkombëtare dhe madje edhe e Lojërave Olimpike.<br>";
+        $content1 = "Sot, skateboard-i është bërë pjesë e garave ndërkombëtare dhe madje edhe e Lojërave Olimpike.<br><br>";
         fwrite($file, $content1);
         fwrite($file, $content);
-           //P2,Amela, Perdorimi i fclose()
         fclose($file);
-       
     } else {
         echo "Nuk mund të hapim skedarin për të shkruar.";
     }
 }
+
 function readFromFile() {
     if (file_exists('data.txt')) {
-       //P2,Amela, Perdorimi i fsize 
         $file_size = filesize('data.txt');
         if ($file_size > 0) {
             $file = fopen('data.txt', 'r');
             if ($file) {
-                //P2,Amela, Perdorimi i fread()
                 $content = fread($file, $file_size);
                 fclose($file);
                 return $content;
@@ -115,24 +106,19 @@ function checkFileSize() {
     }
 }
 
+writeToFile("Përveç argëtimit, ai ndihmon edhe në zhvillimin fizik dhe mendor të individit.<br><br>");
 
+echo "<br>" . checkFileSize() . "<br><br>";
 
-
-writeToFile("\nPërveç argëtimit, ai ndihmon edhe në zhvillimin fizik dhe mendor të individit.
-<br> 
-
-");
-echo "<br>Përmbajtja e skedarit është:<br>";
+echo "Përmbajtja e skedarit është:<br>";
 echo "<pre>" . readFromFile() . "</pre>";
 
-echo "<br>" . checkFileSize();
 echo "<br>";
 mesazhi();
 echo "<br>";
 dokument();
-
-
 ?>
+
 
 
 
