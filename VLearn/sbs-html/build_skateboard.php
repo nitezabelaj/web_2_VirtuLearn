@@ -346,13 +346,6 @@ $mysqli->close();
 </head>
 <body>
 
-<h2>Forma e Hyrjes</h2>
-<form method="post" action="">
-    Emri i përdoruesit: <input type="text" name="username"><br><br>
-    Fjalëkalimi: <input type="password" name="password"><br><br>
-    <input type="submit" value="Hyr">
-</form>
-
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
