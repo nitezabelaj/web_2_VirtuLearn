@@ -579,8 +579,119 @@ echo '
 </script>
 ';
 ?>
+<div style="
+    max-width: 400px; 
+    margin: 2em auto; 
+    padding: 1.5em 2em; 
+    border: 2px solid #4A90E2; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9faff;
+    text-align: center;
+">
+    <h3 id="display" style="
+        font-weight: 600; 
+        font-size: 1.2rem; 
+        margin-bottom: 1.2em; 
+        color: #333;
+        min-height: 3em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        ">
+        Duke ngarkuar...
+    </h3>
+
+    <input type="text" id="inputValue" placeholder="Shkruaj info rreth skateboard" style="
+        width: 70%;
+        padding: 0.4em 0.6em;
+        font-size: 1rem;
+        border: 1.8px solid #4A90E2;
+        border-radius: 6px 0 0 6px;
+        outline: none;
+        box-sizing: border-box;
+        vertical-align: middle;
+    " />
+    <button onclick="updateValue()" style="
+        padding: 0.45em 1em;
+        font-size: 1rem;
+        border: 1.8px solid #4A90E2;
+        border-left: none;
+        border-radius: 0 6px 6px 0;
+        background-color: #4A90E2;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        vertical-align: middle;
+    " 
+    onmouseover="this.style.backgroundColor='#357ABD'" 
+    onmouseout="this.style.backgroundColor='#4A90E2'">
+        Përditëso Fjalinë
+    </button>
+
+    <div id="message" style="
+        margin-top: 1em; 
+        color: #4A90E2; 
+        min-height: 1.2em;
+        font-weight: 500;
+        font-size: 0.95rem;
+    "></div>
+</div>
+
+<script>
+    function readValue() {
+        fetch('ajax_handler.php?action=read')
+            .then(res => res.json())
+            .then(data => {
+                if(data.value !== undefined){
+                    document.getElementById('display').innerText = data.value;
+                    document.getElementById('message').innerText = '';
+                } else {
+                    document.getElementById('message').innerText = 'Gabim në lexim: ' + data.error;
+                }
+            })
+            .catch(err => {
+                document.getElementById('message').innerText = 'Gabim në lidhje: ' + err;
+            });
+    }
+
+    function updateValue() {
+        const newVal = document.getElementById('inputValue').value.trim();
+        if(newVal === ''){
+            document.getElementById('message').innerText = 'Fusha është bosh, shkruaj diçka!';
+            return;
+        }
+
+        fetch('ajax_handler.php?action=update', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `value=${encodeURIComponent(newVal)}`
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success){
+                document.getElementById('message').innerText = 'Fjalimi u përditësua me sukses!';
+                readValue();
+                document.getElementById('inputValue').value = '';
+            } else {
+                document.getElementById('message').innerText = 'Gabim në përditësim: ' + data.error;
+            }
+        })
+        .catch(err => {
+            document.getElementById('message').innerText = 'Gabim në lidhje: ' + err;
+        });
+    }
+
+    readValue();
+</script>
+
+
+
 </body>
 </html>
+
+
 <?php
 ob_end_flush();  
 ?> 
