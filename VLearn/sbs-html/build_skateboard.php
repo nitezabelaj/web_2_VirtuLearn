@@ -3,20 +3,6 @@
 //AnitaC - P2 / Sessions
 session_start();
 
-// --- COOKIE HANDLING ---
-
-
-if (!isset($_COOKIE['username'])) {
-    setcookie("username", "MIKU JONE", time() + 86400, "/"); 
-}
-
-
-if (isset($_GET['clear_cookie']) && $_GET['clear_cookie'] === 'true') {
-    setcookie("username", "", time() - 3600, "/"); 
-    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
-    exit;
-}
-
 const SITE_TIME = "SkatingBoardSchool";
 
 $menu_items = [
@@ -151,6 +137,20 @@ $mysqli->close();
             color: #333;
             flex-direction: column;
         }
+        .sidebar {
+    position: fixed;
+    top: 100px;
+    left: 20px;
+    width: 220px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-size: 14px;
+    color: #333;
+    max-height: 70vh;
+    overflow-y: auto;
+}
 
         nav ul.nav {
             list-style: none;
@@ -158,6 +158,7 @@ $mysqli->close();
             gap: 15px;
             padding: 10px 0;
             margin: 0 0 20px 0;
+            margin:40px;
         }
 
         nav ul.nav li.nav-item a.nav-link {
@@ -171,25 +172,6 @@ $mysqli->close();
             color: #0056b3;
         }
 
-        .cookie-greeting {
-            background-color: #e0f7fa;
-            padding: 10px 20px;
-            border-radius: 8px;
-            color: #00796b;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .cookie-clear {
-            margin-top: 8px;
-            font-size: 0.9rem;
-            color: #c00;
-            cursor: pointer;
-            text-decoration: underline;
-            background: none;
-            border: none;
-        }
 
         .container {
             background-color: rgba(255, 255, 255, 0.95);
@@ -277,15 +259,33 @@ $mysqli->close();
         <?php generateMenu($menu_items); ?>
     </ul>
     </nav>
+    <div class="sidebar">
+    <?php
+$arsyet = [
+    "Zgjerimi jonë për krijimin e tyre",
+    "Qka ju doni më së shumti",
+    "Përcjellja e trendeve"
+];
 
-    <?php if (isset($_COOKIE['username'])): ?>
-        <div class="cookie-greeting">
-            👋 Mirë se u riktheve, <strong><?= htmlspecialchars($_COOKIE['username']) ?></strong>!
-            <form method="GET" style="display:inline;">
-                <button name="clear_cookie" value="true" class="cookie-clear" type="submit">Fshij Përshëndetjen</button>
-            </form>
-        </div>
-    <?php endif; ?>
+setcookie("arsyetSkateboard", json_encode($arsyet), time() + 3600, "/");
+
+if (isset($_COOKIE['arsyetSkateboard'])) {
+    $arsyetCookie = json_decode($_COOKIE['arsyetSkateboard'], true);
+
+    echo "Arsyet pse duam të dimë për llojin e skateboard janë:<br>";
+
+    echo "<ul>";
+    foreach ($arsyetCookie as $arsye) {
+        echo "<li>" . htmlspecialchars($arsye) . "</li>";
+    }
+    echo "</ul>";
+} else {
+    echo "Cookie 'arsyetSkateboard' nuk ekziston ende.";
+}
+?>
+
+</div>
+  
 
     <div class="container">
         <h1>🛹 Build Your Skateboard</h1>
