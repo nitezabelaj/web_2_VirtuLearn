@@ -280,7 +280,7 @@ if (isset($_COOKIE['arsyetSkateboard'])) {
     }
     echo "</ul>";
 } else {
-    echo "Cookie 'arsyetSkateboard' nuk ekziston ende.";
+   // echo "Cookie 'arsyetSkateboard' nuk ekziston ende.";
 }
 ?>
 
