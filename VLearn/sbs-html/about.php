@@ -61,7 +61,7 @@ function generateMenu($items) {
    }
 }
 ?>
-  <?php
+<?php
 echo '<style>
   .box-container {
     display: inline-block;
@@ -88,26 +88,28 @@ echo '<style>
   }
   button {
     margin-top: 15px;
-    padding: 12px 28px;
-    font-size: 16px;
+    padding: 16px 40px;
+    font-size: 20px;
     cursor: pointer;
     border: none;
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    background-color: #007BFF;
     color: white;
-    border-radius: 30px;
-    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.4);
-    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-    font-weight: 600;
-    letter-spacing: 0.05em;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 123, 255, 0.5);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    font-weight: 700;
+    max-width: 100%;
+    display: inline-block;
+    text-align: center;
   }
   button:hover {
-    background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
-    box-shadow: 0 6px 20px rgba(37, 117, 252, 0.7);
-    transform: translateY(-3px);
+    background-color: #0056b3;
+    box-shadow: 0 8px 25px rgba(0, 86, 179, 0.7);
+    transform: translateY(-4px);
   }
   button:active {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(37, 117, 252, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 86, 179, 0.6);
   }
 </style>';
 
@@ -177,6 +179,7 @@ echo '
 </script>
 ';
 ?>
+
 <?php
 
 if (isset($_GET['search'])) {
