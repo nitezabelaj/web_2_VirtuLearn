@@ -119,7 +119,7 @@ if (!isset($_SESSION['build'])) {
 $mysqli->close();
 ?>
 <?php
-session_start();
+
 
 $filename = "txt.txt";
 
