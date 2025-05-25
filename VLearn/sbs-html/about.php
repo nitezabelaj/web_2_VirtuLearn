@@ -455,9 +455,6 @@ echo "</div>";
                                        <input class="newsl" placeholder="Enter your name" type="text" name="newsletterName">
                                     </div>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your number" type="text" name="newsletterPhone">
-                                    </div>
-                                    <div class="col-md-4">
                                        <input class="newsl" placeholder="Enter your email" type="text" name="newsletterEmail">
                                     </div>
                                     <div class="col-md-4">

@@ -8,11 +8,9 @@ require 'PHPMailer/Exception.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" &&
     isset($_POST["newsletterName"]) &&
-    isset($_POST["newsletterPhone"]) &&
     isset($_POST["newsletterEmail"])) {
  
     $name = trim($_POST["newsletterName"]);
-    $phone = trim($_POST["newsletterPhone"]);
     $email = trim($_POST["newsletterEmail"]);
 
     
@@ -20,10 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" &&
 
     if (!preg_match("/^[a-zA-Z\\s]{2,50}$/", $name)) {
         $errors[] = "Emri nuk është valid.";
-    }
-
-    if (!preg_match("/^\\+?[0-9\\s\\-\\(\\)]{8,20}$/", $phone)) {
-        $errors[] = "Numri i telefonit nuk është valid.";
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
