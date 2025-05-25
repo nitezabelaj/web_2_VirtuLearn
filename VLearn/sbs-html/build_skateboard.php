@@ -118,6 +118,28 @@ if (!isset($_SESSION['build'])) {
 
 $mysqli->close();
 ?>
+<?php
+session_start();
+
+$filename = "txt.txt";
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (file_exists($filename)) {
+        echo file_get_contents($filename);
+    } else {
+        echo "Asnjë përmbajtje s'është gjetur.";
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $newOpinion = trim($_POST['opinion'] ?? '');
+    if (!empty($newOpinion)) {
+        file_put_contents($filename, $newOpinion);
+        echo "Mendimi u ruajt me sukses!";
+    } else {
+        echo "Mendimi nuk mund të jetë bosh.";
+    }
+}
+?>
+
 <?php include 'gabimet.php'; ?>
 
 <!DOCTYPE html>
@@ -339,6 +361,15 @@ $mysqli->close();
                 font-size: 12px;
                 padding: 10px;
             }
+            .opinioni-i-userit {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    max-width: 600px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
         }
     </style>
     <head>
@@ -483,6 +514,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         <?php endif; ?>
     </div>
+    <div class="opinioni-i-userit">
+    <h2>Pyetja:</h2>
+    <div id="questionBox">Kliko “Lexo” për të parë pyetjen</div>
+    <button onclick="loadQuestion()">Lexo</button>
+
+    <h2>Mendimi juaj:</h2>
+    <textarea id="userOpinion" rows="4" cols="50" placeholder="Shkruaj këtu..."></textarea><br>
+    <button onclick="submitOpinion()">Dërgo</button>
+
+    <div id="responseMessage"></div>
+</div>
+<script>
+        function loadQuestion() {
+            fetch(window.location.href, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('questionBox').innerText = data;
+            });
+        }
+
+        function submitOpinion() {
+            const opinion = document.getElementById('userOpinion').value;
+
+            fetch(window.location.href, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: 'opinion=' + encodeURIComponent(opinion)
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('responseMessage').innerText = data;
+            });
+        }
+    </script>
 </body>
 </html>
 <?php
