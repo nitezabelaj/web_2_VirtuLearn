@@ -106,4 +106,17 @@ echo "<style>
         font-family: Arial, sans-serif;
     }
 </style>";
+class ErrorHandler {
+    public static function getErrorMessage($code) {
+        $errors = [
+            'EMPTY_FIELDS' => GABIM_TE_DHENA,
+            'USER_EXISTS' => GABIM_PERDORUES_EKZISTON,
+            'INVALID_EMAIL' => GABIM_EMAIL,
+            'SHORT_PASSWORD' => GABIM_FJALEKALIMI,
+            'DB_FAIL' => GABIM_DB_LIDHJE
+        ];
+
+        return $errors[$code] ?? 'Gabim i panjohur!';
+    }
+}
 ?>
