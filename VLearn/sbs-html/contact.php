@@ -448,7 +448,7 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                         <div class="col-md-12">
                            <div class="infoma">
                               <h3>Newsletter</h3>
-                              <form class="form_subscri">
+                              <form class="form_subscri" method="POST" action="subscribe_newsletter.php">
                                  <div class="row">
                                     <div class="col-md-12">
                                     </div>
@@ -457,11 +457,10 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                                        <input class="newsl" placeholder="Enter your name" type="text" name="newsletterName">
                                     </div>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your number" type="text" name="newsletterPhone">
+                                       <input class="newsl" placeholder="Enter your email" type="text" name="newsletterEmail">
                                     </div>
                                     <div class="col-md-4">
                                        <button class="subsci_btn" type = "submit">subscribe</button>
-                                    </div>
                                     </div>
                                  </div>
                               </form>
