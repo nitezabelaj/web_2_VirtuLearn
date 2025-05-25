@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
         }
     }
 }
-
+/*
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['email'], $_POST['subject'], $_POST['message'])) {
     $to = "admin@skatingschool.com";
     $subject = "Kontakt nga: " . $_POST['email'];
@@ -91,3 +91,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['email'], $_POST['name
     @mail($to, $subject, $message, $headers, $additional_parameters);
 }
 ?>
+*/

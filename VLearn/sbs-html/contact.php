@@ -8,6 +8,7 @@ if (!isset($_SESSION['visit_count_contact'])) {
 } else {
     $_SESSION['visit_count_contact']++;
 }
+/*
 $gjatesiaMesazhit = 0;
 $karaktereMbetur = 500;
 
@@ -22,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["message"])) {
 
     $karaktereMbetur = llogaritKarakteretMbetura($gjatesiaMesazhit);
 }
+*/
 
 //AnitaC - P2 / Sessions
 require_once 'config.php';
@@ -402,42 +404,8 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                  </select>
              </div>
              <div class="col-md-12">
-                 <textarea class="textarea" placeholder="Message" name="message"><?php echo isset($_POST['message']) ? htmlspecialchars($_POST['message']) : ''; ?></textarea>
-               <p id="messageInfo" style="margin-top: 5px; font-size: 0.9em; color: #333;"></p>
-
-               <script>
-               document.addEventListener("DOMContentLoaded", function () {
-                  const messageField = document.querySelector('textarea[name="message"]');
-                  const messageInfo = document.getElementById('messageInfo');
-                  const form = messageField.closest("form");
-
-                  if (!messageField || !messageInfo || !form) return;
-
-                  const maxLength = 500;
-
-                  function updateCounter() {
-                     const currentLength = messageField.value.trim().length;
-                     const remaining = maxLength - currentLength;
-
-                     messageInfo.innerHTML = 
-                           `Gjatësia e mesazhit tuaj: <strong>${currentLength}</strong> karaktere.<br>` +
-                           `Karaktere të mbetura: <strong>${remaining >= 0 ? remaining : 0}</strong> nga ${maxLength} të lejuara.`;
-
-                     messageInfo.style.color = remaining < 0 ? "red" : "#333";
-                  }
-
-                  messageField.addEventListener("input", updateCounter);
-                  updateCounter(); 
-
-                  form.addEventListener("submit", function (e) {
-                     const currentLength = messageField.value.trim().length;
-                     if (currentLength > maxLength) {
-                           e.preventDefault();
-                           alert("Mesazhi nuk mund të kalojë 500 karaktere.");
-                     }
-                  });
-               });
-               </script>
+                 <textarea class="textarea" placeholder="Message" name="message"></textarea>
+           
              </div>
             
              <div class="col-md-12">
@@ -577,24 +545,6 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
       });
       </script>
       <?php endif; ?>
-      
-
-      <?php
-$ip = file_get_contents("https://api.ipify.org");
-$curl = curl_init("http://ip-api.com/json/{$ip}");
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($curl);
-curl_close($curl);
-
-if ($response !== false) {
-    $data = json_decode($response, true);
-    if ($data && $data['status'] === 'success') {
-        echo "<div style='text-align:center; color: white; margin-top: 40px; font-size: 0.9em;'>";
-        echo "Ju jeni duke vizituar nga <strong>{$data['city']}, {$data['country']}</strong> (IP: {$ip})";
-        echo "</div>";
-    }
-}
-?>
       
    </body>
 </html>
