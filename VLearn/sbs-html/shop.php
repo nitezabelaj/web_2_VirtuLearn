@@ -306,25 +306,29 @@ $emriFaqes = "VirtuLearn";
                     <!-- Dropdown për sortimin -->
                     <form method="GET" style="margin-bottom: 20px;">
                     <div>
-                  <?php
+    <?php
+
 
 $pdo = new PDO("mysql:host=localhost;dbname=virtu_learn", "root", "");
-session_start();
+
 
 if (!isset($_SESSION['username'])) {
     die("User not logged in.");
 }
 
+
 $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
 $stmt->execute([$_SESSION['username']]);
 $user = $stmt->fetch();
+
 
 if (!$user) {
     die("User not found.");
 }
 
+
 $userId = $user['id'];
-$username = $_SESSION['username'];
+
 
 $products = [
     ["name" => "Skateboard", "price" => 49.99, "image" => "https://pngimg.com/d/skateboard_PNG11708.png"],
@@ -333,58 +337,46 @@ $products = [
     ["name" => "Hoodie", "price" => 39.99, "image" => "https://scene7.zumiez.com/is/image/zumiez/product_main_medium/Empyre-Push-Skate-Black-Hoodie-_388094-alt1-US.jpg"]
 ];
 
+
 $message = "";
 $lastActionProduct = "";
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['product'])) {
-        $product = $_POST['product'];
-        $price = $_POST['price'];
-        $image = $_POST['image'];
-        $lastActionProduct = $product;
+    $product = $_POST['product'];
+    $price = $_POST['price'];
+    $image = $_POST['image'];
+    $lastActionProduct = $product;
 
-        if (isset($_POST['add'])) {
-            $stmt = $pdo->prepare("INSERT INTO shopping_cart (user_id, product_name, product_price, product_image_url) VALUES (?, ?, ?, ?)");
-            $stmt->execute([$userId, $product, $price, $image]);
-            $message = "added";
-        } elseif (isset($_POST['delete'])) {
-            $stmt = $pdo->prepare("DELETE FROM shopping_cart WHERE user_id = ? AND product_name = ?");
-            $stmt->execute([$userId, $product]);
-            $message = "deleted";
-        }
-    } elseif (isset($_POST['confirm_order'])) {
-        $fullname = $_POST['fullname'];
-        $city = $_POST['city'];
-        $address = $_POST['address'];
-        $paypal = $_POST['paypal'];
-        $password = $_POST['password'];
 
-        $stmt = $pdo->prepare("INSERT INTO shipping_address (user_id, username, fullname, city, address, paypal_number, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$userId, $username, $fullname, $city, $address, $paypal, $password]);
-
-        echo "<p>Your order has been confirmed and will be delivered to your doorstep within 48 hours.</p>";
+    if (isset($_POST['add'])) {
+        $stmt = $pdo->prepare("INSERT INTO shopping_cart (user_id, product_name, product_price, product_image_url) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$userId, $product, $price, $image]);
+        $message = "added";
+    } elseif (isset($_POST['delete'])) {
+        $stmt = $pdo->prepare("DELETE FROM shopping_cart WHERE user_id = ? AND product_name = ?");
+        $stmt->execute([$userId, $product]);
+        $message = "deleted";
     }
 }
 ?>
-
 <style>
-    .product { border: 1px solid #ccc; padding: 20px; margin: 20px; width: 250px; display: inline-block; vertical-align: top; }
-    img { max-width: 100%; height: auto; }
-    form { margin-top: 10px; }
-</style>
+        .product { border: 1px solid #ccc; padding: 20px; margin: 20px; width: 250px; display: inline-block; vertical-align: top; }
+        img { max-width: 100%; height: auto; }
+        form { margin-top: 10px; }
+    </style>
+</head>
+<body>
+
 
 <h2>Below are our products that you can shop now:</h2>
 <p>When you add products to the shopping cart, the admin of this website will be able to see which<br>
     products you have selected.<br>
-    If you complete the Shipping Address form — which is valid only within the territory of Kosovo —<br>
-    your order will automatically be processed.</p>
+   If you complete the Shipping Address form — which is valid only within the territory of Kosovo<br>
+    — your order will automatically be processed.</p>
 
-<?php
-$productCountStmt = $pdo->prepare("SELECT COUNT(*) FROM shopping_cart WHERE user_id = ?");
-$productCountStmt->execute([$userId]);
-$cartCount = $productCountStmt->fetchColumn();
 
-foreach ($products as $p): ?>
+<?php foreach ($products as $p): ?>
     <div class="product">
         <h3><?= htmlspecialchars($p["name"]) ?></h3>
         <img src="<?= htmlspecialchars($p["image"]) ?>" alt="<?= htmlspecialchars($p["name"]) ?>">
@@ -403,29 +395,6 @@ foreach ($products as $p): ?>
         </form>
     </div>
 <?php endforeach; ?>
-
-<?php if ($cartCount > 0): ?>
-    <h3>Shipping Address</h3>
-    <form method="POST">
-        <label>Full Name: <input type="text" name="fullname" required></label><br>
-        <label>City:
-            <select name="city" required>
-                <option value="Prishtina">Prishtina</option>
-                <option value="Peja">Peja</option>
-                <option value="Gjakova">Gjakova</option>
-                <option value="Ferizaj">Ferizaj</option>
-                <option value="Mitrovica">Mitrovica</option>
-                <option value="Gjilan">Gjilan</option>
-            </select>
-        </label><br>
-        <label>Address: <input type="text" name="address" required></label><br>
-        <label>PayPal Card Number: <input type="text" name="paypal" required></label><br>
-        <label>Password: <input type="password" name="password" required></label><br>
-        <button type="submit" name="confirm_order">Confirm Order</button>
-    </form>
-<?php endif; ?>
-
-
 
 
                      
