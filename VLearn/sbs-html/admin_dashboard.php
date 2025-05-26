@@ -168,7 +168,7 @@ function generateMenu($items) {
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/ajax_operations.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+/*document.addEventListener("DOMContentLoaded", () => {
     fetch('get_users.php')
         .then(response => response.json())
         .then(data => {
@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('users-table-body').innerHTML = "<tr><td colspan='4'>Gabim gjatë ngarkimit të të dhënave.</td></tr>";
             console.error("Gabim:", err);
         });
-});
+});/
 </script>
 </body>
 </html>
