@@ -13,6 +13,15 @@ if ($result->num_rows > 0) {
         $users[] = $row;
     }
 }
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "email": "admin@example.com",
+    "role": "admin"
+  },
+  ...
+]
 
 echo json_encode($users);
 ?>

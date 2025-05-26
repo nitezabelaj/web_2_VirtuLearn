@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors[] = $e->getMessage();
 }}}
 // Shkakto një gabim për test
-trigger_error("Gabim testues për krijimin e folderit WebsiteErrors", E_USER_NOTICE);
+trigger_error("Gabim testues për trajtimin e gabimeve", E_USER_NOTICE);
  ?>
 
 <!DOCTYPE html>
