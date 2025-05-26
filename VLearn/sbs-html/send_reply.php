@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'config.php';
 require_once 'includes/error_handler.php';
 
@@ -21,10 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit_reply'])) {
     try {
         $mail = new PHPMailer(true);
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmal.com';
+        $mail->Host = 'smtp.gmail.com'; // rregulluar
         $mail->SMTPAuth = true;
         $mail->Username = 'anitacacaaj@gmail.com';
-        $mail->Password = 'tibm pqxn noic eevj';
+        $mail->Password = 'tibm pqxn noic eevj'; // sigurohu që është App Password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port = 465;
 
@@ -42,14 +43,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit_reply'])) {
 
         $mail->send();
 
-        echo "<script>
-            alert('Përgjigjja u dërgua me sukses!');
-            setTimeout(function() {
-                window.location.href='contact_messages.php';
-            }, 200);
-        </script>";
+        $_SESSION['success_message'] = "Përgjigjja u dërgua me sukses!";
+        header("Location: contact_messages.php");
+        exit;
+
     } catch (Exception $e) {
         echo "<script>alert('Dështoi dërgimi i emailit: {$mail->ErrorInfo}'); window.history.back();</script>";
     }
 }
-?>

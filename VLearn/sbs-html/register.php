@@ -39,7 +39,7 @@ function generateMenu($items) {
         echo "<li class='nav-item$isActive'><a class='nav-link' href='$link'>$label</a></li>";
     }
 }
-
+//Perdorimi i sql injection - sanitizeinput - anitac
 function sanitizeInput($data) {
     return htmlspecialchars(strip_tags(trim($data)));
 }
@@ -68,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
+        //perdorimi i sql injection - prepared statements - anitac
         $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? OR username = ?");
         $stmt->execute([$email, $username]);
         if ($stmt->fetch()) {

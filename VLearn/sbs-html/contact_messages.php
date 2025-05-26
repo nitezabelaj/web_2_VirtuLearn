@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Lidhja me databazën
 $conn = new mysqli("localhost", "root", "", "virtu_learn");
 
@@ -59,6 +60,13 @@ $result = $conn->query("SELECT * FROM contacts");
 </head>
 <body>
 
+<?php
+if (isset($_SESSION['success_message'])) {
+  echo "<script>alert('{$_SESSION['success_message']}');</script>";
+  unset($_SESSION['success_message']);
+}
+?>
+
 <h2>Mesazhet e Kontaktit</h2>
 
 <table>
@@ -107,7 +115,6 @@ $result = $conn->query("SELECT * FROM contacts");
     document.getElementById('replyModal').style.display = 'none';
   }
 
-  // Opsionale: mbyll modal kur klikon jashtë tij
   window.onclick = function(event) {
     const modal = document.getElementById('replyModal');
     if (event.target === modal) {
