@@ -41,7 +41,7 @@ $users = $stmt->fetchAll();
     </table>
 
     <br><br>
-    <a href="insert_user.php">➕ Shto Përdorues të Ri</a>
+    
     <br><br>
     <a href="admin_dashboard.php">⟵ Kthehu te Paneli</a>
 </body>
