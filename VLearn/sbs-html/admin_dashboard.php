@@ -154,8 +154,8 @@ function generateMenu($items) {
         <h2>Opsionet e Administrimit</h2>
         <ul class="list-group">
             <li class="list-group-item"><a href="manage_users.php">Menaxho Përdoruesit</a></li>
-            <li class="list-group-item"><a href="manage_products.php">Menaxho Produktet</a></li>
             <li class="list-group-item"><a href="view_user_preferences.php">Preferencat e Përdoruesve për Skateboard</a></li>
+            <li class="list-group-item"><a href="admin_sees_shopping.php">Blerjet e perdoruesve</a></li>
             <li class="list-group-item"><a href="contact_messages.php">Shiko Mesazhet e Kontaktit</a></li>
             <li class="list-group-item"><a href="logout.php">Dil</a></li>
         </ul>
