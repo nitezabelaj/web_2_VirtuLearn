@@ -463,11 +463,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['full_name'])) {
 }
 
 
-$stmt = $pdo->prepare("INSERT INTO shipping_address (user_id, username, full_name, city, address, paypal_number, password)
-                       VALUES (?, ?, ?, ?, ?, ?, ?)");
-$stmt->execute([$userId, $username, $fullName, $city, $address, $paypalNumber, $password]);
 
-echo "<h2>Your order has been confirmed and will arrive at your doorstep within 48 hours!</h2>";
 ?>
 
 
