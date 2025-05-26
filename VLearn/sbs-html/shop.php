@@ -366,7 +366,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                   <br><br>
-                    <a class="read_more" href="shop.html">Buy Now</a>
+                    <a class="read_more" href="shop.html"></a>
                 </div>
             </div>
         </div>
