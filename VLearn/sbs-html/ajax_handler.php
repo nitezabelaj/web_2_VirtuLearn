@@ -3,7 +3,7 @@ session_start();
 
 if (!isset($_SESSION['myValue'])) {
     $_SESSION['myValue'] = "Duke përditësuar këtë fjali,
-      ti mund te shkruash nje fjali moivuese per veten qe sa here hyn ne kete faqe ta shohesh.";
+      ti mund te shkruash nje fjali motivuese per veten qe sa here hyn ne kete faqe ta shohesh.";
 }
 
 if (isset($_GET['action'])) {
