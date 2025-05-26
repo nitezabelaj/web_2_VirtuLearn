@@ -72,7 +72,7 @@ function generateMenu($items) {
         </div>
     </nav>
 
-<div class="card shadow mb-4">
+<!--<div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
         <h6 class="m-0 font-weight-bold text-primary">Menaxhimi i Përdoruesve</h6>
     </div>
@@ -87,8 +87,7 @@ function generateMenu($items) {
                         <th width="20%">Veprimet</th>
                     </tr>
                 </thead>
-                <!-- PJESA E IMPLMENTIMIT TE AJAX LEXIMIT DHE UPDATE NGA DB -->
-              <tbody id="users-table-body">
+              
     <tr><td colspan="4">Të dhënat nuk janë të disponueshme.</td></tr>
 </tbody>
 
@@ -97,6 +96,7 @@ function generateMenu($items) {
     </div>
 </div>
 <style>
+-->
     /* Stilizimi i tabelës së përdoruesve */
 #users-table {
     font-size: 0.9rem;
