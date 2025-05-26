@@ -154,36 +154,7 @@ $emriFaqes = "VirtuLearn";
       <!-- site metas -->
       <title>VirtuLearn</title>
       <style>
-         special_products {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
         
-        .special_products h4 {
-            color:blue;
-        }
-        .product-items li {
-    font-family: inherit; 
-    font-size: 16px;       
-    color: #333;
-    margin-bottom: 10px;
-    position: relative;
-    padding-left: 30px; 
-}
-
-
-.product-items li::before {
-    content: "\f07a"; 
-    font-family: "FontAwesome";
-    font-size: 24px; 
-    color: #007bff;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
 #sort {
     font-weight: bold;
     font-size: 16px;
@@ -334,70 +305,136 @@ $emriFaqes = "VirtuLearn";
                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration...</p>
                     <!-- Dropdown për sortimin -->
                     <form method="GET" style="margin-bottom: 20px;">
-                    <label for="sort">Sort by price:</label>
-                   <select name="sort" id="sort" onchange="this.form.submit()">
-                   <option value="">Select</option>
-                       <option value="low_high" <?php if(isset($_GET['sort']) && $_GET['sort'] == 'low_high') echo 'selected'; ?>>Price: Low to High</option>
-                      <option value="high_low" <?php if(isset($_GET['sort']) && $_GET['sort'] == 'high_low') echo 'selected'; ?>>Price: High to Low</option>
-                     </select>
-                    </form>
-                    <!-- Lista e produkteve dhe totali -->
-                    <div class="product-list">
-                        <h4>Our Products:</h4>
-                        <ul class="product-items">
-                            <?php 
-                            // Llogarit totalin gjatë shfaqjes
-                            $totali = 0;
-                            foreach ($produktet as $produkt): 
-                                $totali += $produkt['cmimi'];
-                            ?>
-                                <li><?php echo $produkt['emri']; ?> - $<?php echo $produkt['cmimi']; ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <div class="total-price">
-                            <strong>Total: $<?php echo $totali; ?></strong>
-                        </div>
-                    </div>
-                    <div class="special_products">
-                     <?php
-                     //Perdorimi tjeter i konstruktorit-Amela
-                     class ProduktetSpeciale {
-                        private $produktett=[];
-                        public function __construct() {
-                           $this->produktett = [
-                               "Gloves" => 5,
-                               "Jumper" => 5,
-                               "Skii" => 5
-                           ];
- 
+                    <div>
+                  <?php
 
-                        }
-                        public function shfaqProduktet(){
-                           echo "<h4>Our special Products:</h4>";
-                           echo "<ul class='product-items'>";
-                           foreach($this->produktett as $emri=>$cmimi){
-                              echo "<li>$emri - $cmimi €</li>";
-                          }
-                          echo "</ul>";
+$pdo = new PDO("mysql:host=localhost;dbname=virtu_learn", "root", "");
+session_start();
 
-                      }
-                      public function __destruct(){
-                        
+if (!isset($_SESSION['username'])) {
+    die("User not logged in.");
+}
 
-                      }
-                     }
-                     $produktetSpeciale=new ProduktetSpeciale();
-                     $produktetSpeciale->shfaqProduktet();
-              
-                        
-                        
-                  ?>
-                  </div>
+$stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
+$stmt->execute([$_SESSION['username']]);
+$user = $stmt->fetch();
+
+if (!$user) {
+    die("User not found.");
+}
+
+$userId = $user['id'];
+$username = $_SESSION['username'];
+
+$products = [
+    ["name" => "Skateboard", "price" => 49.99, "image" => "https://pngimg.com/d/skateboard_PNG11708.png"],
+    ["name" => "Helmet", "price" => 29.99, "image" => "https://triple8.com/cdn/shop/files/IMG_10138_1_1024x1024.jpg?v=1714482700"],
+    ["name" => "Wrist Guards", "price" => 19.99, "image" => "https://demon-united.com/cdn/shop/products/DS3878_201_1080x.jpg?v=1615264670"],
+    ["name" => "Hoodie", "price" => 39.99, "image" => "https://scene7.zumiez.com/is/image/zumiez/product_main_medium/Empyre-Push-Skate-Black-Hoodie-_388094-alt1-US.jpg"]
+];
+
+$message = "";
+$lastActionProduct = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['product'])) {
+        $product = $_POST['product'];
+        $price = $_POST['price'];
+        $image = $_POST['image'];
+        $lastActionProduct = $product;
+
+        if (isset($_POST['add'])) {
+            $stmt = $pdo->prepare("INSERT INTO shopping_cart (user_id, product_name, product_price, product_image_url) VALUES (?, ?, ?, ?)");
+            $stmt->execute([$userId, $product, $price, $image]);
+            $message = "added";
+        } elseif (isset($_POST['delete'])) {
+            $stmt = $pdo->prepare("DELETE FROM shopping_cart WHERE user_id = ? AND product_name = ?");
+            $stmt->execute([$userId, $product]);
+            $message = "deleted";
+        }
+    } elseif (isset($_POST['confirm_order'])) {
+        $fullname = $_POST['fullname'];
+        $city = $_POST['city'];
+        $address = $_POST['address'];
+        $paypal = $_POST['paypal'];
+        $password = $_POST['password'];
+
+        $stmt = $pdo->prepare("INSERT INTO shipping_address (user_id, username, fullname, city, address, paypal_number, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$userId, $username, $fullname, $city, $address, $paypal, $password]);
+
+        echo "<p>Your order has been confirmed and will be delivered to your doorstep within 48 hours.</p>";
+    }
+}
+?>
+
+<style>
+    .product { border: 1px solid #ccc; padding: 20px; margin: 20px; width: 250px; display: inline-block; vertical-align: top; }
+    img { max-width: 100%; height: auto; }
+    form { margin-top: 10px; }
+</style>
+
+<h2>Below are our products that you can shop now:</h2>
+<p>When you add products to the shopping cart, the admin of this website will be able to see which<br>
+    products you have selected.<br>
+    If you complete the Shipping Address form — which is valid only within the territory of Kosovo —<br>
+    your order will automatically be processed.</p>
+
+<?php
+$productCountStmt = $pdo->prepare("SELECT COUNT(*) FROM shopping_cart WHERE user_id = ?");
+$productCountStmt->execute([$userId]);
+$cartCount = $productCountStmt->fetchColumn();
+
+foreach ($products as $p): ?>
+    <div class="product">
+        <h3><?= htmlspecialchars($p["name"]) ?></h3>
+        <img src="<?= htmlspecialchars($p["image"]) ?>" alt="<?= htmlspecialchars($p["name"]) ?>">
+        <p>Price: $<?= number_format($p["price"], 2) ?></p>
+         <?php if (!empty($lastActionProduct) && $lastActionProduct === $p["name"]): ?>
+            <p class="message <?= $message === 'added' ? 'added' : 'deleted' ?>">
+                <?= $message === 'added' ? 'The product has been added to the cart.' : 'The product has been removed from the cart.' ?>
+            </p>
+        <?php endif; ?>
+        <form method="POST">
+            <input type="hidden" name="product" value="<?= $p["name"] ?>">
+            <input type="hidden" name="price" value="<?= $p["price"] ?>">
+            <input type="hidden" name="image" value="<?= $p["image"] ?>">
+            <button type="submit" name="add">Add to ShoppingCart</button>
+            <button type="submit" name="delete">Delete from ShoppingCart</button>
+        </form>
+    </div>
+<?php endforeach; ?>
+
+<?php if ($cartCount > 0): ?>
+    <h3>Shipping Address</h3>
+    <form method="POST">
+        <label>Full Name: <input type="text" name="fullname" required></label><br>
+        <label>City:
+            <select name="city" required>
+                <option value="Prishtina">Prishtina</option>
+                <option value="Peja">Peja</option>
+                <option value="Gjakova">Gjakova</option>
+                <option value="Ferizaj">Ferizaj</option>
+                <option value="Mitrovica">Mitrovica</option>
+                <option value="Gjilan">Gjilan</option>
+            </select>
+        </label><br>
+        <label>Address: <input type="text" name="address" required></label><br>
+        <label>PayPal Card Number: <input type="text" name="paypal" required></label><br>
+        <label>Password: <input type="password" name="password" required></label><br>
+        <button type="submit" name="confirm_order">Confirm Order</button>
+    </form>
+<?php endif; ?>
 
 
-                    <br>
-                    <br>
-                    <a class="read_more" href="shop.html">Buy Now</a>
+
+
+                     
+                   </div>
+                    
+
+
+                  <br><br>
+                    <a class="read_more" href="shop.html"></a>
                 </div>
             </div>
         </div>
@@ -599,6 +636,7 @@ if ($response !== false) {
     }
 }
 ?>
+
    </body>
 </html>
 

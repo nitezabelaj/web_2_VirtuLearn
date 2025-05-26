@@ -38,9 +38,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     </tbody>
 </table>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="menage_usersajax.js"></script>
-
+    <br><br>
+    <a href="insert_user.php">➕ Shto Përdorues të Ri</a>
+    <br><br>
     <a href="admin_dashboard.php">⟵ Kthehu te Paneli</a>
 </body>
 </html>
