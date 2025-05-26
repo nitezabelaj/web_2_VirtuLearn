@@ -445,19 +445,19 @@ $user = $stmt->fetch();
 if (!$user) {
     die("User not found.");
 }
-
 $userId = $user['id'];
-$username = $_SESSION['username'];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['full_name'])) {
     $fullName = $_POST['full_name'];
     $city = $_POST['city'];
     $address = $_POST['address'];
     $paypalNumber = $_POST['paypal_number'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $paypalPassword = $_POST['password'];
 
-    $stmt = $pdo->prepare("INSERT INTO shipping_address (user_id, username, full_name, city, address, paypal_number, password)
-                           VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$userId, $username, $fullName, $city, $address, $paypalNumber, $password]);
+    $stmt = $pdo->prepare("INSERT INTO shipping_address 
+        (user_id, full_name, city, address, paypal_number, paypal_password)
+        VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$userId, $fullName, $city, $address, $paypalNumber, $paypalPassword]);
 
     echo "<h2>Your order has been confirmed and will arrive at your doorstep within 48 hours!</h2>";
 }
