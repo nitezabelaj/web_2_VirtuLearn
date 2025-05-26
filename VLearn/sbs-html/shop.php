@@ -154,36 +154,7 @@ $emriFaqes = "VirtuLearn";
       <!-- site metas -->
       <title>VirtuLearn</title>
       <style>
-         special_products {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
         
-        .special_products h4 {
-            color:blue;
-        }
-        .product-items li {
-    font-family: inherit; 
-    font-size: 16px;       
-    color: #333;
-    margin-bottom: 10px;
-    position: relative;
-    padding-left: 30px; 
-}
-
-
-.product-items li::before {
-    content: "\f07a"; 
-    font-family: "FontAwesome";
-    font-size: 24px; 
-    color: #007bff;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
 #sort {
     font-weight: bold;
     font-size: 16px;
@@ -342,57 +313,7 @@ $emriFaqes = "VirtuLearn";
                      </select>
                     </form>
                     <!-- Lista e produkteve dhe totali -->
-                    <div class="product-list">
-                        <h4>Our Products:</h4>
-                        <ul class="product-items">
-                            <?php 
-                            // Llogarit totalin gjatë shfaqjes
-                            $totali = 0;
-                            foreach ($produktet as $produkt): 
-                                $totali += $produkt['cmimi'];
-                            ?>
-                                <li><?php echo $produkt['emri']; ?> - $<?php echo $produkt['cmimi']; ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <div class="total-price">
-                            <strong>Total: $<?php echo $totali; ?></strong>
-                        </div>
-                    </div>
-                    <div class="special_products">
-                     <?php
-                     //Perdorimi tjeter i konstruktorit-Amela
-                     class ProduktetSpeciale {
-                        private $produktett=[];
-                        public function __construct() {
-                           $this->produktett = [
-                               "Gloves" => 5,
-                               "Jumper" => 5,
-                               "Skii" => 5
-                           ];
- 
-
-                        }
-                        public function shfaqProduktet(){
-                           echo "<h4>Our special Products:</h4>";
-                           echo "<ul class='product-items'>";
-                           foreach($this->produktett as $emri=>$cmimi){
-                              echo "<li>$emri - $cmimi €</li>";
-                          }
-                          echo "</ul>";
-
-                      }
-                      public function __destruct(){
-                        
-
-                      }
-                     }
-                     $produktetSpeciale=new ProduktetSpeciale();
-                     $produktetSpeciale->shfaqProduktet();
-              
-                        
-                        
-                  ?>
-                  </div>
+                    
 
 
                     <br>
@@ -599,6 +520,58 @@ if ($response !== false) {
     }
 }
 ?>
+<?php
+
+$pdo = new PDO("mysql:host=localhost;dbname=virtu_learn", "root", "");
+
+$_SESSION['user_id'] = 1;
+$userId = $_SESSION['user_id'];
+
+$products = [
+    ["name" => "Skateboard", "price" => 49.99, "image" => "https://pngimg.com/d/skateboard_PNG11708.png"],
+    ["name" => "Helmet", "price" => 29.99, "image" => "https://triple8.com/cdn/shop/files/IMG_10138_1_1024x1024.jpg?v=1714482700"],
+    ["name" => "Wrist Guards", "price" => 19.99, "image" => "https://demon-united.com/cdn/shop/products/DS3878_201_1080x.jpg?v=1615264670"],
+    ["name" => "Hoodie", "price" => 39.99, "image" => "https://scene7.zumiez.com/is/image/zumiez/product_main_medium/Empyre-Push-Skate-Black-Hoodie-_388094-alt1-US.jpg"]
+];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $product = $_POST['product'];
+    $price = $_POST['price'];
+    $image = $_POST['image'];
+
+    if (isset($_POST['add'])) {
+        $stmt = $pdo->prepare("INSERT INTO shopping_cart (user_id, product_name, product_price, product_image_url) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$userId, $product, $price, $image]);
+    } elseif (isset($_POST['delete'])) {
+        $stmt = $pdo->prepare("DELETE FROM shopping_cart WHERE user_id = ? AND product_name = ?");
+        $stmt->execute([$userId, $product]);
+    }
+}
+?>
+<style>
+        .product { border: 1px solid #ccc; padding: 20px; margin: 20px; width: 250px; display: inline-block; vertical-align: top; }
+        img { max-width: 100%; height: auto; }
+        form { margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<h2>Below are our products that you can shop now:</h2>
+
+<?php foreach ($products as $p): ?>
+    <div class="product">
+        <h3><?= htmlspecialchars($p["name"]) ?></h3>
+        <img src="<?= htmlspecialchars($p["image"]) ?>" alt="<?= htmlspecialchars($p["name"]) ?>">
+        <p>Price: $<?= number_format($p["price"], 2) ?></p>
+        <form method="POST">
+            <input type="hidden" name="product" value="<?= $p["name"] ?>">
+            <input type="hidden" name="price" value="<?= $p["price"] ?>">
+            <input type="hidden" name="image" value="<?= $p["image"] ?>">
+            <button type="submit" name="add">Add to ShoppingCart</button>
+            <button type="submit" name="delete">Delete from ShoppingCart</button>
+        </form>
+    </div>
+<?php endforeach; ?>
    </body>
 </html>
 
