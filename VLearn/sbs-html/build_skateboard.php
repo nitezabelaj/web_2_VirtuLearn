@@ -590,7 +590,7 @@ echo '
     background: #f9faff;
     text-align: center;
 ">
-<p>Info juaj per skateboard</p>
+<p>Shenoi nje fjali motivuese <br></p>
     <h3 id="display" style="
         font-weight: 600; 
         font-size: 1.2rem; 
@@ -604,7 +604,7 @@ echo '
         Duke ngarkuar...
     </h3>
 
-    <input type="text" id="inputValue" placeholder="Shkruaj info rreth skateboard" style="
+    <input type="text" id="inputValue" placeholder="Shkruaj me te miren" style="
         width: 70%;
         padding: 0.4em 0.6em;
         font-size: 1rem;

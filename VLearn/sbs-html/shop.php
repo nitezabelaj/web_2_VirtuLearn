@@ -369,11 +369,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
 
-<h2>Below are our products that you can shop now:</h2>
-<p>When you add products to the shopping cart, the admin of this website will be able to see which<br>
-    products you have selected.<br>
-   If you complete the Shipping Address form — which is valid only within the territory of Kosovo<br>
-    — your order will automatically be processed.</p>
+<h2></h2>
+<p>Our company is planning to enter the market with four products.<br>
+ If you think the prices are reasonable and you would consider purchasing <br>
+them from us, could you please add them to your cart so the admin
+<br> can register your interest</p>
 
 
 <?php foreach ($products as $p): ?>
@@ -395,76 +395,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 <?php endforeach; ?>
-<?php
-$stmt = $pdo->prepare("SELECT COUNT(*) FROM shopping_cart WHERE user_id = ?");
-$stmt->execute([$userId]);
-$productCount = $stmt->fetchColumn();
-?>
 
-<?php if ($productCount > 0): ?>
-    <h3>Complete your Shipping Information</h3>
-    <form method="POST">
-        <label>Full Name:</label><br>
-        <input type="text" name="full_name" required><br><br>
-
-        <label>City:</label><br>
-        <select name="city" required>
-            <option value="">-- Select City --</option>
-            <option value="Prishtina">Prishtina</option>
-            <option value="Peja">Peja</option>
-            <option value="Gjakova">Gjakova</option>
-            <option value="Mitrovica">Mitrovica</option>
-            <option value="Ferizaj">Ferizaj</option>
-            <option value="Prizreni">Prizreni</option>
-        </select><br><br>
-
-        <label>Address:</label><br>
-        <input type="text" name="address" required><br><br>
-
-        <label>PayPal Card Number:</label><br>
-        <input type="text" name="paypal_number" required><br><br>
-
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
-
-        <button type="submit">Confirm Order</button>
-    </form>
-<?php endif; ?>
-<?php
-
-$pdo = new PDO("mysql:host=localhost;dbname=virtu_learn", "root", "");
-
-if (!isset($_SESSION['username'])) {
-    die("User not logged in.");
-}
-
-$stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
-$stmt->execute([$_SESSION['username']]);
-$user = $stmt->fetch();
-
-if (!$user) {
-    die("User not found.");
-}
-$userId = $user['id'];
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['full_name'])) {
-    $fullName = $_POST['full_name'];
-    $city = $_POST['city'];
-    $address = $_POST['address'];
-    $paypalNumber = $_POST['paypal_number'];
-    $paypalPassword = $_POST['password'];
-
-    $stmt = $pdo->prepare("INSERT INTO shipping_address 
-        (user_id, full_name, city, address, paypal_number, paypal_password)
-        VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$userId, $fullName, $city, $address, $paypalNumber, $paypalPassword]);
-
-    echo "<h2>Your order has been confirmed and will arrive at your doorstep within 48 hours!</h2>";
-}
-
-
-
-?>
 
 
                      
