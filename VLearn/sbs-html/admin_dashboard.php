@@ -97,51 +97,6 @@ function generateMenu($items) {
 </div>
 <style>
 -->
-    /* Stilizimi i tabelës së përdoruesve */
-#users-table {
-    font-size: 0.9rem;
-}
-
-#users-table th {
-    background-color: #4e73df;
-    color: white;
-    font-weight: 600;
-}
-
-.role-select {
-    width: 100%;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.85rem;
-}
-
-.update-btn, .delete-btn {
-    font-size: 0.8rem;
-    padding: 0.25rem 0.5rem;
-}
-
-/* Responsive table */
-@media (max-width: 768px) {
-    #users-table td:nth-child(1):before { content: "ID: "; font-weight: bold; }
-    #users-table td:nth-child(2):before { content: "Emri: "; font-weight: bold; }
-    #users-table td:nth-child(3):before { content: "Roli: "; font-weight: bold; }
-    #users-table td:nth-child(4):before { content: "Veprimet: "; font-weight: bold; }
-    
-    #users-table td {
-        display: block;
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-    }
-    
-    #users-table td::before {
-        position: absolute;
-        left: 0.5rem;
-        width: calc(50% - 1rem);
-        padding-right: 1rem;
-        text-align: left;
-    }
-}
-</style>
 
 <main class="container my-5" style="max-width: 600px;">
     <h1 class="mb-4">Paneli i Administratorit</h1>
