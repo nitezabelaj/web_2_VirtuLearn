@@ -4,8 +4,7 @@ require_once 'includes/error_handler.php';//T.G
 session_start();
 
 const SITE_TIME = "SkatingBoardSchool";
-
-session_start();
+;
 if (!isset($_SESSION['visit_count_about'])) {
     $_SESSION['visit_count_about'] = 1;
 } else {
@@ -14,32 +13,22 @@ if (!isset($_SESSION['visit_count_about'])) {
 
 function filtroMesazhetRendesishem($teGjithaMesazhet, &$mesazhetRendesishem) {
     foreach ($teGjithaMesazhet as $mesazh) {
-        if (str_contains($mesazh, 'speciale') || str_contains($mesazh, 'mosha')|| str_contains($mesazh, 'falas')) {
+        if (str_contains($mesazh, 'rëndësishëm') || str_contains($mesazh, 'siguri')) {
             $mesazhetRendesishem[] = $mesazh;
-        }
-    }
-}
-function filtroMesazheteArdhshme($teGjithaMesazhet, &$mesazhetArdhshme) {
-    foreach ($teGjithaMesazhet as $mesazh) {
-        if (str_contains($mesazh, 'skateboard') || str_contains($mesazh, 'interesante')) {
-            $mesazhetArdhshme[] = $mesazh;
         }
     }
 }
 
 $mesazhet = [
-    "Modele te reja të skateboard ...",
-    "Kurse për mosha te reja!",
-    "Produkte të reja speciale!",
-    "Kurse të reja interesante ...",
-    "Përdorimi i platformës është falas për studentë!"
+    "Ky sistem ofron përmbajtje të personalizuar për çdo përdorues.",
+    "Siguria e të dhënave është prioritet ynë kryesor.",
+    "Ju mund të gjurmoni progresin tuaj në çdo moment.",
+    "Ky mesazh është shumë i rëndësishëm për përdoruesit e rinj.",
+    "Përdorimi i platformës është falas për studentë."
 ];
 
 $teRendesishem = [];
 filtroMesazhetRendesishem($mesazhet, $teRendesishem);
-
-$teArdhshme = [];
-filtroMesazheteArdhshme($mesazhet, $teArdhshme);
 
 $menu_items = [
    "index.php" => "Home",
@@ -150,6 +139,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_birthday'])){
 
 }
 
+//Newsletter validation
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newsletterPhone"])) {
+   $name = $_POST["newsletterName"];
+   $phone = $_POST["newsletterPhone"];
+   $errors = [];
+
+   if (!preg_match("/^[a-zA-Z\s]{2,50}$/", $name)) {
+       $errors[] = "Emri nuk është valid. Përdorni vetëm shkronja (minimumi 2).";
+   }
+
+   if (!preg_match("/^\+?[0-9\s\-\(\)]{8,20}$/", $phone)) {
+       $errors[] = "Numri i telefonit nuk është valid.";
+   }
+
+   if (empty($errors)) {
+       echo "<p style='color:green; text-align:center;'>Faleminderit për abonimin!</p>";
+   } else {
+       foreach ($errors as $error) {
+           echo "<p style='color:red; text-align:center;'>$error</p>";
+       }
+   }
+}
 
 class SiteSearch {
    private $pages;
@@ -425,29 +436,13 @@ echo "</div>";
       <!--  footer -->
       <footer>
          <div style="margin-top: 20px; text-align: center; color: white; margin-top: 100px; margin-bottom: 20px;">
-    <h3 style="color:red;"><strong>Mesazhe të rëndësishme për ju:</strong></h3>
+    <h3 style="color:white;">Mesazhe të rëndësishme për ju:</h3>
     <ul>
         <?php foreach ($teRendesishem as $msg): ?>
             <li><?php echo $msg; ?></li>
         <?php endforeach; ?>
     </ul>
-    <p style="color:white; display:none;"><small>Gjithsej: <?php echo count($teRendesishem); ?> mesazhe të rëndësishme u gjetën për ju.</small></p>
-    <?php
-
-      function shtoMesazhArdhshme($mesazhet, $iRi) {
-         $mesazhet[] = $iRi;
-         return $mesazhet;
-      }
-
-      $teArdhshmeMeShtese = shtoMesazhArdhshme($teArdhshme, "Produkte te reja profesionale...");
-
-      echo "<div style='margin-top: 40px; padding: 10px; border-radius: 6px;'>";
-      echo "<h4 style='text-align:center; color:red;'><strong>Së shpejti:</strong></h4><ul>";
-      foreach ($teArdhshmeMeShtese as $m) {
-         echo "<li>$m</li>";
-      }
-      echo "</ul></div>";
-      ?>
+    <p style="color:red;"><strong>Gjithsej: <?php echo count($teRendesishem); ?> mesazhe të rëndësishme u gjetën për ju.</strong></p>
 </div>
    
          <div class="footer">
@@ -472,7 +467,7 @@ echo "</div>";
                         <div class="col-md-12">
                            <div class="infoma">
                               <h3>Newsletter</h3>
-                              <form class="form_subscri" method="POST" action="subscribe_newsletter.php">
+                              <form class="form_subscri">
                                  <div class="row">
                                     <div class="col-md-12">
                                     </div>
@@ -481,7 +476,7 @@ echo "</div>";
                                        <input class="newsl" placeholder="Enter your name" type="text" name="newsletterName">
                                     </div>
                                     <div class="col-md-4">
-                                       <input class="newsl" placeholder="Enter your email" type="text" name="newsletterEmail">
+                                       <input class="newsl" placeholder="Enter your number" type="text" name="newsletterPhone">
                                     </div>
                                     <div class="col-md-4">
                                        <button class="subsci_btn" type = "submit">subscribe</button>
