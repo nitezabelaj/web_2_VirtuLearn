@@ -1,6 +1,6 @@
 <?php
 require_once 'includes/error_handler.php';//T.G
-session_start(); // DUHET të jetë i pari në skedar
+session_start(); //Nisja e sesionit - Anita C
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -19,7 +19,7 @@ $menu_items = [
     "login.php" => "Login",
     "register.php" => "Register"
 ];
-
+//Leximi i vlerave te sesionit - AnitaC
 if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] === 'admin') {
         $menu_items['admin_dashboard.php'] = "Admin Panel";
@@ -28,11 +28,10 @@ if (isset($_SESSION['user_id'])) {
     }
     $menu_items['logout.php'] = "Logout";
 
-    // Hiq "Login" dhe "Register"
+    
     unset($menu_items['login.php'], $menu_items['register.php']);
 }
 
-// Funksion për të krijuar menunë
 function generateMenu($items) {
     $current = basename($_SERVER['PHP_SELF']);
     foreach ($items as $link => $label) {
@@ -46,12 +45,11 @@ function redirect_logged_user($role) {
     if ($role === 'admin') {
         header('Location: admin_dashboard.php');
     } else {
-        header('Location: dashboard.php');
+        header('Location: index.php');
     }
     exit;
 }
 
-// Login logjika
 $errors = [];
 $email_or_username = '';
 
@@ -64,8 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        // Kërko përdoruesin me email ose username
-        //perdorimi i try catch throw...
+        
        try {
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username LIMIT 1");
     $stmt->execute([
@@ -81,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!password_verify($password, $user['password'])) {
         throw new Exception("Fjalëkalimi nuk përputhet.");
     }
-
+//Ruajtja e vlerave ne sesion - AnitaC
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['role'] = $user['role'];
@@ -90,8 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } catch (Exception $e) {
     $errors[] = $e->getMessage();
 }}}
-// Shkakto një gabim për test
-trigger_error("Gabim testues për trajtimin e gabimeve", E_USER_NOTICE);
+
+trigger_error("Gabim testues për krijimin e folderit WebsiteErrors", E_USER_NOTICE);
  ?>
 
 <!DOCTYPE html>
