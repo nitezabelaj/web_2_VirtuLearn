@@ -1,33 +1,17 @@
 <?php
-require_once 'includes/error_handler.php';//T.G
+require_once 'includes/error_handler.php'; // T.G
+require_once 'config.php';
 
-session_start(); // Vetëm një herë!
+session_start(); // Vetëm një herë
 
+// Trajtimi i vizitave me sesion
 if (!isset($_SESSION['visit_count_contact'])) {
     $_SESSION['visit_count_contact'] = 1;
 } else {
     $_SESSION['visit_count_contact']++;
 }
-/*
-$gjatesiaMesazhit = 0;
-$karaktereMbetur = 500;
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["message"])) {
-    $mesazhi = trim($_POST["message"]);
-    $gjatesiaMesazhit = strlen($mesazhi);
-
-    function llogaritKarakteretMbetura($gjatesia) {
-        $limiti = 500;
-        return max(0, $limiti - $gjatesia);
-    }
-
-    $karaktereMbetur = llogaritKarakteretMbetura($gjatesiaMesazhit);
-}
-*/
-
-//AnitaC - P2 / Sessions
-require_once 'config.php';
-
+// Trajtimi i user_visit përmes sesionit
 if (isset($_SESSION['user_visit'])) {
     $user_data = $_SESSION['user_visit'];
     $user_data['last_page'] = basename($_SERVER['PHP_SELF']);
@@ -39,6 +23,7 @@ if (isset($_SESSION['user_visit'])) {
 }
 $_SESSION['user_visit'] = $user_data;
 
+// Fshirja e sesionit me buton ose query string
 if (isset($_GET['delete_session'])) {
     session_unset();
     session_destroy();
@@ -46,6 +31,7 @@ if (isset($_GET['delete_session'])) {
     exit();
 }
 
+// Trajtimi i user_visit përmes cookie
 $cookie_name = "user_visit";
 if (isset($_COOKIE[$cookie_name])) {
     $user_data = json_decode($_COOKIE[$cookie_name], true);
@@ -58,30 +44,28 @@ if (isset($_COOKIE[$cookie_name])) {
 }
 setcookie($cookie_name, json_encode($user_data), time() + (86400 * 30), "/", "", true, true);
 
+// Fshirja e cookies përmes query string
 if (isset($_GET['delete_cookie'])) {
     setcookie($cookie_name, "", time() - 3600, "/", "", true, true);
     echo "<script>alert('Cookie u fshi me sukses!'); window.location.href = '" . basename($_SERVER['PHP_SELF']) . "';</script>";
     exit();
 }
 
-
-
-
+// Konstanta për emrin e faqes
 const SITE_TIME = "SkatingBoardSchool";
 
-
+// Menyja dinamike
 $menu_items = [
    "index.php" => "Home",
    "about.php" => "About",
    "skating.php" => "Skating",
    "shop.php" => "Shop",
    "contact.php" => "Contact Us",
-   // Login dhe Register janë gjithmonë aty
    "login.php" => "Login",
    "register.php" => "Register"
 ];
 
-
+// Nese useri është i kyçur, shto opsionet përkatëse
 if (isset($_SESSION['user_id'])) {
    if ($_SESSION['role'] === 'admin') {
        $menu_items['admin_dashboard.php'] = "Admin Panel";
@@ -91,7 +75,6 @@ if (isset($_SESSION['user_id'])) {
    $menu_items['logout.php'] = "Logout";
 }
 
-
 // Funksioni për të gjeneruar menunë dinamike
 function generateMenu($items) {
    $current = basename($_SERVER['PHP_SELF']);
@@ -99,6 +82,16 @@ function generateMenu($items) {
        $isActive = ($current === basename($link)) ? " active" : "";
        echo "<li class='nav-item$isActive'><a class='nav-link' href='$link'>$label</a></li>";
    }
+}
+
+// Mesazhet nga send_contact.php (nëse ka)
+if (isset($_SESSION['success_message'])) {
+    echo "<script>alert('{$_SESSION['success_message']}');</script>";
+    unset($_SESSION['success_message']);
+}
+if (isset($_SESSION['error_message'])) {
+    echo "<script>alert('{$_SESSION['error_message']}');</script>";
+    unset($_SESSION['error_message']);
 }
 ?>
 
