@@ -310,8 +310,19 @@ $emriFaqes = "VirtuLearn";
 
 $pdo = new PDO("mysql:host=localhost;dbname=virtu_learn", "root", "");
 
-$_SESSION['user_id'] = 1;
-$userId = $_SESSION['user_id'];
+if (!isset($_SESSION['username'])) {
+    die("User not logged in.");
+}
+
+$stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
+$stmt->execute([$_SESSION['username']]);
+$user = $stmt->fetch();
+
+if (!$user) {
+    die("User not found.");
+}
+
+$userId = $user['id'];
 
 $products = [
     ["name" => "Skateboard", "price" => 49.99, "image" => "https://pngimg.com/d/skateboard_PNG11708.png"],
