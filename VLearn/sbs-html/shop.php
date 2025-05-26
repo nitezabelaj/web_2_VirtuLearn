@@ -403,7 +403,7 @@ $productCount = $stmt->fetchColumn();
 
 <?php if ($productCount > 0): ?>
     <h3>Complete your Shipping Information</h3>
-    <form method="POST" action="submit_shipping.php">
+    <form method="POST">
         <label>Full Name:</label><br>
         <input type="text" name="full_name" required><br><br>
 
