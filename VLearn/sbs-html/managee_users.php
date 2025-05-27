@@ -1,10 +1,8 @@
 <?php
-ini_set('display_errors', 0);
-error_reporting(0);
-
+header('Content-Type: application/json');
 $conn = new mysqli("localhost", "root", "", "virtu_learn");
 if ($conn->connect_error) {
-    echo "Lidhja dështoi: " . $conn->connect_error;
+    echo json_encode(["status" => "error", "message" => "Lidhja dështoi: " . $conn->connect_error]);
     exit;
 }
 
@@ -13,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
 
     if ($username === '') {
-        echo "Username bosh!";
+        echo json_encode(["status" => "error", "message" => "Username bosh!"]);
         exit;
     }
 
@@ -23,14 +21,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $check->store_result();
 
     if ($check->num_rows > 0) {
-        echo "Username ekziston!";
+        echo json_encode(["status" => "error", "message" => "Username ekziston!"]);
     } else {
         $update = $conn->prepare("UPDATE users SET username = ? WHERE id = ?");
         $update->bind_param("si", $username, $id);
         if ($update->execute()) {
-            echo "success";
+            echo json_encode(["status" => "success", "message" => "Username u përditësua me sukses!"]);
         } else {
-            echo "Gabim gjatë update: " . $conn->error;
+            echo json_encode(["status" => "error", "message" => "Gabim gjatë update: " . $conn->error]);
         }
     }
 
@@ -68,7 +66,7 @@ $result = $conn->query("SELECT id, username, email, role, created_at FROM users"
     <tr>
         <td><?= $row['id'] ?></td>
         <td>
-            <input type="text" value="<?= htmlspecialchars($row['username']) ?>" 
+            <input type="text" value="<?= htmlspecialchars($row['username']) ?>"
                    onchange="updateUsername(<?= $row['id'] ?>, this.value)">
         </td>
         <td><?= htmlspecialchars($row['email']) ?></td>
@@ -84,11 +82,15 @@ function updateUsername(id, newUsername) {
     xhr.open("POST", "manage_users.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function() {
-        let response = this.responseText.trim();
-        if (response === "success") {
-            alert("Username u përditësua me sukses!");
-        } else {
-            alert("Gabim: " + response.replace(/<\/?style[^>]*>/g, ''));
+        try {
+            const response = JSON.parse(this.responseText);
+            if (response.status === "success") {
+                alert(response.message);
+            } else {
+                alert("Gabim: " + response.message);
+            }
+        } catch {
+            alert("Gabim i paparashikuar nga serveri");
         }
     }
     xhr.send("id=" + id + "&username=" + encodeURIComponent(newUsername));
