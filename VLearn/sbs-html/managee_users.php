@@ -101,18 +101,18 @@ function updateUsername(id, newUsername) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function() {
         console.log("Përgjigjja nga serveri:", this.responseText);
-        try {
-            const response = JSON.parse(this.responseText);
-            if (response.status === "success") {
-                alert(response.message);
-            } else {
-                alert("Gabim: " + response.message);
-            }
-        } catch {
-            alert("Gabim i paparashikuar nga serveri");
-            console.error("Gabimi JSON:", e);
-        console.log("Përgjigja e pranuar:", this.responseText);
-        }
+     try {
+    const response = JSON.parse(this.responseText);
+    if (response.status === "success") {
+        alert(response.message);
+    } else {
+        alert("Gabim: " + response.message);
+    }
+} catch (e) {
+    alert("Gabim i paparashikuar nga serveri");
+    console.error("Gabimi JSON:", e);
+    console.log("Përgjigja e serverit:", this.responseText);
+}
     }
     xhr.send("id=" + id + "&username=" + encodeURIComponent(newUsername));
 }
