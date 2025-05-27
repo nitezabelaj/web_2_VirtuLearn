@@ -11,6 +11,7 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json; charset=utf-8');
     $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
     $newUsername = isset($_POST['username']) ? trim($_POST['username']) : '';
 
