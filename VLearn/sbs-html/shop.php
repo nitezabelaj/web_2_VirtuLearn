@@ -306,8 +306,8 @@ $emriFaqes = "VirtuLearn";
                     <!-- Dropdown për sortimin -->
                     <form method="GET" style="margin-bottom: 20px;">
                     <div>
-                     <?php
-
+    <?php
+session_start();
 $pdo = new PDO("mysql:host=localhost;dbname=virtu_learn", "root", "");
 
 if (!isset($_SESSION['username'])) {
@@ -331,17 +331,23 @@ $products = [
     ["name" => "Hoodie", "price" => 39.99, "image" => "https://scene7.zumiez.com/is/image/zumiez/product_main_medium/Empyre-Push-Skate-Black-Hoodie-_388094-alt1-US.jpg"]
 ];
 
+$message = "";
+$lastActionProduct = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $product = $_POST['product'];
     $price = $_POST['price'];
     $image = $_POST['image'];
+    $lastActionProduct = $product;
 
     if (isset($_POST['add'])) {
         $stmt = $pdo->prepare("INSERT INTO shopping_cart (user_id, product_name, product_price, product_image_url) VALUES (?, ?, ?, ?)");
         $stmt->execute([$userId, $product, $price, $image]);
+        $message = "added";
     } elseif (isset($_POST['delete'])) {
         $stmt = $pdo->prepare("DELETE FROM shopping_cart WHERE user_id = ? AND product_name = ?");
         $stmt->execute([$userId, $product]);
+        $message = "deleted";
     }
 }
 ?>
@@ -360,6 +366,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h3><?= htmlspecialchars($p["name"]) ?></h3>
         <img src="<?= htmlspecialchars($p["image"]) ?>" alt="<?= htmlspecialchars($p["name"]) ?>">
         <p>Price: $<?= number_format($p["price"], 2) ?></p>
+         <?php if (!empty($lastActionProduct) && $lastActionProduct === $p["name"]): ?>
+            <p class="message <?= $message === 'added' ? 'added' : 'deleted' ?>">
+                <?= $message === 'added' ? 'Produkti është shtuar në shportë.' : 'Produkti është fshirë nga shporta.' ?>
+            </p>
+        <?php endif; ?>
         <form method="POST">
             <input type="hidden" name="product" value="<?= $p["name"] ?>">
             <input type="hidden" name="price" value="<?= $p["price"] ?>">
