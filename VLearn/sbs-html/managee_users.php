@@ -23,7 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $update = $conn->prepare("UPDATE users SET username = ? WHERE id = ?");
         $update->bind_param("si", $username, $id);
-        echo $update->execute() ? "success" : "Gabim gjatë update";
+        //echo $update->execute() ? "success" : "Gabim gjatë update";
+        if ($update->execute()) {
+    echo "success";
+} else {
+    echo "Gabim: " . $conn->error;
+}
     }
 
     exit;
