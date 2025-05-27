@@ -23,7 +23,7 @@ $shoppingData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<h2>Users who have added products to the shopping cart</h2>
+<h2>Products that users would like to see available for purchase</h2>
 
 <table>
     <thead>
