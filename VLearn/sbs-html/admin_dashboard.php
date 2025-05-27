@@ -160,7 +160,7 @@ function generateMenu($items) {
             <li class="list-group-item"><a href="contact_messages.php">Shiko Mesazhet e Kontaktit</a></li>
             <li class="list-group-item"><a href="logout.php">Dil</a></li>
         </ul>
-        <li><a href="admin/manage_users.php">Menage users from DB</a></li>
+      
 
     </section>
 </main>
