@@ -72,31 +72,7 @@ function generateMenu($items) {
         </div>
     </nav>
 
-<!--<div class="card shadow mb-4">
-    <div class="card-header py-3 d-flex justify-content-between align-items-center">
-        <h6 class="m-0 font-weight-bold text-primary">Menaxhimi i Përdoruesve</h6>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="users-table" width="100%" cellspacing="0">
-                <thead class="thead-dark">
-                    <tr>
-                        <th width="5%">ID</th>
-                        <th>Emri i Përdoruesit</th>
-                        <th width="15%">Roli</th>
-                        <th width="20%">Veprimet</th>
-                    </tr>
-                </thead>
-              
-    <tr><td colspan="4">Të dhënat nuk janë të disponueshme.</td></tr>
-</tbody>
 
-            </table>
-        </div>
-    </div>
-</div>
-<style>
--->
 
 <main class="container my-5" style="max-width: 600px;">
     <h1 class="mb-4">Paneli i Administratorit</h1>
@@ -124,35 +100,7 @@ function generateMenu($items) {
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/ajax_operations.js"></script>
 <script>
-/*document.addEventListener("DOMContentLoaded", () => {
-    fetch('get_users.php')
-        .then(response => response.json())
-        .then(data => {
-            const tableBody = document.getElementById('users-table-body');
-            if (data.length === 0) {
-                tableBody.innerHTML = "<tr><td colspan='4'>Nuk u gjet asnjë përdorues.</td></tr>";
-                return;
-            }
 
-            let rows = "";
-            data.forEach(user => {
-                rows += <tr>
-                    <td>${user.id}</td>
-                    <td>${user.username}</td>
-                    <td>${user.role}</td>
-                    <td>
-                        <button class="btn btn-sm btn-warning">Edito</button>
-                        <button class="btn btn-sm btn-danger">Fshij</button>
-                    </td>
-                </tr>;
-            });
-            tableBody.innerHTML = rows;
-        })
-        .catch(err => {
-            document.getElementById('users-table-body').innerHTML = "<tr><td colspan='4'>Gabim gjatë ngarkimit të të dhënave.</td></tr>";
-            console.error("Gabim:", err);
-        });
-});/
 </script>
 </body>
 </html>
