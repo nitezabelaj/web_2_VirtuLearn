@@ -307,7 +307,7 @@ $emriFaqes = "VirtuLearn";
                     <form method="GET" style="margin-bottom: 20px;">
                     <div>
     <?php
-session_start();
+
 $pdo = new PDO("mysql:host=localhost;dbname=virtu_learn", "root", "");
 
 if (!isset($_SESSION['username'])) {
@@ -360,6 +360,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
 <h2>Below are our products that you can shop now:</h2>
+<p>When you add products to the shopping cart, the admin of this website will be able to see which<br>
+    products you have selected.<br>
+   If you complete the Shipping Address form — which is valid only within the territory of Kosovo<br>
+    — your order will automatically be processed.</p>
 
 <?php foreach ($products as $p): ?>
     <div class="product">
@@ -368,7 +372,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p>Price: $<?= number_format($p["price"], 2) ?></p>
          <?php if (!empty($lastActionProduct) && $lastActionProduct === $p["name"]): ?>
             <p class="message <?= $message === 'added' ? 'added' : 'deleted' ?>">
-                <?= $message === 'added' ? 'Produkti është shtuar në shportë.' : 'Produkti është fshirë nga shporta.' ?>
+                <?= $message === 'added' ? 'The product has been added to the cart.' : 'The product has been removed from the cart.' ?>
             </p>
         <?php endif; ?>
         <form method="POST">
