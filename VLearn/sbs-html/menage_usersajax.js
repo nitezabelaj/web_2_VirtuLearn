@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // Funksioni për të mbushur tabelën
     function loadUsers() {
-        $.getJSON('../getUsers.php', function(users) {
+        $.getJSON('get_users.php', function(users) {
             let rows = '';
             users.forEach(user => {
                 rows += `
@@ -32,7 +32,7 @@ $(document).ready(function() {
         const role = $(`select[data-id="${id}"]`).val();
 
         $.ajax({
-            url: '../updateUserRole.php',
+            url: 'ajax_update_role.php',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ id: id, role: role }),
