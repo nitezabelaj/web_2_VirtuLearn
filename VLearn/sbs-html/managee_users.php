@@ -1,7 +1,11 @@
 <?php
+ini_set('display_errors', 0);
+error_reporting(0);
+
 $conn = new mysqli("localhost", "root", "", "virtu_learn");
 if ($conn->connect_error) {
-    die("Lidhja dështoi: " . $conn->connect_error);
+    echo "Lidhja dështoi: " . $conn->connect_error;
+    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -23,7 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $update = $conn->prepare("UPDATE users SET username = ? WHERE id = ?");
         $update->bind_param("si", $username, $id);
-        echo $update->execute() ? "success" : "Gabim gjatë update";
+        if ($update->execute()) {
+            echo "success";
+        } else {
+            echo "Gabim gjatë update: " . $conn->error;
+        }
     }
 
     exit;
@@ -33,7 +41,7 @@ $result = $conn->query("SELECT id, username, email, role, created_at FROM users"
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sq">
 <head>
     <meta charset="UTF-8">
     <title>Menaxhimi i Përdoruesve</title>
@@ -76,10 +84,11 @@ function updateUsername(id, newUsername) {
     xhr.open("POST", "manage_users.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function() {
-        if (this.responseText === "success") {
+        let response = this.responseText.trim();
+        if (response === "success") {
             alert("Username u përditësua me sukses!");
         } else {
-            alert("Gabim: " + this.responseText);
+            alert("Gabim: " + response.replace(/<\/?style[^>]*>/g, ''));
         }
     }
     xhr.send("id=" + id + "&username=" + encodeURIComponent(newUsername));
