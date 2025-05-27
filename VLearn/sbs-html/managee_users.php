@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 $servername = "localhost";
 $username = "root";  
 $password = "";      
@@ -98,6 +100,7 @@ function updateUsername(id, newUsername) {
     xhr.open("POST", "manage_users.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function() {
+        console.log("Përgjigjja nga serveri:", this.responseText);
         try {
             const response = JSON.parse(this.responseText);
             if (response.status === "success") {
@@ -107,6 +110,8 @@ function updateUsername(id, newUsername) {
             }
         } catch {
             alert("Gabim i paparashikuar nga serveri");
+            console.error("Gabimi JSON:", e);
+        console.log("Përgjigja e pranuar:", this.responseText);
         }
     }
     xhr.send("id=" + id + "&username=" + encodeURIComponent(newUsername));
