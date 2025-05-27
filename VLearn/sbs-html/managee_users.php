@@ -1,41 +1,52 @@
 <?php
-header('Content-Type: application/json');
-$conn = new mysqli("localhost", "root", "", "virtu_learn");
+
+$servername = "localhost";
+$username = "root";  
+$password = "";      
+$dbname = "virtu_learn"; 
+
+$conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
-    echo json_encode(["status" => "error", "message" => "Lidhja dështoi: " . $conn->connect_error]);
-    exit;
+    die("Connection failed: " . $conn->connect_error);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = (int)$_POST['id'];
-    $username = trim($_POST['username']);
+    $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+    $newUsername = isset($_POST['username']) ? trim($_POST['username']) : '';
 
-    if ($username === '') {
-        echo json_encode(["status" => "error", "message" => "Username bosh!"]);
-        exit;
-    }
-
-    $check = $conn->prepare("SELECT id FROM users WHERE username = ? AND id != ?");
-    $check->bind_param("si", $username, $id);
-    $check->execute();
-    $check->store_result();
-
-    if ($check->num_rows > 0) {
-        echo json_encode(["status" => "error", "message" => "Username ekziston!"]);
-    } else {
-        $update = $conn->prepare("UPDATE users SET username = ? WHERE id = ?");
-        $update->bind_param("si", $username, $id);
-        if ($update->execute()) {
-            echo json_encode(["status" => "success", "message" => "Username u përditësua me sukses!"]);
-        } else {
-            echo json_encode(["status" => "error", "message" => "Gabim gjatë update: " . $conn->error]);
+    if ($id > 0 && $newUsername !== '') {
+        
+        $stmt = $conn->prepare("SELECT id FROM users WHERE username = ? AND id != ?");
+        $stmt->bind_param("si", $newUsername, $id);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            echo json_encode(['status' => 'error', 'message' => 'Username ekziston tashmë.']);
+            exit;
         }
-    }
+        $stmt->close();
 
+      
+        $stmt = $conn->prepare("UPDATE users SET username = ? WHERE id = ?");
+        $stmt->bind_param("si", $newUsername, $id);
+        if ($stmt->execute()) {
+            echo json_encode(['status' => 'success', 'message' => 'Username u përditësua me sukses.']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Gabim gjatë përditësimit.']);
+        }
+        $stmt->close();
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Të dhënat nuk janë të plota.']);
+    }
+    $conn->close();
     exit;
 }
 
-$result = $conn->query("SELECT id, username, email, role, created_at FROM users");
+
+
+$sql = "SELECT id, username, email, role, created_at FROM users";
+$result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -62,18 +73,22 @@ $result = $conn->query("SELECT id, username, email, role, created_at FROM users"
         <th>Roli</th>
         <th>U krijua më</th>
     </tr>
-    <?php while ($row = $result->fetch_assoc()): ?>
-    <tr>
-        <td><?= $row['id'] ?></td>
-        <td>
-            <input type="text" value="<?= htmlspecialchars($row['username']) ?>"
-                   onchange="updateUsername(<?= $row['id'] ?>, this.value)">
-        </td>
-        <td><?= htmlspecialchars($row['email']) ?></td>
-        <td><?= $row['role'] ?></td>
-        <td><?= $row['created_at'] ?></td>
-    </tr>
-    <?php endwhile; ?>
+    <?php
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+            echo "<td><input type='text' value='" . htmlspecialchars($row['username']) . "' onchange='updateUsername(" . intval($row['id']) . ", this.value)'></td>";
+            echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['role']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
+            echo "</tr>";
+        }
+    } else {
+        echo "<tr><td colspan='5'>Nuk u gjet asnjë përdorues</td></tr>";
+    }
+    $conn->close();
+    ?>
 </table>
 
 <script>
